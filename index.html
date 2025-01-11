@@ -1,0 +1,596 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Realtime Chart Comparison</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.17.5/xlsx.full.min.js"></script>
+    <style>
+        /* Sắp xếp biểu đồ trong giữa trang */
+        canvas {
+            display: block;
+            margin: 0 auto;
+        }
+
+        /* Menu Styles */
+        .menu {
+            display: flex;
+            justify-content: center;
+            background-color: #f0f0f0;
+            padding: 10px 0;
+            margin-bottom: 20px;
+        }
+
+        .menu a {
+            margin: 0 15px;
+            text-decoration: none;
+            color: #007bff;
+            font-weight: bold;
+        }
+
+        .menu a:hover {
+            text-decoration: underline;
+        }
+
+
+
+        /* Modal Styles */
+        .modal {
+            display: none;
+            /* Ẩn modal theo mặc định */
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0, 0, 0, 0.5);
+            /* Hiệu ứng mờ */
+        }
+
+        .modal-content {
+            background: linear-gradient(135deg, #ffffff, #f0f8ff);
+            /* Màu nền gradient */
+            margin: 10% auto;
+            padding: 20px;
+            border-radius: 10px;
+            /* Bo góc */
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            /* Đổ bóng */
+            border: 1px solid #ccc;
+            width: 50%;
+            position: relative;
+        }
+
+        .close-button {
+            position: absolute;
+            top: 10px;
+            right: 15px;
+            font-size: 20px;
+            font-weight: bold;
+            color: #ff6b6b;
+            /* Màu đỏ nhạt */
+            cursor: pointer;
+            transition: color 0.3s ease;
+        }
+
+        .close-button:hover {
+            color: #ff3b3b;
+            /* Màu đậm hơn khi hover */
+        }
+
+        button#submitEdit {
+            background-color: #4caf50;
+            /* Màu xanh lá */
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            font-size: 16px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        button#submitEdit:hover {
+            background-color: #45a049;
+            /* Màu xanh đậm hơn khi hover */
+        }
+
+        label {
+            font-weight: bold;
+            color: #333;
+            /* Màu chữ */
+            margin-bottom: 5px;
+            display: block;
+        }
+
+        select,
+        input[type="text"] {
+            width: 100%;
+            padding: 8px;
+            margin-top: 5px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-sizing: border-box;
+            font-size: 14px;
+        }
+
+        select:focus,
+        input[type="text"]:focus {
+            border-color: #4caf50;
+            /* Màu xanh khi focus */
+            outline: none;
+            box-shadow: 0 0 5px rgba(76, 175, 80, 0.5);
+            /* Hiệu ứng ánh sáng */
+        }
+
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            table-layout: auto;
+            /* Tự động điều chỉnh kích thước cột */
+        }
+
+        th,
+        td {
+            border: 1px solid #ccc;
+            text-align: center;
+            padding: 4px;
+            font-size: 14px;
+            /* Font chữ nhỏ gọn */
+            word-wrap: break-word;
+            /* Tránh tràn nội dung */
+        }
+
+        th input[type="text"] {
+            width: 80%;
+            /* Đảm bảo input gọn trong ô */
+            box-sizing: border-box;
+            padding: 2px;
+            font-size: 12px;
+            /* Font nhỏ */
+        }
+
+        th {
+            background-color: #f8f8f8;
+            font-weight: bold;
+        }
+
+        /* Tùy chỉnh độ rộng tối thiểu theo nội dung dự kiến */
+        th:nth-child(1),
+        td:nth-child(1) {
+            min-width: 10px;
+            /* Cột Date */
+        }
+
+        th:nth-child(2),
+        td:nth-child(2),
+        th:nth-child(3),
+        td:nth-child(3) {
+            min-width: 80px;
+            /* Cột Home và Away */
+        }
+
+        th:nth-child(4),
+        td:nth-child(4) {
+            min-width: 10px;
+            /* Cột Handicap */
+        }
+
+        th:nth-child(5),
+        td:nth-child(5) {
+            min-width: 10px;
+            /* Cột Home Money */
+        }
+
+        th:nth-child(6),
+        td:nth-child(6) {
+            min-width: 1px;
+            /* Cột My Analysis */
+        }
+
+        th:nth-child(7),
+        td:nth-child(7) {
+            min-width: 1px;
+            /* Cột Select */
+        }
+
+        th:nth-child(8),
+        td:nth-child(8) {
+            min-width: 10px;
+            /* Cột Result */
+        }
+
+        th:nth-child(9),
+        td:nth-child(9) {
+            min-width: 100px;
+            /* Cột Note */
+        }
+
+        th:nth-child(10),
+        td:nth-child(10) {
+            min-width: 30px;
+            /* Cột Edit */
+        }
+    </style>
+</head>
+
+<body>
+
+
+    <!-- Menu -->
+    <div class="menu">
+        <a href="#statistics" class="menu-item" data-target="statistics">Thống kê</a>
+        <a href="#data-entry" class="menu-item" data-target="data-entry">Nhập dữ liệu</a>
+    </div>
+
+    <!-- Chart Section -->
+    <!-- <div id="chart">
+        <canvas id="realtimeChart" width="800" height="400"></canvas>
+    </div> -->
+
+    <!-- Statistics Section -->
+    <div id="statistics" style=" text-align: center;">
+        <table id="statsTable">
+            <thead>
+                <tr>
+                    <th><input type="text" id="filterDateInput" placeholder="Date" /></th>
+                    <th><input type="text" id="filterHomeInput" placeholder="Home" /></th>
+                    <th><input type="text" id="filterAwayInput" placeholder="Away" /></th>
+                    <th><input type="text" id="filterHandicapInput" placeholder="Handicap" /></th>
+                    <th><input type="text" id="filterHomeMoneyInput" placeholder="Home Money" /></th>
+                    <th><input type="text" id="filterMyAnalysisInput" placeholder="My Analysis" /></th>
+                    <th></th>
+                    <th><input type="text" id="filterSelectInput" placeholder="Select" /></th>
+                    <th><input type="text" id="filterResultInput" placeholder="Result" /></th>
+                    <th><input type="text" id="filterNoteInput" placeholder="Note" /></th>
+                </tr>
+                <tr>
+                    <th>Date</th>
+                    <th>Home</th>
+                    <th>Away</th>
+                    <th>Handicap</th>
+                    <th>Home Money</th>
+                    <th>My Analysis</th>
+                    <th>Realtime</th>
+                    <th>Select</th>
+                    <th>Result</th>
+                    <th>Note</th>
+                    <th>Edit</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Dữ liệu sẽ được thêm động tại đây -->
+            </tbody>
+        </table>
+    </div>
+
+
+
+    <!-- Modal -->
+    <div id="editModal" class="modal">
+        <div class="modal-content">
+            <span class="close-button" id="closeModal">&times;</span>
+            <h3>Edit Match</h3>
+            <label for="selectTeam">Select:</label>
+            <select id="selectTeam">
+                <option value="">None</option>
+                <option value="Home">Home</option>
+                <option value="Away">Away</option>
+            </select>
+            <br />
+            <label for="selectResult">Result:</label>
+            <select id="selectResult">
+                <option value="">None</option>
+                <option value="Win">Win</option>
+                <option value="Draw">Draw</option>
+                <option value="Lose">Lose</option>
+            </select>
+            <br />
+            <label for="noteInput">Note:</label>
+            <input type="text" id="noteInput" placeholder="Enter note..." />
+            <br />
+            <button id="submitEdit">Submit</button>
+        </div>
+    </div>
+
+
+    <!-- Data Entry Section -->
+    <div id="data-entry" style="display: none; text-align: center;">
+        <h1>Import Excel Data to Firebase</h1>
+        <input type="file" id="excelFile" accept=".xlsx, .xls" />
+        <button id="uploadButton">Upload and Save to Firebase</button>
+    </div>
+
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-app.js";
+        import { getDatabase, ref, onValue, set, update, remove, get } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-database.js";
+
+        // Firebase cấu hình
+        const firebaseConfig = {
+            apiKey: "AIzaSyC4Ia8BlvUZ1rSZsvzAlJKuA_pDHuZaFoU",
+            authDomain: "s2025-a29e1.firebaseapp.com",
+            databaseURL: "https://s2025-a29e1-default-rtdb.firebaseio.com",
+            projectId: "s2025-a29e1",
+            storageBucket: "s2025-a29e1.firebasestorage.app",
+            messagingSenderId: "560968373639",
+            appId: "1:560968373639:web:7e5b549c2437402bdaaf22",
+            measurementId: "G-E5L9YXC26L"
+        };
+
+        // Khởi tạo Firebase
+        const app = initializeApp(firebaseConfig);
+        const database = getDatabase(app);
+
+        // Truy cập dữ liệu Firebase
+        const footballRef = ref(database, "/Football");
+
+
+
+
+
+
+
+        // Menu navigation
+        document.querySelectorAll('.menu a').forEach(link => {
+            link.addEventListener('click', (e) => {
+                e.preventDefault();
+
+                const targetId = link.getAttribute('href').substring(1);
+
+                // Hide all sections
+                document.querySelectorAll('div[id]').forEach(section => {
+                    section.style.display = 'none';
+                });
+
+                // Show the selected section
+                document.getElementById(targetId).style.display = 'block';
+            });
+        });
+
+
+        function getCurrentDate() {
+            const today = new Date();
+            const day = String(today.getDate()).padStart(2, '0');
+            const month = String(today.getMonth() + 1).padStart(2, '0');
+            return `${day}-${month}`;
+        }
+        // Lọc dữ liệu và hiển thị trong bảng
+        function filterData() {
+            const dateInput = document.getElementById('filterDateInput');
+            const dateValue = dateInput.value.trim() === '' ? '' : dateInput.value.trim().toLowerCase();
+            const homeValue = document.getElementById('filterHomeInput').value.trim().toLowerCase();
+            const awayValue = document.getElementById('filterAwayInput').value.trim().toLowerCase();
+            const homeMoneyValue = document.getElementById('filterHomeMoneyInput').value.trim().toLowerCase();
+            const handicapValue = document.getElementById('filterHandicapInput').value.trim().toLowerCase();
+            const myAnalysisValue = document.getElementById('filterMyAnalysisInput').value.trim().toLowerCase();
+            const selectValue = document.getElementById('filterSelectInput').value.trim().toLowerCase();
+            const resultValue = document.getElementById('filterResultInput').value.trim().toLowerCase();
+            const noteValue = document.getElementById('filterNoteInput').value.trim().toLowerCase();
+            // Lấy dữ liệu từ Firebase
+
+            onValue(footballRef, (snapshot) => {
+                const data = snapshot.val();
+                const tableBody = document.getElementById('statsTable').querySelector('tbody');
+                tableBody.innerHTML = '';
+
+                for (const key in data) {
+                    const match = data[key];
+
+                    // Lọc dữ liệu theo tất cả các giá trị từ input
+                    if (
+                        (dateValue === '' || (match.Date && String(match.Date).toLowerCase().includes(dateValue))) &&
+                        (homeValue === '' || (match.Home && String(match.Home).toLowerCase().includes(homeValue))) &&
+                        (awayValue === '' || (match.Away && String(match.Away).toLowerCase().includes(awayValue))) &&
+                        //Tim chinh xac
+                        // (dateValue === '' || (match.Date && String(match.Date).toLowerCase() === dateValue)) &&
+                        // (homeValue === '' || (match.Home && String(match.Home).toLowerCase() === homeValue)) &&
+                        // (awayValue === '' || (match.Away && String(match.Away).toLowerCase() === awayValue)) &&
+                        (homeMoneyValue === '' || (match.HomeMoney && String(match.HomeMoney).toLowerCase() === homeMoneyValue)) &&
+                        (handicapValue === '' || (match.Handicap && String(match.Handicap).toLowerCase() === handicapValue)) &&
+                        (selectValue === '' || (match.Select && String(match.Select).toLowerCase() === selectValue)) &&
+                        (resultValue === '' || (match.Result && String(match.Result).toLowerCase() === resultValue)) &&
+                        (noteValue === '' || (match.Note && String(match.Note).toLowerCase() === noteValue)) &&
+                        (myAnalysisValue === '' || (match.Myanalysis && String(match.Myanalysis).toLowerCase() === myAnalysisValue))
+                    ) {
+                        //const row = document.createElement('tr');
+
+                        const row = `<tr>
+                            <td>${match.Date || ''}</td>
+                            <td>${match.Home || ''}</td>
+                            <td>${match.Away || ''}</td>
+                            <td>${match.Handicap || ''}</td>
+                            <td>${match.HomeMoney || ''}</td>
+                            <td>${match.Myanalysis || ''}</td>
+                            <td></td>
+                            <td>${match.Select || ''}</td>
+                            <td>${match.Result || ''}</td>
+                            <td>${match.Note || ''}</td>
+                            <td>
+                                <button class="editButton" data-key="${key}">Edit</button>
+                                <button class="deleteButton" data-key="${key}">X</button>
+                            </td>
+                        </tr>`;
+                        tableBody.insertAdjacentHTML('beforeend', row);
+                    }
+                }
+
+                document.querySelectorAll('.editButton').forEach(button => {
+                    button.addEventListener('click', () => {
+                        const key = button.getAttribute('data-key');
+                        openModal(key);
+                    });
+                });
+
+                document.addEventListener('click', (e) => {
+                    if (e.target.classList.contains('deleteButton')) {
+                        const keyToDelete = e.target.getAttribute('data-key');
+
+                        // Hiển thị hộp thoại xác nhận
+                        const confirmDelete = confirm('Are you sure you want to delete this entry?');
+                        if (confirmDelete) {
+                            const deleteRef = ref(database, `/Football/${keyToDelete}`);
+
+                            // Xóa dữ liệu trong Firebase
+                            remove(deleteRef)
+                                .then(() => {
+                                    alert('Data deleted successfully!');
+                                    e.target.closest('tr').remove(); // Xóa hàng khỏi giao diện
+                                })
+                                .catch((error) => {
+                                    console.error('Error deleting data:', error);
+                                });
+                        }
+                    }
+                });
+
+
+                // Modal logic
+                const modal = document.getElementById('editModal');
+                const selectTeam = document.getElementById('selectTeam');
+                const selectResult = document.getElementById('selectResult');
+                const noteInput = document.getElementById('noteInput');
+                const submitEdit = document.getElementById('submitEdit');
+                let currentKey = null;
+
+                function openModal(key) {
+                    currentKey = key;
+                    modal.style.display = 'block';
+                }
+                closeModal.addEventListener("click", function () {
+                    editModal.style.display = "none";
+                });
+
+
+                modal.addEventListener('click', (e) => {
+                    if (e.target === modal) {
+                        modal.style.display = 'none';
+                    }
+                });
+
+                submitEdit.addEventListener('click', () => {
+                    const selectedTeam = selectTeam.value;
+                    const selectedResult = selectResult.value;
+                    const note = noteInput.value.trim();
+
+                    if (currentKey) {
+                        const updateRef = ref(database, `/Football/${currentKey}`);
+
+                        // Kiểm tra giá trị của key "Select"
+                        get(updateRef).then((snapshot) => {
+                            if (snapshot.exists()) {
+                                const data = snapshot.val();
+                                let updateData = {};
+
+                                // Chỉ cập nhật nếu key "Select" là null
+                                if (data.Select === null || data.Select === "") {
+                                    updateData = {
+                                        Select: selectedTeam,
+                                        Result: selectedResult,
+                                    };
+                                    if (note !== "") {
+                                        updateData.Note = note;
+                                    }
+                                } else {
+                                    updateData = {
+                                        Result: selectedResult,
+                                    };
+                                    if (note !== "") {
+                                        updateData.Note = note;
+                                    }
+                                    alert('Update not allowed: "Select" key is already set.');
+                                }
+
+                                // Cập nhật dữ liệu trong Firebase
+                                update(updateRef, updateData)
+                                    .then(() => {
+                                        alert('Data updated successfully!');
+                                        modal.style.display = 'none';
+
+                                        // Reset currentKey sau khi cập nhật thành công
+                                        currentKey = null;
+                                    })
+                                    .catch((error) => {
+                                        console.error('Error updating data:', error);
+                                    });
+
+                            } else {
+                                alert('Error: Data not found.');
+                            }
+                        }).catch((error) => {
+                            console.error('Error reading data:', error);
+                        });
+                    }
+                });
+            });
+        }
+        // Thiết lập mặc định khi tải trang
+        document.addEventListener('DOMContentLoaded', () => {
+            const dateInput = document.getElementById('filterDateInput');
+            dateInput.value = getCurrentDate(); // Gán giá trị mặc định
+            filterData(); // Gọi hàm để hiển thị dữ liệu
+        });
+
+        // Gọi filterData khi nhấn Enter trong input
+        document.querySelectorAll('#statsTable input').forEach(input => {
+            input.addEventListener('keypress', (e) => {
+                if (e.key === 'Enter') {
+                    if (input.id === 'filterDateInput' && input.value.trim() === '') {
+                        input.value = ''; // Đặt giá trị trống để hiển thị tất cả
+                    }
+                    filterData();
+                }
+            });
+        });
+
+
+
+
+
+        // Chức năng upload dữ liệu
+        const uploadButton = document.getElementById('uploadButton');
+        const excelFileInput = document.getElementById('excelFile');
+
+        // Hàm xử lý file Excel
+        uploadButton.addEventListener('click', () => {
+            const file = excelFileInput.files[0];
+            if (!file) {
+                alert('Please select an Excel file!');
+                return;
+            }
+
+            const reader = new FileReader();
+            reader.onload = function (e) {
+                const data = e.target.result;
+                const workbook = XLSX.read(data, { type: 'binary' });
+                const sheetName = workbook.SheetNames[0]; // Lấy tên Sheet đầu tiên
+                const sheet = workbook.Sheets[sheetName];
+
+                // Lấy giá trị từ cột B (B2 đến B30)
+                const values = [];
+                for (let row = 2; row <= 46; row++) {
+                    const cell = sheet[`B${row}`];
+                    if (cell) {
+                        values.push(cell.v); // Lấy giá trị của ô
+                    }
+                }
+
+                // Cập nhật Firebase với mảng giá trị
+                const arrayRef = ref(database, 'fb-analysic/Keo075');
+                set(arrayRef, values).then(() => {
+                    alert('Data saved successfully!');
+                }).catch((error) => {
+                    console.error('Error saving data:', error);
+                });
+            };
+            reader.readAsBinaryString(file); // Đọc file Excel
+        });
+        // Chức năng upload dữ liệu
+    </script>
+</body>
+
+</html>
