@@ -239,6 +239,7 @@
             <thead>
                 <tr>
                     <th><input type="text" id="filterDateInput" placeholder="Date" /></th>
+                    <th><input type="text" id="filterDateInput" placeholder="Date Match" /></th>
                     <th><input type="text" id="filterHomeInput" placeholder="Home" /></th>
                     <th><input type="text" id="filterAwayInput" placeholder="Away" /></th>
                     <th><input type="text" id="filterHandicapInput" placeholder="Handicap" /></th>
@@ -250,7 +251,8 @@
                     <th><input type="text" id="filterNoteInput" placeholder="Note" /></th>
                 </tr>
                 <tr>
-                    <th>Date</th>
+                    <th>Date Get Info</th>
+                    <th>Date Match</th>
                     <th>Home</th>
                     <th>Away</th>
                     <th>Handicap</th>
@@ -383,7 +385,7 @@
 
                     // Lọc dữ liệu theo tất cả các giá trị từ input
                     if (
-                        (dateValue === '' || (match.Date && String(match.Date).toLowerCase().includes(dateValue))) &&
+                        (dateValue === '' || (match.Dategetinfo && String(match.Dategetinfo).toLowerCase().includes(dateValue))) &&
                         (homeValue === '' || (match.Home && String(match.Home).toLowerCase().includes(homeValue))) &&
                         (awayValue === '' || (match.Away && String(match.Away).toLowerCase().includes(awayValue))) &&
                         //Tim chinh xac
@@ -400,7 +402,8 @@
                         //const row = document.createElement('tr');
 
                         const row = `<tr>
-                            <td>${match.Date || ''}</td>
+                            <td>${match.Dategetinfo || ''}</td>
+                            <td>${match.Datematch || ''}</td>
                             <td>${match.Home || ''}</td>
                             <td>${match.Away || ''}</td>
                             <td>${match.Handicap || ''}</td>
@@ -438,12 +441,9 @@
                             // Xóa dữ liệu trong Firebase
                             remove(deleteRef)
                                 .then(() => {
-                                    alert('Data deleted successfully!');
                                     e.target.closest('tr').remove(); // Xóa hàng khỏi giao diện
                                 })
-                                .catch((error) => {
-                                    console.error('Error deleting data:', error);
-                                });
+                                .catch((error) => { });
                         }
                     }
                 });
