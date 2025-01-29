@@ -239,7 +239,7 @@
             <thead>
                 <tr>
                     <th><input type="text" id="filterDateInput" placeholder="Date" /></th>
-                    <th><input type="text" id="filterDateInput" placeholder="Date Match" /></th>
+                    <th><input type="text" id="filterDateMatch" placeholder="Date Match" /></th>
                     <th><input type="text" id="filterHomeInput" placeholder="Home" /></th>
                     <th><input type="text" id="filterAwayInput" placeholder="Away" /></th>
                     <th><input type="text" id="filterHandicapInput" placeholder="Handicap" /></th>
@@ -365,6 +365,7 @@
         function filterData() {
             const dateInput = document.getElementById('filterDateInput');
             const dateValue = dateInput.value.trim() === '' ? '' : dateInput.value.trim().toLowerCase();
+            const dateMatch = document.getElementById('filterDateMatch').value.trim().toLowerCase();
             const homeValue = document.getElementById('filterHomeInput').value.trim().toLowerCase();
             const awayValue = document.getElementById('filterAwayInput').value.trim().toLowerCase();
             const homeMoneyValue = document.getElementById('filterHomeMoneyInput').value.trim().toLowerCase();
@@ -392,6 +393,7 @@
                         // (dateValue === '' || (match.Date && String(match.Date).toLowerCase() === dateValue)) &&
                         // (homeValue === '' || (match.Home && String(match.Home).toLowerCase() === homeValue)) &&
                         // (awayValue === '' || (match.Away && String(match.Away).toLowerCase() === awayValue)) &&
+                        (dateMatch === '' || (match.Datematch && String(match.Datematch).slice(0, 5) === dateMatch)) &&
                         (homeMoneyValue === '' || (match.HomeMoney && String(match.HomeMoney).toLowerCase() === homeMoneyValue)) &&
                         (handicapValue === '' || (match.Handicap && String(match.Handicap).toLowerCase() === handicapValue)) &&
                         (selectValue === '' || (match.Select && String(match.Select).toLowerCase() === selectValue)) &&
@@ -434,8 +436,8 @@
                         const keyToDelete = e.target.getAttribute('data-key');
 
                         // Hiển thị hộp thoại xác nhận
-                
-                        
+                        const confirmDelete = confirm('Are you sure you want to delete this entry?');
+                        if (confirmDelete) {
                             const deleteRef = ref(database, `/Football/${keyToDelete}`);
 
                             // Xóa dữ liệu trong Firebase
@@ -444,7 +446,7 @@
                                     e.target.closest('tr').remove(); // Xóa hàng khỏi giao diện
                                 })
                                 .catch((error) => { });
-                        
+                        }
                     }
                 });
 
