@@ -436,7 +436,6 @@
                         const keyToDelete = e.target.getAttribute('data-key');
 
                         // Hiển thị hộp thoại xác nhận
-                        const confirmDelete = confirm('Are you sure you want to delete this entry?');
                         if (confirmDelete) {
                             const deleteRef = ref(database, `/Football/${keyToDelete}`);
 
