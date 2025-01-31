@@ -434,9 +434,6 @@
                 document.addEventListener('click', (e) => {
                     if (e.target.classList.contains('deleteButton')) {
                         const keyToDelete = e.target.getAttribute('data-key');
-
-                        // Hiển thị hộp thoại xác nhận
-                        if (confirmDelete) {
                             const deleteRef = ref(database, `/Football/${keyToDelete}`);
 
                             // Xóa dữ liệu trong Firebase
@@ -446,7 +443,6 @@
                                 })
                                 .catch((error) => { });
                         }
-                    }
                 });
 
 
