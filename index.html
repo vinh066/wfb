@@ -258,7 +258,7 @@
                     <th>Handicap</th>
                     <th>Home Money</th>
                     <th>My Analysis</th>
-                    <th>Realtime</th>
+                    <th>My odds</th>
                     <th>Select</th>
                     <th>Result</th>
                     <th>Note</th>
@@ -411,7 +411,7 @@
                             <td>${match.Handicap || ''}</td>
                             <td>${match.HomeMoney || ''}</td>
                             <td>${match.Myanalysis || ''}</td>
-                            <td></td>
+                            <td>${match.Myodds || ''}</td>
                             <td>${match.Select || ''}</td>
                             <td>${match.Result || ''}</td>
                             <td>${match.Note || ''}</td>
@@ -430,20 +430,27 @@
                         openModal(key);
                     });
                 });
+
                 document.addEventListener('click', (e) => {
                     if (e.target.classList.contains('deleteButton')) {
                         const keyToDelete = e.target.getAttribute('data-key');
 
                         // Hiển thị hộp thoại xác nhận
+                        const confirmDelete = confirm('Are you sure you want to delete this entry?');
+                        if (confirmDelete) {
                             const deleteRef = ref(database, `/Football/${keyToDelete}`);
+
                             // Xóa dữ liệu trong Firebase
                             remove(deleteRef)
                                 .then(() => {
                                     e.target.closest('tr').remove(); // Xóa hàng khỏi giao diện
                                 })
                                 .catch((error) => { });
+                        }
                     }
                 });
+
+
                 // Modal logic
                 const modal = document.getElementById('editModal');
                 const selectTeam = document.getElementById('selectTeam');
