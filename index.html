@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Realtime Chart Comparison</title>
+    <title>Realtime Football</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.17.5/xlsx.full.min.js"></script>
     <style>
         /* Sắp xếp biểu đồ trong giữa trang */
@@ -246,6 +246,13 @@
                     <th><input type="text" id="filterHomeMoneyInput" placeholder="Home Money" /></th>
                     <th><input type="text" id="filterMyAnalysisInput" placeholder="My Analysis" /></th>
                     <th><input type="text" id="filterMyOddsInput" placeholder="My Odds" /></th>
+
+                    <th><input type="text" id="filterHomeWinRateInput" placeholder="Home Win Rate" /></th>
+                    <th><input type="text" id="filterHomeLoseRateInput" placeholder="Home Lose Rate" /></th>
+                    <th><input type="text" id="filterMyDayInput" placeholder="Day" /></th>
+                    <th><input type="text" id="filterMyLeagueInput" placeholder="League" /></th>
+                    
+
                     <th><input type="text" id="filterSelectInput" placeholder="Select" /></th>
                     <th><input type="text" id="filterResultInput" placeholder="Result" /></th>
                     <th><input type="text" id="filterNoteInput" placeholder="Note" /></th>
@@ -260,6 +267,13 @@
                     <th>Home Money</th>
                     <th>My Analysis</th>
                     <th>My odds</th>
+
+
+                    <th>Home Win Rate</th>
+                    <th>Home Lose Rate</th>
+                    <th>Day</th>
+                    <th>League</th>
+
                     <th>Select</th>
                     <th>Result</th>
                     <th>Note</th>
@@ -375,6 +389,11 @@
             const selectValue = document.getElementById('filterSelectInput').value.trim().toLowerCase();
             const resultValue = document.getElementById('filterResultInput').value.trim().toLowerCase();
             const noteValue = document.getElementById('filterNoteInput').value.trim().toLowerCase();
+
+            const homeWinRateValue = document.getElementById('filterHomeWinRateInput').value.trim().toLowerCase();
+            const homeLoseRateValue = document.getElementById('filterHomeLoseRateInput').value.trim().toLowerCase();
+            const dayValue = document.getElementById('filterMyDayInput').value.trim().toLowerCase();
+            const leagueValue = document.getElementById('filterMyLeagueInput').value.trim().toLowerCase();
             // Lấy dữ liệu từ Firebase
 
             onValue(footballRef, (snapshot) => {
@@ -397,6 +416,16 @@
                         (dateMatch === '' || (match.Datematch && String(match.Datematch).slice(0, 5) === dateMatch)) &&
                         (homeMoneyValue === '' || (match.HomeMoney && String(match.HomeMoney).toLowerCase() === homeMoneyValue)) &&
                         (handicapValue === '' || (match.Handicap && String(match.Handicap).toLowerCase() === handicapValue)) &&
+
+
+                        (homeWinRateValue === '' || (match.Winrate && String(match.Winrate).toLowerCase() === homeWinRateValue)) &&
+                        (homeLoseRateValue === '' || (match.Loserate && String(match.Loserate).toLowerCase() === homeLoseRateValue)) &&
+                        (dayValue === '' || (match.Weekday && String(match.Weekday).toLowerCase() === dayValue)) &&
+                        (leagueValue === '' || (match.League && String(match.League).toLowerCase() === leagueValue)) &&
+
+
+
+
                         (selectValue === '' || (match.Select && String(match.Select).toLowerCase() === selectValue)) &&
                         (resultValue === '' || (match.Result && String(match.Result).toLowerCase() === resultValue)) &&
                         (noteValue === '' || (match.Note && String(match.Note).toLowerCase() === noteValue)) &&
@@ -413,6 +442,15 @@
                             <td>${match.HomeMoney || ''}</td>
                             <td>${match.Myanalysis || ''}</td>
                             <td>${match.Myodds || ''}</td>
+
+
+                            <td>${match.Winrate || ''}</td>
+                            <td>${match.Loserate || ''}</td>
+                            <td>${match.Weekday || ''}</td>
+                            <td>${match.League || ''}</td>
+
+
+
                             <td>${match.Select || ''}</td>
                             <td>${match.Result || ''}</td>
                             <td>${match.Note || ''}</td>
@@ -435,6 +473,9 @@
                 document.addEventListener('click', (e) => {
                     if (e.target.classList.contains('deleteButton')) {
                         const keyToDelete = e.target.getAttribute('data-key');
+
+                        // Hiển thị hộp thoại xác nhận
+                        if (confirmDelete) {
                             const deleteRef = ref(database, `/Football/${keyToDelete}`);
 
                             // Xóa dữ liệu trong Firebase
@@ -444,6 +485,7 @@
                                 })
                                 .catch((error) => { });
                         }
+                    }
                 });
 
 
