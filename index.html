@@ -245,6 +245,14 @@
                     <th><input type="text" id="filterHandicapInput" placeholder="Handicap" /></th>
                     <th><input type="text" id="filterHomeMoneyInput" placeholder="Home Money" /></th>
                     <th><input type="text" id="filterMyAnalysisInput" placeholder="My Analysis" /></th>
+
+
+                    <th><input type="text" id="filterSum1Input" placeholder="Sum 1" /></th>
+                    <th><input type="text" id="filterSum2Input" placeholder="Sum 2" /></th>
+                    <th><input type="text" id="filterSum3Input" placeholder="Sum 3" /></th>
+                    <th><input type="text" id="filterSum4Input" placeholder="Sum 4" /></th>
+                    <th><input type="text" id="filterSum5Input" placeholder="Sum 5" /></th>
+
                     <th><input type="text" id="filterMyOddsInput" placeholder="My Odds" /></th>
 
                     <th><input type="text" id="filterHomeWinRateInput" placeholder="Home Win Rate" /></th>
@@ -266,6 +274,12 @@
                     <th>Handicap</th>
                     <th>Home Money</th>
                     <th>My Analysis</th>
+                    <th>Sum 1</th>
+                    <th>Sum 2</th>
+                    <th>Sum 3</th>
+                    <th>Sum 4</th>
+                    <th>Sum 5</th>
+
                     <th>My odds</th>
 
 
@@ -386,6 +400,13 @@
             const homeMoneyValue = document.getElementById('filterHomeMoneyInput').value.trim().toLowerCase();
             const handicapValue = document.getElementById('filterHandicapInput').value.trim().toLowerCase();
             const myAnalysisValue = document.getElementById('filterMyAnalysisInput').value.trim().toLowerCase();
+
+            const sum1Value = document.getElementById('filterSum1Input').value.trim().toLowerCase();
+            const sum2Value = document.getElementById('filterSum2Input').value.trim().toLowerCase();
+            const sum3Value = document.getElementById('filterSum3Input').value.trim().toLowerCase();
+            const sum4Value = document.getElementById('filterSum4Input').value.trim().toLowerCase();
+            const sum5Value = document.getElementById('filterSum5Input').value.trim().toLowerCase();
+
             const selectValue = document.getElementById('filterSelectInput').value.trim().toLowerCase();
             const resultValue = document.getElementById('filterResultInput').value.trim().toLowerCase();
             const noteValue = document.getElementById('filterNoteInput').value.trim().toLowerCase();
@@ -423,6 +444,12 @@
                         (dayValue === '' || (match.Weekday && String(match.Weekday).toLowerCase() === dayValue)) &&
                         (leagueValue === '' || (match.League && String(match.League).toLowerCase() === leagueValue)) &&
 
+                        (sum1Value === '' || (match.Sum1 && String(match.Sum1).toLowerCase() === sum1Value)) &&
+                        (sum2Value === '' || (match.Sum2 && String(match.Sum2).toLowerCase() === sum2Value)) &&
+                        (sum3Value === '' || (match.Sum3 && String(match.Sum3).toLowerCase() === sum3Value)) &&
+                        (sum4Value === '' || (match.Sum4 && String(match.Sum4).toLowerCase() === sum4Value)) &&
+                        (sum5Value === '' || (match.Sum5 && String(match.Sum5).toLowerCase() === sum5Value)) &&
+
 
 
 
@@ -441,6 +468,15 @@
                             <td>${match.Handicap || ''}</td>
                             <td>${match.HomeMoney || ''}</td>
                             <td>${match.Myanalysis || ''}</td>
+                        
+                            <td>${match.Sum1 || ''}</td>
+                            <td>${match.Sum2 || ''}</td>
+                            <td>${match.Sum3 || ''}</td>
+                            <td>${match.Sum4 || ''}</td>
+                            <td>${match.Sum5 || ''}</td>
+
+
+
                             <td>${match.Myodds || ''}</td>
 
 
@@ -475,6 +511,7 @@
                         const keyToDelete = e.target.getAttribute('data-key');
 
                         // Hiển thị hộp thoại xác nhận
+
                             const deleteRef = ref(database, `/Football/${keyToDelete}`);
 
                             // Xóa dữ liệu trong Firebase
@@ -483,6 +520,7 @@
                                     e.target.closest('tr').remove(); // Xóa hàng khỏi giao diện
                                 })
                                 .catch((error) => { });
+
                     }
                 });
 
