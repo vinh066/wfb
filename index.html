@@ -475,7 +475,6 @@
                         const keyToDelete = e.target.getAttribute('data-key');
 
                         // Hiển thị hộp thoại xác nhận
-                        if (confirmDelete) {
                             const deleteRef = ref(database, `/Football/${keyToDelete}`);
 
                             // Xóa dữ liệu trong Firebase
@@ -484,7 +483,6 @@
                                     e.target.closest('tr').remove(); // Xóa hàng khỏi giao diện
                                 })
                                 .catch((error) => { });
-                        }
                     }
                 });
 
