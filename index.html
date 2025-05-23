@@ -168,16 +168,15 @@
         }
 
         th:nth-child(2),
-        td:nth-child(2),
-        th:nth-child(3),
-        td:nth-child(3) {
-            min-width: 80px;
+        td:nth-child(2) {
+            min-width: 60px;
             /* Cột Home và Away */
         }
-
+        th:nth-child(3),
+        td:nth-child(3),
         th:nth-child(4),
         td:nth-child(4) {
-            min-width: 10px;
+            min-width: 130px;
             /* Cột Handicap */
         }
 
@@ -207,7 +206,7 @@
 
         th:nth-child(9),
         td:nth-child(9) {
-            min-width: 100px;
+            min-width: 10px;
             /* Cột Note */
         }
 
@@ -271,7 +270,7 @@
                     <th>Date Match</th>
                     <th>Home</th>
                     <th>Away</th>
-                    <th>Handicap</th>
+                    <th>Hand</th>
                     <th>Home Money</th>
                     <th>My Analysis</th>
                     <th>Sum 1</th>
@@ -492,7 +491,7 @@
                             <td>${match.Note || ''}</td>
                             <td>
                                 <button class="editButton" data-key="${key}">Edit</button>
-                                <button class="deleteButton" data-key="${key}">X</button>
+                                <button class="deleteButton" data-key="${key}"> &nbsp;&nbsp;X&nbsp;&nbsp; </button>
                             </td>
                         </tr>`;
                         tableBody.insertAdjacentHTML('beforeend', row);
