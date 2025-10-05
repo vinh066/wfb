@@ -240,6 +240,7 @@
                 <tr>
                     <th><input type="text" id="filterDateInput" placeholder="Date" /></th>
                     <th><input type="text" id="filterDateMatch" placeholder="Date Match" /></th>
+                    <th><input type="text" id="filterMyDayInput" placeholder="Day" /></th>
                     <th><input type="text" id="filterHomeInput" placeholder="Home" /></th>
                     <th><input type="text" id="filterAwayInput" placeholder="Away" /></th>
                     <th><input type="text" id="filterHandicapInput" placeholder="Handicap" /></th>
@@ -257,7 +258,7 @@
 
                     <th><input type="text" id="filterHomeWinRateInput" placeholder="Home Win Rate" /></th>
                     <th><input type="text" id="filterHomeLoseRateInput" placeholder="Home Lose Rate" /></th>
-                    <th><input type="text" id="filterMyDayInput" placeholder="Day" /></th>
+                    
                     <th><input type="text" id="filterMyLeagueInput" placeholder="League" /></th>
                     
 
@@ -269,6 +270,7 @@
                 <tr>
                     <th>Date Info</th>
                     <th>Date Match</th>
+                    <th>Week</th>
                     <th>Home</th>
                     <th>Away</th>
                     <th>Hand</th>
@@ -285,7 +287,7 @@
 
                     <th>Home Win Rate</th>
                     <th>Home Lose Rate</th>
-                    <th>Day</th>
+                    
                     <th>League</th>
 
                     <th>Select</th>
@@ -463,6 +465,7 @@
                         const row = `<tr>
                             <td>${match.Dategetinfo || ''}</td>
                             <td>${match.Datematch || ''}</td>
+                            <td>${match.Weekday || ''}</td>
                             <td>${match.Home || ''}</td>
                             <td>${match.Away || ''}</td>
                             <td>${match.Handicap || ''}</td>
@@ -482,7 +485,7 @@
 
                             <td>${match.Winrate || ''}</td>
                             <td>${match.Loserate || ''}</td>
-                            <td>${match.Weekday || ''}</td>
+                            
                             <td>${match.League || ''}</td>
 
 
