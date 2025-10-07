@@ -255,22 +255,16 @@
                     <th><input type="text" id="filterHandicapInput" placeholder="Handicap" /></th>
                     <th><input type="text" id="filterHomeMoneyInput" placeholder="Home Money" /></th>
                     <th><input type="text" id="filterMyAnalysisInput" placeholder="My Analysis" /></th>
-
-
                     <th><input type="text" id="filterSum1Input" placeholder="Sum 1" /></th>
                     <th><input type="text" id="filterSum2Input" placeholder="Sum 2" /></th>
                     <th><input type="text" id="filterSum3Input" placeholder="Sum 3" /></th>
                     <th><input type="text" id="filterSum4Input" placeholder="Sum 4" /></th>
                     <th><input type="text" id="filterSum5Input" placeholder="Sum 5" /></th>
-
                     <!-- <th><input type="text" id="filterMyOddsInput" placeholder="My Odds" /></th> -->
-
                     <th><input type="text" id="filterHomeWinRateInput" placeholder="Home Win Rate" /></th>
                     <th><input type="text" id="filterHomeLoseRateInput" placeholder="Home Lose Rate" /></th>
                     
                     <th><input type="text" id="filterMyLeagueInput" placeholder="League" /></th>
-                    
-
                     <!-- <th><input type="text" id="filterSelectInput" placeholder="Select" /></th> -->
                     <th><input type="text" id="filterResultInput" placeholder="Result" /></th>
                     <th><input type="text" id="filterNoteInput" placeholder="Note" /></th>
@@ -282,7 +276,7 @@
                     <th>Day</th>
                     <th>Home</th>
                     <th>Away</th>
-                    <th>Hand</th>
+                    <th>Handicap</th>
                     <th>HomeMoney</th>
                     <th>MyAnalysis</th>
                     <th>Sum1</th>
@@ -290,15 +284,10 @@
                     <th>Sum3</th>
                     <th>Sum4</th>
                     <th>Sum5</th>
-
                     <!-- <th>Myodds</th> -->
-
-
                     <th>HomeWinRate</th>
                     <th>HomeLoseRate</th>
-                    
                     <th>League</th>
-
                     <!-- <th>Select</th> -->
                     <th>Result</th>
                     <th>Note</th>
@@ -441,10 +430,6 @@
                         (dateValue === '' || (match.Dategetinfo && String(match.Dategetinfo).toLowerCase().includes(dateValue))) &&
                         (homeValue === '' || (match.Home && String(match.Home).toLowerCase().includes(homeValue))) &&
                         (awayValue === '' || (match.Away && String(match.Away).toLowerCase().includes(awayValue))) &&
-                        //Tim chinh xac
-                        // (dateValue === '' || (match.Date && String(match.Date).toLowerCase() === dateValue)) &&
-                        // (homeValue === '' || (match.Home && String(match.Home).toLowerCase() === homeValue)) &&
-                        // (awayValue === '' || (match.Away && String(match.Away).toLowerCase() === awayValue)) &&
                         (dateMatch === '' || (match.Datematch && String(match.Datematch).slice(0, 5) === dateMatch)) &&
                         (homeMoneyValue === '' || (match.HomeMoney && String(match.HomeMoney).toLowerCase() === homeMoneyValue)) &&
                         (handicapValue === '' || (match.Handicap && String(match.Handicap).toLowerCase() === handicapValue)) &&
