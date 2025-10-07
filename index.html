@@ -267,7 +267,7 @@
                     <th><input type="text" id="filterMyLeagueInput" placeholder="League" /></th>
                     
 
-                    <th><input type="text" id="filterSelectInput" placeholder="Select" /></th>
+                    <!-- <th><input type="text" id="filterSelectInput" placeholder="Select" /></th> -->
                     <th><input type="text" id="filterResultInput" placeholder="Result" /></th>
                     <th><input type="text" id="filterNoteInput" placeholder="Note" /></th>
                     <th><input type="text" id="filterEditInput" placeholder="Edit" /></th>
@@ -295,7 +295,7 @@
                     
                     <th>League</th>
 
-                    <th>Select</th>
+                    <!-- <th>Select</th> -->
                     <th>Result</th>
                     <th>Note</th>
                     <th>Edit</th>
@@ -414,7 +414,7 @@
             const sum4Value = document.getElementById('filterSum4Input').value.trim().toLowerCase();
             const sum5Value = document.getElementById('filterSum5Input').value.trim().toLowerCase();
 
-            const selectValue = document.getElementById('filterSelectInput').value.trim().toLowerCase();
+            // const selectValue = document.getElementById('filterSelectInput').value.trim().toLowerCase();
             const resultValue = document.getElementById('filterResultInput').value.trim().toLowerCase();
             const noteValue = document.getElementById('filterNoteInput').value.trim().toLowerCase();
 
@@ -460,7 +460,7 @@
 
 
 
-                        (selectValue === '' || (match.Select && String(match.Select).toLowerCase() === selectValue)) &&
+                        // (selectValue === '' || (match.Select && String(match.Select).toLowerCase() === selectValue)) &&
                         (resultValue === '' || (match.Result && String(match.Result).toLowerCase() === resultValue)) &&
                         (noteValue === '' || (match.Note && String(match.Note).toLowerCase() === noteValue)) &&
                         (myAnalysisValue === '' || (match.Myanalysis && String(match.Myanalysis).toLowerCase() === myAnalysisValue))
@@ -495,7 +495,7 @@
 
 
 
-                            <td>${match.Select || ''}</td>
+                            
                             <td>${match.Result || ''}</td>
                             <td>${match.Note || ''}</td>
                             <td>
