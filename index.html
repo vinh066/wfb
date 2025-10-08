@@ -688,6 +688,7 @@
             reader.readAsBinaryString(file); // Đọc file Excel
         });
         // Chức năng upload dữ liệu
+        // Hàm export bảng ra file Excel
         document.getElementById('exportButton').addEventListener('click', function () {
             const table = document.getElementById('statsTable');
             if (!table) {
@@ -695,38 +696,49 @@
                 return;
             }
 
-            // 🔹 Bước 1: Lấy dữ liệu bảng, xử lý thủ công trước khi tạo workbook
-            const rows = Array.from(table.querySelectorAll('tr')).map(row => {
-                const cols = Array.from(row.querySelectorAll('th, td'))
+            // 🔹 Bước 1: Lấy tất cả hàng (trừ dòng đầu tiên)
+            const rows = Array.from(table.querySelectorAll('tr')).slice(1); // 👉 Bỏ dòng đầu tiên
+
+            // 🔹 Bước 2: Xử lý dữ liệu từng dòng
+            const processedRows = rows.map(row => {
+                const cells = Array.from(row.querySelectorAll('th, td'))
                     .slice(1) // 👉 Bỏ cột đầu tiên
                     .map((cell, index) => {
                         let text = cell.innerText.trim();
+
                         // 👉 Nếu là cột thứ 2 (DateMatch) sau khi bỏ cột đầu tiên
                         if (index === 1) {
-                            text = text.substring(0, 10); // Lấy 10 ký tự đầu tiên
+                            // Lấy 10 ký tự đầu hoặc cắt theo khoảng trắng để bỏ giờ
+                            if (text.includes(" ")) {
+                                text = text.split(" ")[0];
+                            } else {
+                                text = text.substring(0, 10);
+                            }
                         }
+
                         return text;
                     });
-                return cols;
+                return cells;
             });
 
-            // 🔹 Bước 2: Chuyển dữ liệu sang worksheet
-            const ws = XLSX.utils.aoa_to_sheet(rows);
+            // 🔹 Bước 3: Chuyển sang worksheet
+            const ws = XLSX.utils.aoa_to_sheet(processedRows);
 
-            // 🔹 Bước 3: Tạo workbook
+            // 🔹 Bước 4: Tạo workbook
             const wb = XLSX.utils.book_new();
             XLSX.utils.book_append_sheet(wb, ws, "Football Stats");
 
-            // 🔹 Bước 4: Tạo tên file theo định dạng Football_dd-mm-yyyy.xlsx
+            // 🔹 Bước 5: Tạo tên file theo định dạng Football_dd-mm-yyyy.xlsx
             const today = new Date();
             const day = String(today.getDate()).padStart(2, '0');
             const month = String(today.getMonth() + 1).padStart(2, '0');
             const year = today.getFullYear();
             const fileName = `Football_${day}-${month}-${year}.xlsx`;
 
-            // 🔹 Bước 5: Xuất file
+            // 🔹 Bước 6: Xuất file Excel
             XLSX.writeFile(wb, fileName);
         });
+
     </script>
 </body>
 
