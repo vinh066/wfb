@@ -172,11 +172,13 @@
             min-width: 60px;
             /* Cột Home và Away */
         }
+
         th:nth-child(3),
-        td:nth-child(3)  {
+        td:nth-child(3) {
             min-width: 60px;
             /* Cột Handicap */
         }
+
         th:nth-child(4),
         td:nth-child(4) {
             min-width: 130px;
@@ -198,7 +200,7 @@
         th:nth-child(7),
         td:nth-child(7) {
             min-width: 1px;
-            
+
             /* Cột Select */
         }
 
@@ -220,6 +222,7 @@
             min-width: 30px;
             /* Cột Edit */
         }
+
         th:nth-child(17),
         td:nth-child(17) {
             min-width: 100px;
@@ -241,7 +244,12 @@
     <!-- <div id="chart">
         <canvas id="realtimeChart" width="800" height="400"></canvas>
     </div> -->
-
+    <div style="text-align: right; margin: 10px;">
+        <button id="exportButton"
+            style="background-color: #007bff; color: white; border: none; padding: 8px 14px; border-radius: 6px; cursor: pointer;">
+            📤 Export to Excel
+        </button>
+    </div>
     <!-- Statistics Section -->
     <div id="statistics" style=" text-align: center;">
         <table id="statsTable">
@@ -526,14 +534,14 @@
 
                         // Hiển thị hộp thoại xác nhận
 
-                            const deleteRef = ref(database, `/Football/${keyToDelete}`);
+                        const deleteRef = ref(database, `/Football/${keyToDelete}`);
 
-                            // Xóa dữ liệu trong Firebase
-                            remove(deleteRef)
-                                .then(() => {
-                                    e.target.closest('tr').remove(); // Xóa hàng khỏi giao diện
-                                })
-                                .catch((error) => { });
+                        // Xóa dữ liệu trong Firebase
+                        remove(deleteRef)
+                            .then(() => {
+                                e.target.closest('tr').remove(); // Xóa hàng khỏi giao diện
+                            })
+                            .catch((error) => { });
 
                     }
                 });
@@ -680,6 +688,45 @@
             reader.readAsBinaryString(file); // Đọc file Excel
         });
         // Chức năng upload dữ liệu
+        document.getElementById('exportButton').addEventListener('click', function () {
+            const table = document.getElementById('statsTable');
+            if (!table) {
+                alert('Không tìm thấy bảng để xuất!');
+                return;
+            }
+
+            // 🔹 Bước 1: Lấy dữ liệu bảng, xử lý thủ công trước khi tạo workbook
+            const rows = Array.from(table.querySelectorAll('tr')).map(row => {
+                const cols = Array.from(row.querySelectorAll('th, td'))
+                    .slice(1) // 👉 Bỏ cột đầu tiên
+                    .map((cell, index) => {
+                        let text = cell.innerText.trim();
+                        // 👉 Nếu là cột thứ 2 (DateMatch) sau khi bỏ cột đầu tiên
+                        if (index === 1) {
+                            text = text.substring(0, 10); // Lấy 10 ký tự đầu tiên
+                        }
+                        return text;
+                    });
+                return cols;
+            });
+
+            // 🔹 Bước 2: Chuyển dữ liệu sang worksheet
+            const ws = XLSX.utils.aoa_to_sheet(rows);
+
+            // 🔹 Bước 3: Tạo workbook
+            const wb = XLSX.utils.book_new();
+            XLSX.utils.book_append_sheet(wb, ws, "Football Stats");
+
+            // 🔹 Bước 4: Tạo tên file theo định dạng Football_dd-mm-yyyy.xlsx
+            const today = new Date();
+            const day = String(today.getDate()).padStart(2, '0');
+            const month = String(today.getMonth() + 1).padStart(2, '0');
+            const year = today.getFullYear();
+            const fileName = `Football_${day}-${month}-${year}.xlsx`;
+
+            // 🔹 Bước 5: Xuất file
+            XLSX.writeFile(wb, fileName);
+        });
     </script>
 </body>
 
