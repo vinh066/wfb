@@ -689,6 +689,7 @@
         });
         // Chức năng upload dữ liệu
         // Hàm export bảng ra file Excel
+        // Hàm export bảng ra file Excel
         document.getElementById('exportButton').addEventListener('click', function () {
             const table = document.getElementById('statsTable');
             if (!table) {
@@ -696,23 +697,21 @@
                 return;
             }
 
-            // 🔹 Bước 1: Lấy tất cả hàng (trừ dòng đầu tiên)
-            const rows = Array.from(table.querySelectorAll('tr')).slice(1); // 👉 Bỏ dòng đầu tiên
+            // 🔹 Bước 1: Lấy tất cả hàng (bỏ dòng đầu tiên)
+            const rows = Array.from(table.querySelectorAll('tr')).slice(1);
 
-            // 🔹 Bước 2: Xử lý dữ liệu từng dòng
+            // 🔹 Bước 2: Xử lý dữ liệu từng hàng
             const processedRows = rows.map(row => {
                 const cells = Array.from(row.querySelectorAll('th, td'))
-                    .slice(1) // 👉 Bỏ cột đầu tiên
+                    .slice(1, -2) // 👉 Bỏ cột đầu tiên và 2 cột cuối cùng
                     .map((cell, index) => {
                         let text = cell.innerText.trim();
 
                         // 👉 Nếu là cột thứ 2 (DateMatch) sau khi bỏ cột đầu tiên
-                        if (index === 1) {
-                            // Lấy 10 ký tự đầu hoặc cắt theo khoảng trắng để bỏ giờ
+                        if (index === 0) {
+                            // Nếu có khoảng trắng thì cắt trước khoảng trắng
                             if (text.includes(" ")) {
-                                text = text.split(" ")[0];
-                            } else {
-                                text = text.substring(0, 10);
+                                text = text.split(" ")[0]; // Lấy phần ngày trước dấu cách
                             }
                         }
 
@@ -721,7 +720,7 @@
                 return cells;
             });
 
-            // 🔹 Bước 3: Chuyển sang worksheet
+            // 🔹 Bước 3: Tạo worksheet
             const ws = XLSX.utils.aoa_to_sheet(processedRows);
 
             // 🔹 Bước 4: Tạo workbook
@@ -738,6 +737,7 @@
             // 🔹 Bước 6: Xuất file Excel
             XLSX.writeFile(wb, fileName);
         });
+
 
     </script>
 </body>
