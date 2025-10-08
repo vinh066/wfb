@@ -263,7 +263,11 @@
                     <!-- <th><input type="text" id="filterMyOddsInput" placeholder="My Odds" /></th> -->
                     <th><input type="text" id="filterHomeWinRateInput" placeholder="Home Win Rate" /></th>
                     <th><input type="text" id="filterHomeLoseRateInput" placeholder="Home Lose Rate" /></th>
-                    
+
+                    <th><input type="text" id="filterHomeAvantageInput" placeholder="HomeAvantage" /></th>
+                    <th><input type="text" id="filterGoalDiffInput" placeholder="GoalDiff" /></th>
+                    <th><input type="text" id="filterRecentCompareInput" placeholder="RecentCompare" /></th>
+
                     <th><input type="text" id="filterMyLeagueInput" placeholder="League" /></th>
                     <!-- <th><input type="text" id="filterSelectInput" placeholder="Select" /></th> -->
                     <th><input type="text" id="filterResultInput" placeholder="Result" /></th>
@@ -287,6 +291,12 @@
                     <!-- <th>Myodds</th> -->
                     <th>HomeWR</th>
                     <th>HomeLR</th>
+
+
+                    <th>HomeAvantage</th>
+                    <th>GoalDiff</th>
+                    <th>RecentCompare</th>
+
                     <th>League</th>
                     <!-- <th>Select</th> -->
                     <th>Result</th>
@@ -479,6 +489,13 @@
 
                             <td>${match.Winrate || ''}</td>
                             <td>${match.Loserate || ''}</td>
+
+
+
+
+                            <td>${match.HomeAvantage || ''}</td>
+                            <td>${match.GoalDiff || ''}</td>
+                            <td>${match.RecentCompare || ''}</td>
                             
                             <td>${match.League || ''}</td>
 
