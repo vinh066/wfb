@@ -702,22 +702,16 @@
 
             // 🔹 Bước 2: Xử lý dữ liệu từng hàng
             const processedRows = rows.map(row => {
-                const cells = Array.from(row.querySelectorAll('th, td'))
-                    .slice(1, -2) // 👉 Bỏ cột đầu tiên và 2 cột cuối cùng
-                    .map((cell, index) => {
-                        let text = cell.innerText.trim();
+                const cells = Array.from(row.querySelectorAll('th, td'));
 
-                        // 👉 Nếu là cột thứ 2 (DateMatch) sau khi bỏ cột đầu tiên
-                        if (index === 0) {
-                            // Nếu có khoảng trắng thì cắt trước khoảng trắng
-                            if (text.includes(" ")) {
-                                text = text.split(" ")[0]; // Lấy phần ngày trước dấu cách
-                            }
-                        }
+                // Giữ cột đầu tiên
+                const firstCol = cells[0]?.innerText.trim() || "";
 
-                        return text;
-                    });
-                return cells;
+                // Giữ các cột giữa, bỏ cột thứ 2 (index 1) và 2 cột cuối
+                const middleCols = cells.slice(2, -2).map(cell => cell.innerText.trim());
+
+                // Gộp lại: cột đầu tiên + các cột giữa
+                return [firstCol, ...middleCols];
             });
 
             // 🔹 Bước 3: Tạo worksheet
