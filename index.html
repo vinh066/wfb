@@ -277,7 +277,7 @@
                     <th><input type="text" id="filterGoalDiffInput" placeholder="GoalDiff" /></th>
                     <th><input type="text" id="filterRecentCompareInput" placeholder="RecentCompare" /></th>
 
-                    
+
                     <!-- <th><input type="text" id="filterSelectInput" placeholder="Select" /></th> -->
                     <th><input type="text" id="filterResultInput" placeholder="Result" /></th>
                     <th><input type="text" id="filterNoteInput" placeholder="Note" /></th>
@@ -307,7 +307,7 @@
                     <th>GoalDiff</th>
                     <th>RecentCompare</th>
 
-                    
+
                     <!-- <th>Select</th> -->
                     <th>Result</th>
                     <th>Note</th>
@@ -710,11 +710,21 @@
                 // Giữ cột đầu tiên
                 const firstCol = cells[0]?.innerText.trim() || "";
 
+                // Giữ cột thứ hai
+                const secondCol = cells[1]?.innerText.trim() || "";
+
+                // Lấy năm trong cột 2 (tìm chuỗi có 4 chữ số liên tiếp)
+                const yearMatch = secondCol.match(/\b\d{4}\b/);
+                const year = yearMatch ? yearMatch[0] : "";
+
+                // Ghép năm vào cột 1 (nếu có)
+                const firstColWithYear = year ? `${firstCol}-${year}` : firstCol;
+
                 // Giữ các cột giữa, bỏ cột thứ 2 (index 1) và 2 cột cuối
                 const middleCols = cells.slice(2, -2).map(cell => cell.innerText.trim());
 
                 // Gộp lại: cột đầu tiên + các cột giữa
-                return [firstCol, ...middleCols];
+                return [firstColWithYear, ...middleCols];
             });
 
             // 🔹 Bước 3: Tạo worksheet
