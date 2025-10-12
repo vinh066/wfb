@@ -280,6 +280,7 @@
 
                     <!-- <th><input type="text" id="filterSelectInput" placeholder="Select" /></th> -->
                     <th><input type="text" id="filterResultInput" placeholder="Result" /></th>
+                    <th><input type="text" id="filterPredictInput" placeholder="Predict" /></th>
                     <th><input type="text" id="filterNoteInput" placeholder="Note" /></th>
                     <th><input type="text" id="filterEditInput" placeholder="Edit" /></th>
                 </tr>
@@ -310,6 +311,7 @@
 
                     <!-- <th>Select</th> -->
                     <th>Result</th>
+                    <th>Predict</th>
                     <th>Note</th>
                     <th>Edit</th>
                 </tr>
@@ -429,6 +431,7 @@
 
             // const selectValue = document.getElementById('filterSelectInput').value.trim().toLowerCase();
             const resultValue = document.getElementById('filterResultInput').value.trim().toLowerCase();
+            const predictValue = document.getElementById('filterPredictInput').value.trim().toLowerCase();
             const noteValue = document.getElementById('filterNoteInput').value.trim().toLowerCase();
 
             const homeWinRateValue = document.getElementById('filterHomeWinRateInput').value.trim().toLowerCase();
@@ -471,6 +474,7 @@
 
                         // (selectValue === '' || (match.Select && String(match.Select).toLowerCase() === selectValue)) &&
                         (resultValue === '' || (match.Result && String(match.Result).toLowerCase() === resultValue)) &&
+                        (predictValue === '' || (match.Meta_Pred && String(match.Meta_Pred).toLowerCase() === predictValue)) &&
                         (noteValue === '' || (match.Note && String(match.Note).toLowerCase() === noteValue)) &&
                         (myAnalysisValue === '' || (match.Myanalysis && String(match.Myanalysis).toLowerCase() === myAnalysisValue))
                     ) {
@@ -514,6 +518,7 @@
 
                             
                             <td>${match.Result || ''}</td>
+                            <td>${match.Meta_Pred || ''}</td>
                             <td>${match.Note || ''}</td>
                             <td>
                                 <button class="editButton" data-key="${key}">Edit</button>
