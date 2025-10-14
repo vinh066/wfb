@@ -726,7 +726,7 @@
                 const firstColWithYear = year ? `${firstCol}-${year}` : firstCol;
 
                 // Giữ các cột giữa, bỏ cột thứ 2 (index 1) và 2 cột cuối
-                const middleCols = cells.slice(2, -2).map(cell => cell.innerText.trim());
+                const middleCols = cells.slice(2, -3).map(cell => cell.innerText.trim());
 
                 // Gộp lại: cột đầu tiên + các cột giữa
                 return [firstColWithYear, ...middleCols];
@@ -740,11 +740,11 @@
             XLSX.utils.book_append_sheet(wb, ws, "Football Stats");
 
             // 🔹 Bước 5: Tạo tên file theo định dạng Football_dd-mm-yyyy.xlsx
-            const today = new Date();
-            const day = String(today.getDate()).padStart(2, '0');
-            const month = String(today.getMonth() + 1).padStart(2, '0');
-            const year = today.getFullYear();
-            const fileName = `Football_${day}-${month}-${year}.xlsx`;
+            // const today = new Date();
+            // const day = String(today.getDate()).padStart(2, '0');
+            // const month = String(today.getMonth() + 1).padStart(2, '0');
+            // const year = today.getFullYear();
+            const fileName = `Football.xlsx`;
 
             // 🔹 Bước 6: Xuất file Excel
             XLSX.writeFile(wb, fileName);
