@@ -206,26 +206,26 @@
 
         th:nth-child(8),
         td:nth-child(8) {
-            min-width: 10px;
+            min-width: 8px;
             
         }
 
         th:nth-child(9),
         td:nth-child(9) {
-            min-width: 10px;
+            min-width: 8px;
             font-weight: bold;
             /* Cột Note */
         }
 
         th:nth-child(10),
         td:nth-child(10) {
-            min-width: 30px;
+            min-width: 8px;
             /* Cột Edit */
         }
 
         th:nth-child(17),
         td:nth-child(17) {
-            min-width: 100px;
+            min-width: 50px;
             /* Cột Edit */
         }
     </style>
@@ -263,25 +263,27 @@
                     <th><input type="text" id="filterAwayInput" placeholder="Away" /></th>
                     <th><input type="text" id="filterHandicapInput" placeholder="Handicap" /></th>
                     <th><input type="text" id="filterHomeMoneyInput" placeholder="Home Money" /></th>
-                    <th><input type="text" id="filterMyAnalysisInput" placeholder="My Analysis" /></th>
+                    
                     <th><input type="text" id="filterSum1Input" placeholder="Sum 1" /></th>
                     <th><input type="text" id="filterSum2Input" placeholder="Sum 2" /></th>
                     <th><input type="text" id="filterSum3Input" placeholder="Sum 3" /></th>
                     <th><input type="text" id="filterSum4Input" placeholder="Sum 4" /></th>
                     <th><input type="text" id="filterSum5Input" placeholder="Sum 5" /></th>
+                    <th><input type="text" id="filterMyAnalysisInput" placeholder="My Analysis" /></th>
                     <!-- <th><input type="text" id="filterMyOddsInput" placeholder="My Odds" /></th> -->
                     <th><input type="text" id="filterHomeWinRateInput" placeholder="Home Win Rate" /></th>
                     <th><input type="text" id="filterHomeLoseRateInput" placeholder="Home Lose Rate" /></th>
 
-                    <th><input type="text" id="filterHomeAvantageInput" placeholder="HomeAvantage" /></th>
+                    <!-- <th><input type="text" id="filterHomeAvantageInput" placeholder="HomeAvantage" /></th>
                     <th><input type="text" id="filterGoalDiffInput" placeholder="GoalDiff" /></th>
-                    <th><input type="text" id="filterRecentCompareInput" placeholder="RecentCompare" /></th>
+                    <th><input type="text" id="filterRecentCompareInput" placeholder="RecentCompare" /></th> -->
 
 
                     <!-- <th><input type="text" id="filterSelectInput" placeholder="Select" /></th> -->
-                    <th><input type="text" id="filterResultInput" placeholder="Result" /></th>
+                    
                     <th><input type="text" id="filterPredictInput" placeholder="Predict" /></th>
                     <th><input type="text" id="filterNoteInput" placeholder="Note" /></th>
+                    <th><input type="text" id="filterResultInput" placeholder="Result" /></th>
                     <th><input type="text" id="filterEditInput" placeholder="Edit" /></th>
                 </tr>
                 <tr>
@@ -291,28 +293,30 @@
                     <th>League</th>
                     <th>Home</th>
                     <th>Away</th>
-                    <th>Handicap</th>
-                    <th>HomeMoney</th>
-                    <th>MyAnalysis</th>
-                    <th>Sum1</th>
-                    <th>Sum2</th>
-                    <th>Sum3</th>
-                    <th>Sum4</th>
-                    <th>Sum5</th>
+                    <th>HL</th>
+                    <th>Money</th>
+                    
+                    <th>S1</th>
+                    <th>S2</th>
+                    <th>S3</th>
+                    <th>S4</th>
+                    <th>S5</th>
+                    <th>Analysic</th>
                     <!-- <th>Myodds</th> -->
-                    <th>HomeWR</th>
-                    <th>HomeLR</th>
+                    <th>HWR</th>
+                    <th>HLR</th>
 
 
-                    <th>HomeAvantage</th>
+                    <!-- <th>HomeAvantage</th>
                     <th>GoalDiff</th>
-                    <th>RecentCompare</th>
+                    <th>RecentCompare</th> -->
 
 
                     <!-- <th>Select</th> -->
-                    <th>Result</th>
+                    
                     <th>Predict</th>
                     <th>Note</th>
+                    <th>Result</th>
                     <th>Edit</th>
                 </tr>
             </thead>
@@ -489,37 +493,22 @@
                             <td>${match.Away || ''}</td>
                             <td>${match.Handicap || ''}</td>
                             <td>${match.HomeMoney || ''}</td>
-                            <td>${match.Myanalysis || ''}</td>
+                            
                         
                             <td>${match.Sum1 || ''}</td>
                             <td>${match.Sum2 || ''}</td>
                             <td>${match.Sum3 || ''}</td>
                             <td>${match.Sum4 || ''}</td>
                             <td>${match.Sum5 || ''}</td>
-
-
-
-                            
-
+                            <td>${match.Myanalysis || ''}</td>
 
                             <td>${match.Winrate || ''}</td>
                             <td>${match.Loserate || ''}</td>
 
-
-
-
-                            <td>${match.HomeAvantage || ''}</td>
-                            <td>${match.GoalDiff || ''}</td>
-                            <td>${match.RecentCompare || ''}</td>
                             
-                            
-
-
-
-                            
-                            <td>${match.Result || ''}</td>
                             <td>${match.Meta_Pred || ''}</td>
                             <td>${match.Note || ''}</td>
+                            <td>${match.Result || ''}</td>
                             <td>
                                 <button class="editButton" data-key="${key}">Edit</button>
                                 <button class="deleteButton" data-key="${key}"> &nbsp;&nbsp;X&nbsp;&nbsp; </button>
