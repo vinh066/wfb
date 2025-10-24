@@ -244,12 +244,17 @@
     <!-- <div id="chart">
         <canvas id="realtimeChart" width="800" height="400"></canvas>
     </div> -->
-    <div style="text-align: right; margin: 10px;">
-        <button id="exportButton"
-            style="background-color: #007bff; color: white; border: none; padding: 8px 14px; border-radius: 6px; cursor: pointer;">
-            📤 Export to Excel
-        </button>
-    </div>
+    <div style="display: flex; justify-content: flex-end; gap: 10px; margin: 10px;">
+    <button id="exportButton"
+        style="background-color: #007bff; color: white; border: none; padding: 8px 14px; border-radius: 6px; cursor: pointer;">
+        📤 Export to Excel
+    </button>
+
+    <button id="exportButton1"
+        style="background-color: #007bff; color: white; border: none; padding: 8px 14px; border-radius: 6px; cursor: pointer;">
+        📤 Export to Excel1
+    </button>
+</div>
     <!-- Statistics Section -->
     <div id="statistics" style=" text-align: center;">
         <table id="statsTable">
@@ -269,7 +274,7 @@
                     <th><input type="text" id="filterSum3Input" placeholder="Sum 3" /></th>
                     <th><input type="text" id="filterSum4Input" placeholder="Sum 4" /></th>
                     <th><input type="text" id="filterSum5Input" placeholder="Sum 5" /></th>
-                    
+
                     <th><input type="text" id="filterSum6Input" placeholder="WinR" /></th>
                     <th><input type="text" id="filterMyAnalysisInput" placeholder="My Analysis" /></th>
                     <th><input type="text" id="filterHomeWinRateInput" placeholder="Home Win Rate" /></th>
@@ -302,12 +307,12 @@
                     <th>S3</th>
                     <th>S4</th>
                     <th>S5</th>
-                    
+
                     <!-- <th>Myodds</th> -->
                     <th>WR</th>
                     <th>Analysic</th>
                     <th>WinR</th>
-                   
+
 
 
                     <!-- <th>HomeAvantage</th>
@@ -496,11 +501,10 @@
                             <td>${match.Away || ''}</td>
                             <td>${Number(match.Handicap) === 0.25 ? 1 : 0}</td>
                             
-                            <td>${
-                            match.HomeMoney === undefined || match.HomeMoney === '' 
-                                ? '' 
-                                : (Number(match.HomeMoney) > 0 
-                                    ? '1' 
+                            <td>${match.HomeMoney === undefined || match.HomeMoney === ''
+                                ? ''
+                                : (Number(match.HomeMoney) > 0
+                                    ? '1'
                                     : (Number(match.HomeMoney) < 0 ? '-1' : '0'))
                             }</td>
                                                     
@@ -514,19 +518,18 @@
                             
 
 
-                            <td>${
-                                (() => {
-                                    const value = Math.floor(Number(match.WinRate)*100/(Number(match.WinRate) + Number(match.LoseRate)));
-                                    console.log(match.WinRate)
-                                    if (value > 58) return 1;
-                                    if (value < 50) return -1;
-                                    return 0;
-                                })()
-                                }</td>
+                            <td>${(() => {
+                                const value = Math.floor(Number(match.WinRate) * 100 / (Number(match.WinRate) + Number(match.LoseRate)));
+                                console.log(match.WinRate)
+                                if (value > 58) return 1;
+                                if (value < 50) return -1;
+                                return 0;
+                            })()
+                            }</td>
                            
                             
                             <td>${match.Myanalysis || ''}</td>    
-                            <td>${Math.floor(Number(match.WinRate)*100/(Number(match.WinRate) + Number(match.LoseRate)))|| ''}%</td>
+                            <td>${Math.floor(Number(match.WinRate) * 100 / (Number(match.WinRate) + Number(match.LoseRate))) || ''}%</td>
                             <td>${match.Predict || ''}</td>
                             <td>${match.Note || ''}</td>
                             <td>${match.Result || ''}</td>
@@ -719,6 +722,97 @@
             const rows = Array.from(table.querySelectorAll('tr')).slice(1);
 
             // 🔹 Bước 2: Xử lý dữ liệu từng hàng
+            const processedRows = rows
+                .map(row => {
+                    const cells = Array.from(row.querySelectorAll('th, td'));
+                    if (cells.length < 19) return null; // nếu không đủ cột thì bỏ qua
+
+                    // Lấy nội dung cột 18 (index 17)
+                    const col18 = cells[18]?.innerText.trim() || "";
+                    if (!col18) return null; // bỏ qua hàng nếu cột 18 rỗng
+
+                    // Giữ cột đầu tiên
+                    const firstCol = cells[0]?.innerText.trim() || "";
+
+                    // Giữ cột thứ hai
+                    const secondCol = cells[1]?.innerText.trim() || "";
+
+                    // Lấy năm trong cột 2 (tìm chuỗi có 4 chữ số liên tiếp)
+                    const yearMatch = secondCol.match(/\b\d{4}\b/);
+                    const year = yearMatch ? yearMatch[0] : "";
+
+                    // Ghép năm vào cột 1 (nếu có)
+                    const firstColWithYear = year ? `${firstCol}-${year}` : firstCol;
+
+                    // Giữ các cột giữa, bỏ cột 1, 2, 16, 17, 18 và cột cuối
+                    const middleCols = cells
+                        .map((cell, i) => cell.innerText.trim())
+                        .filter((_, i) => i !== 0 && i !== 1 && i !== 15 && i !== 16 && i !== 17 && i !== cells.length - 1);
+
+                    // Xử lý cột Result (nếu có)
+                    const resultIndex = middleCols.length - 1;
+                    if (resultIndex >= 0) {
+                        if (middleCols[resultIndex] === "Win") {
+                            middleCols[resultIndex] = 1;
+                        } else if (middleCols[resultIndex] === "Lose") {
+                            middleCols[resultIndex] = 0;
+                        }
+                    }
+
+                    // Gộp lại: cột đầu tiên + các cột giữa
+                    return [firstColWithYear, ...middleCols];
+                })
+                .filter(row => row !== null); // bỏ các hàng bị loại
+
+            if (processedRows.length === 0) {
+                alert('Không có hàng hợp lệ để xuất (tất cả cột 18 đều rỗng)!');
+                return;
+            }
+
+            // 🔹 Bước 3: Tạo worksheet
+            const ws = XLSX.utils.aoa_to_sheet(processedRows);
+
+            // 🔹 Bước 4: Tạo workbook
+            const wb = XLSX.utils.book_new();
+            XLSX.utils.book_append_sheet(wb, ws, "Football Stats");
+
+            // 🔹 Bước 5: Tạo tên file xuất
+            const fileName = `FootballT.xlsx`;
+
+            // 🔹 Bước 6: Xuất file Excel
+            XLSX.writeFile(wb, fileName);
+        });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        document.getElementById('exportButton1').addEventListener('click', function () {
+            const table = document.getElementById('statsTable');
+            if (!table) {
+                alert('Không tìm thấy bảng để xuất!');
+                return;
+            }
+
+            // 🔹 Bước 1: Lấy tất cả hàng (bỏ dòng đầu tiên)
+            const rows = Array.from(table.querySelectorAll('tr')).slice(1);
+
+            // 🔹 Bước 2: Xử lý dữ liệu từng hàng
             const processedRows = rows.map(row => {
                 const cells = Array.from(row.querySelectorAll('th, td'));
 
@@ -741,7 +835,7 @@
 
                 const middleCols = cells
     .map((cell, i) => cell.innerText.trim())
-    .filter((_, i) => i !== 0 && i !== 1 && i !== 15 && i !== 16 && i !== 17 && i !== cells.length - 1);
+    .filter((_, i) => i !== 0 && i !== 1 && i !== 15 && i !== 16 && i !== 17 && i !== 18 && i !== cells.length - 1);
 
                 // Xử lý cột Result (nếu có)
                 const resultIndex = middleCols.length - 1; // ví dụ Result là cột cuối trong middleCols
@@ -769,13 +863,11 @@
             // const day = String(today.getDate()).padStart(2, '0');
             // const month = String(today.getMonth() + 1).padStart(2, '0');
             // const year = today.getFullYear();
-            const fileName = `Football.xlsx`;
+            const fileName = `FootballP.xlsx`;
 
             // 🔹 Bước 6: Xuất file Excel
             XLSX.writeFile(wb, fileName);
         });
-
-
     </script>
 </body>
 
