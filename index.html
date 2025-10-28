@@ -269,6 +269,15 @@
                     <th><input type="text" id="filterHandicapInput" placeholder="Handicap" /></th>
                     <th><input type="text" id="filterHomeMoneyInput" placeholder="Home Money" /></th>
 
+
+
+                    <th><input type="text" id="filterHomeMoneyInput" placeholder="Home Asia" /></th>
+                    <th><input type="text" id="filterHomeMoneyInput" placeholder="Away Asia" /></th>
+                    <th><input type="text" id="filterHomeMoneyInput" placeholder="Home 1X2" /></th>
+                    <th><input type="text" id="filterHomeMoneyInput" placeholder="Draw 1x2" /></th>
+                    <th><input type="text" id="filterHomeMoneyInput" placeholder="Away 1X2" /></th>
+
+
                     <th><input type="text" id="filterSum1Input" placeholder="Sum 1" /></th>
                     <th><input type="text" id="filterSum2Input" placeholder="Sum 2" /></th>
                     <th><input type="text" id="filterSum3Input" placeholder="Sum 3" /></th>
@@ -301,6 +310,13 @@
                     <th>Away</th>
                     <th>HL</th>
                     <th>Money</th>
+
+                    <th>Home_Asia</th>
+                    <th>Away_Asia</th>
+                    <th>Home_1X2</th>
+                    <th>Draw_1X2</th>
+                    <th>Away_1X2</th>
+
 
                     <th>S1</th>
                     <th>S2</th>
@@ -499,7 +515,8 @@
                             <td>${match.League || ''}</td>
                             <td>${match.Home || ''}</td>
                             <td>${match.Away || ''}</td>
-                            <td>${Number(match.Handicap) === 0.25 ? 1 : 0}</td>
+                            <td>${match.Handicap || ''}</td>
+                            
                             
                             <td>${match.HomeMoney === undefined || match.HomeMoney === ''
                                 ? ''
@@ -507,6 +524,15 @@
                                     ? '1'
                                     : (Number(match.HomeMoney) < 0 ? '-1' : '0'))
                             }</td>
+
+
+                            <td>${match.Home_Asia || ''}</td>
+                            <td>${match.Away_Asia || ''}</td>
+                            <td>${match.Home_1X2 || ''}</td>
+                            <td>${match.Draw_1X2 || ''}</td>
+                            <td>${match.Away_1X2 || ''}</td>
+
+
                                                     
                             <td>${match.Sum1 || ''}</td>
                             <td>${match.Sum2 || ''}</td>
@@ -747,7 +773,7 @@
                     // Giữ các cột giữa, bỏ cột 1, 2, 16, 17, 18 và cột cuối
                     const middleCols = cells
                         .map((cell, i) => cell.innerText.trim())
-                        .filter((_, i) => i !== 0 && i !== 1 && i !== 15 && i !== 16 && i !== 17 && i !== cells.length - 1);
+                        .filter((_, i) => i !== 0 && i !== 1 && i !== 20 && i !== 21 && i !== 22 && i !== cells.length - 1);
 
                     // Xử lý cột Result (nếu có)
                     const resultIndex = middleCols.length - 1;
@@ -835,7 +861,7 @@
 
                 const middleCols = cells
     .map((cell, i) => cell.innerText.trim())
-    .filter((_, i) => i !== 0 && i !== 1 && i !== 15 && i !== 16 && i !== 17 && i !== 18 && i !== cells.length - 1);
+    .filter((_, i) => i !== 0 && i !== 1 && i !== 20 && i !== 21 && i !== 22 && i !== 23 && i !== cells.length - 1);
 
                 // Xử lý cột Result (nếu có)
                 const resultIndex = middleCols.length - 1; // ví dụ Result là cột cuối trong middleCols
