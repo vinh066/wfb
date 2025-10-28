@@ -758,7 +758,7 @@
                     if (cells.length < 19) return null; // nếu không đủ cột thì bỏ qua
 
                     // Lấy nội dung cột 18 (index 17)
-                    const col18 = cells[18]?.innerText.trim() || "";
+                    const col18 = cells[26]?.innerText.trim() || "";
                     if (!col18) return null; // bỏ qua hàng nếu cột 18 rỗng
 
                     // Giữ cột đầu tiên
@@ -777,7 +777,7 @@
                     // Giữ các cột giữa, bỏ cột 1, 2, 16, 17, 18 và cột cuối
                     const middleCols = cells
                         .map((cell, i) => cell.innerText.trim())
-                        .filter((_, i) => i !== 0 && i !== 1 && i !== 20 && i !== 21 && i !== 22 && i !== cells.length - 1);
+                        .filter((_, i) => i !== 0 && i !== 1 && i !== 23 && i !== 24 && i !== 25 && i !== cells.length - 1);
 
                     // Xử lý cột Result (nếu có)
                     const resultIndex = middleCols.length - 1;
@@ -865,7 +865,7 @@
 
                 const middleCols = cells
     .map((cell, i) => cell.innerText.trim())
-    .filter((_, i) => i !== 0 && i !== 1 && i !== 20 && i !== 21 && i !== 22 && i !== 23 && i !== cells.length - 1);
+    .filter((_, i) => i !== 0 && i !== 1 && i !== 23 && i !== 24 && i !== 25 && i !== 26 && i !== cells.length - 1);
 
                 // Xử lý cột Result (nếu có)
                 const resultIndex = middleCols.length - 1; // ví dụ Result là cột cuối trong middleCols
