@@ -516,14 +516,9 @@
                             <td>${match.Home || ''}</td>
                             <td>${match.Away || ''}</td>
                             <td>${match.Handicap || ''}</td>
+                            <td>${match.HomeMoney || ''}</td>
                             
                             
-                            <td>${match.HomeMoney === undefined || match.HomeMoney === ''
-                                ? ''
-                                : (Number(match.HomeMoney) > 0
-                                    ? '1'
-                                    : (Number(match.HomeMoney) < 0 ? '-1' : '0'))
-                            }</td>
 
 
                             <td>${match.Home_Asia || ''}</td>
