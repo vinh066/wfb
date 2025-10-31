@@ -228,6 +228,57 @@
             min-width: 50px;
             /* Cột Edit */
         }
+        /* Ẩn các cột theo tiêu đề yêu cầu */
+    th:nth-child(3),
+    td:nth-child(3), /* Day */
+    th:nth-child(4),
+    td:nth-child(4), /* League */
+    th:nth-child(7),
+    td:nth-child(7), /* HL */
+    th:nth-child(8),
+    td:nth-child(8), /* Money */
+    th:nth-child(9),
+    td:nth-child(9), /* Home_Asia_Init */
+    th:nth-child(10),
+    td:nth-child(10), /* Away_Asia_Init */
+    th:nth-child(11),
+    td:nth-child(11), /* Home_1X2_Init */
+    th:nth-child(12),
+    td:nth-child(12), /* Draw_1X2_Init */
+    th:nth-child(13),
+    td:nth-child(13), /* Away_1X2_Init */
+    th:nth-child(14),
+    td:nth-child(14), /* Home_Asia */
+    th:nth-child(15),
+    td:nth-child(15), /* Away_Asia */
+    th:nth-child(16),
+    td:nth-child(16), /* Home_1X2 */
+    th:nth-child(17),
+    td:nth-child(17), /* Draw_1X2 */
+    th:nth-child(18),
+    td:nth-child(18), /* Away_1X2 */
+    th:nth-child(19),
+    td:nth-child(19), /* S1 */
+    th:nth-child(20),
+    td:nth-child(20), /* S2 */
+    th:nth-child(21),
+    td:nth-child(21), /* S3 */
+    th:nth-child(22),
+    td:nth-child(22), /* S4 */
+    th:nth-child(23),
+    td:nth-child(23), /* S5 */
+    th:nth-child(24),
+    td:nth-child(24), /* GoalDiff5 */
+    th:nth-child(25),
+    td:nth-child(25), /* Compare5 */
+    th:nth-child(26),
+    td:nth-child(26), /* HomeAd */
+    th:nth-child(27),
+    td:nth-child(27), /* WR */
+    th:nth-child(28),
+    td:nth-child(28)  /* Analysic */ {
+        display: none;
+    }
     </style>
 </head>
 
@@ -271,6 +322,12 @@
 
 
 
+                    <th><input type="text" id="filterHomeMoneyInput" placeholder="Home Asia_Init" /></th>
+                    <th><input type="text" id="filterHomeMoneyInput" placeholder="Away Asia_Init" /></th>
+                    <th><input type="text" id="filterHomeMoneyInput" placeholder="Home 1X2_Init" /></th>
+                    <th><input type="text" id="filterHomeMoneyInput" placeholder="Draw 1x2_Init" /></th>
+                    <th><input type="text" id="filterHomeMoneyInput" placeholder="Away 1X2_Init" /></th>
+                    
                     <th><input type="text" id="filterHomeMoneyInput" placeholder="Home Asia" /></th>
                     <th><input type="text" id="filterHomeMoneyInput" placeholder="Away Asia" /></th>
                     <th><input type="text" id="filterHomeMoneyInput" placeholder="Home 1X2" /></th>
@@ -313,6 +370,12 @@
                     <th>Away</th>
                     <th>HL</th>
                     <th>Money</th>
+
+                    <th>Home_Asia_Init</th>
+                    <th>Away_Asia_Init</th>
+                    <th>Home_1X2_Init</th>
+                    <th>Draw_1X2_Init</th>
+                    <th>Away_1X2_Init</th>
 
                     <th>Home_Asia</th>
                     <th>Away_Asia</th>
@@ -525,6 +588,16 @@
                             
                             
 
+
+
+
+
+
+                            <td>${match.Home_Asia_Init || ''}</td>
+                            <td>${match.Away_Asia_Init || ''}</td>
+                            <td>${match.Home_1X2_Init || ''}</td>
+                            <td>${match.Draw_1X2_Init || ''}</td>
+                            <td>${match.Away_1X2_Init || ''}</td>
 
                             <td>${match.Home_Asia || ''}</td>
                             <td>${match.Away_Asia || ''}</td>
@@ -755,10 +828,10 @@
             const processedRows = rows
                 .map(row => {
                     const cells = Array.from(row.querySelectorAll('th, td'));
-                    if (cells.length < 19) return null; // nếu không đủ cột thì bỏ qua
+                    if (cells.length < 31) return null; // nếu không đủ cột thì bỏ qua
 
                     // Lấy nội dung cột 18 (index 17)
-                    const col18 = cells[26]?.innerText.trim() || "";
+                    const col18 = cells[31]?.innerText.trim() || "";
                     if (!col18) return null; // bỏ qua hàng nếu cột 18 rỗng
 
                     // Giữ cột đầu tiên
@@ -777,7 +850,7 @@
                     // Giữ các cột giữa, bỏ cột 1, 2, 16, 17, 18 và cột cuối
                     const middleCols = cells
                         .map((cell, i) => cell.innerText.trim())
-                        .filter((_, i) => i !== 0 && i !== 1 && i !== 23 && i !== 24 && i !== 25 && i !== cells.length - 1);
+                        .filter((_, i) => i !== 0 && i !== 1 && i !== 28 && i !== 29 && i !== 30 && i !== cells.length - 1);
 
                     // Xử lý cột Result (nếu có)
                     const resultIndex = middleCols.length - 1;
@@ -865,7 +938,7 @@
 
                 const middleCols = cells
     .map((cell, i) => cell.innerText.trim())
-    .filter((_, i) => i !== 0 && i !== 1 && i !== 23 && i !== 24 && i !== 25 && i !== 26 && i !== cells.length - 1);
+    .filter((_, i) => i !== 0 && i !== 1 && i !== 28 && i !== 29 && i !== 30 && i !== 31 && i !== cells.length - 1);
 
                 // Xử lý cột Result (nếu có)
                 const resultIndex = middleCols.length - 1; // ví dụ Result là cột cuối trong middleCols
