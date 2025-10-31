@@ -229,12 +229,12 @@
             /* Cột Edit */
         }
         /* Ẩn các cột theo tiêu đề yêu cầu */
-    th:nth-child(3),
-    td:nth-child(3), /* Day */
+
+
     th:nth-child(4),
-    td:nth-child(4), /* League */
-    th:nth-child(7),
-    td:nth-child(7), /* HL */
+    td:nth-child(4), /* Money */
+    th:nth-child(5),
+    td:nth-child(5), /* Home_Asia_Init */
     th:nth-child(8),
     td:nth-child(8), /* Money */
     th:nth-child(9),
@@ -276,9 +276,70 @@
     th:nth-child(27),
     td:nth-child(27), /* WR */
     th:nth-child(28),
-    td:nth-child(28)  /* Analysic */ {
+    td:nth-child(28),
+    th:nth-child(29),
+    td:nth-child(29)  /* Analysic */ {
         display: none;
     }
+    #statsTable tbody {
+  counter-reset: rowNumber;
+}
+
+#statsTable tbody tr {
+  counter-increment: rowNumber;
+}
+
+#statsTable tbody tr td:first-child::before {
+  content: counter(rowNumber);
+  display: inline-block;
+  width: 100%;
+  text-align: center;
+}
+ /* Cột TT (cột 1) */
+/* Cột TT (cột 1) */
+#statsTable th:first-child,
+#statsTable td:first-child {
+  width: 30px;
+  min-width: 30px;
+  max-width: 30px;
+  text-align: center;
+  padding: 4px;
+}
+
+/* Cột thứ 2 (DateInfo) */
+#statsTable th:nth-child(2),
+#statsTable td:nth-child(2) {
+  width: 60px;
+  min-width: 60px;
+  max-width: 60px;
+  text-align: center;
+  padding: 4px;
+}
+
+/* Tùy chọn: căn giữa toàn bộ chữ trong hai cột đầu */
+#statsTable th:first-child,
+#statsTable td:first-child,
+#statsTable th:nth-child(2),
+#statsTable td:nth-child(2) {
+  vertical-align: middle;
+}
+
+
+#data-table {
+  counter-reset: rowNumber 0; /* Reset toàn bảng */
+}
+
+#data-table tbody tr {
+  counter-increment: rowNumber;
+}
+
+#data-table tbody tr td:first-child::before {
+  content: counter(rowNumber);
+  display: inline-block;
+  width: 2em;
+  text-align: center;
+}
+
     </style>
 </head>
 
@@ -311,6 +372,7 @@
         <table id="statsTable">
             <thead>
                 <tr>
+                    <th><input type="text" id="filterTTInput" placeholder="TT" /></th>
                     <th><input type="text" id="filterDateInput" placeholder="Date" /></th>
                     <th><input type="text" id="filterDateMatch" placeholder="Date Match" /></th>
                     <th><input type="text" id="filterMyDayInput" placeholder="Day" /></th>
@@ -362,6 +424,7 @@
                     <th><input type="text" id="filterEditInput" placeholder="Edit" /></th>
                 </tr>
                 <tr>
+                    <th>TT</th>
                     <th>DateInfo</th>
                     <th>DateMatch</th>
                     <th>Day</th>
@@ -577,6 +640,7 @@
                         //const row = document.createElement('tr');
 
                         const row = `<tr>
+                            <td></td>
                             <td>${match.Dategetinfo || ''}</td>
                             <td>${match.Datematch || ''}</td>
                             <td>${match.Weekday || ''}</td>
@@ -971,6 +1035,10 @@
             // 🔹 Bước 6: Xuất file Excel
             XLSX.writeFile(wb, fileName);
         });
+
+
+
+        
     </script>
 </body>
 
