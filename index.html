@@ -33,8 +33,6 @@
             text-decoration: underline;
         }
 
-
-
         /* Modal Styles */
         .modal {
             display: none;
@@ -126,7 +124,6 @@
             box-shadow: 0 0 5px rgba(76, 175, 80, 0.5);
             /* Hiệu ứng ánh sáng */
         }
-
 
         table {
             width: 100%;
@@ -228,134 +225,165 @@
             min-width: 50px;
             /* Cột Edit */
         }
+
         /* Ẩn các cột theo tiêu đề yêu cầu */
 
 
-    th:nth-child(4),
-    td:nth-child(4), /* Money */
-    th:nth-child(5),
-    td:nth-child(5), /* Home_Asia_Init */
-    th:nth-child(8),
-    td:nth-child(8), /* Money */
-    th:nth-child(9),
-    td:nth-child(9), /* Home_Asia_Init */
-    th:nth-child(10),
-    td:nth-child(10), /* Away_Asia_Init */
-    th:nth-child(11),
-    td:nth-child(11), /* Home_1X2_Init */
-    th:nth-child(12),
-    td:nth-child(12), /* Draw_1X2_Init */
-    th:nth-child(13),
-    td:nth-child(13), /* Away_1X2_Init */
-    th:nth-child(14),
-    td:nth-child(14), /* Home_Asia */
-    th:nth-child(15),
-    td:nth-child(15), /* Away_Asia */
-    th:nth-child(16),
-    td:nth-child(16), /* Home_1X2 */
-    th:nth-child(17),
-    td:nth-child(17), /* Draw_1X2 */
-    th:nth-child(18),
-    td:nth-child(18), /* Away_1X2 */
-    th:nth-child(19),
-    td:nth-child(19), /* S1 */
-    th:nth-child(20),
-    td:nth-child(20), /* S2 */
-    th:nth-child(21),
-    td:nth-child(21), /* S3 */
-    th:nth-child(22),
-    td:nth-child(22), /* S4 */
-    th:nth-child(23),
-    td:nth-child(23), /* S5 */
-    th:nth-child(24),
-    td:nth-child(24), /* GoalDiff5 */
-    th:nth-child(25),
-    td:nth-child(25), /* Compare5 */
-    th:nth-child(26),
-    td:nth-child(26), /* HomeAd */
-    th:nth-child(27),
-    td:nth-child(27), /* WR */
-    th:nth-child(28),
-    td:nth-child(28),
-    th:nth-child(29),
-    td:nth-child(29)  /* Analysic */ {
-        display: none;
-    }
-    #statsTable tbody {
-  counter-reset: rowNumber;
-}
+        th:nth-child(4),
+        td:nth-child(4),
+        /* Money */
+        th:nth-child(5),
+        td:nth-child(5),
+        /* Home_Asia_Init */
+        th:nth-child(8),
+        td:nth-child(8),
+        /* Money */
+        th:nth-child(9),
+        td:nth-child(9),
+        /* Home_Asia_Init */
+        th:nth-child(10),
+        td:nth-child(10),
+        /* Away_Asia_Init */
+        th:nth-child(11),
+        td:nth-child(11),
+        /* Home_1X2_Init */
+        th:nth-child(12),
+        td:nth-child(12),
+        /* Draw_1X2_Init */
+        th:nth-child(13),
+        td:nth-child(13),
+        /* Away_1X2_Init */
+        th:nth-child(14),
+        td:nth-child(14),
+        /* Home_Asia */
+        th:nth-child(15),
+        td:nth-child(15),
+        /* Away_Asia */
+        th:nth-child(16),
+        td:nth-child(16),
+        /* Home_1X2 */
+        th:nth-child(17),
+        td:nth-child(17),
+        /* Draw_1X2 */
+        th:nth-child(18),
+        td:nth-child(18),
+        /* Away_1X2 */
+        th:nth-child(19),
+        td:nth-child(19),
+        /* S1 */
+        th:nth-child(20),
+        td:nth-child(20),
+        /* S2 */
+        th:nth-child(21),
+        td:nth-child(21),
+        /* S3 */
+        th:nth-child(22),
+        td:nth-child(22),
+        /* S4 */
+        th:nth-child(23),
+        td:nth-child(23),
+        /* S5 */
+        th:nth-child(24),
+        td:nth-child(24),
+        /* GoalDiff5 */
+        th:nth-child(25),
+        td:nth-child(25),
+        /* Compare5 */
+        th:nth-child(26),
+        td:nth-child(26),
+        /* HomeAd */
+        th:nth-child(27),
+        td:nth-child(27),
+        /* WR */
+        th:nth-child(28),
+        td:nth-child(28),
+        th:nth-child(29),
+        td:nth-child(29)
 
-#statsTable tbody tr {
-  counter-increment: rowNumber;
-}
+        /* Analysic */
+            {
+            display: none;
+        }
 
-#statsTable tbody tr td:first-child::before {
-  content: counter(rowNumber);
-  display: inline-block;
-  width: 100%;
-  text-align: center;
-}
- /* Cột TT (cột 1) */
-/* Cột TT (cột 1) */
-#statsTable th:first-child,
-#statsTable td:first-child {
-  width: 30px;
-  min-width: 30px;
-  max-width: 30px;
-  text-align: center;
-  padding: 4px;
-}
+        #statsTable tbody {
+            counter-reset: rowNumber;
+        }
 
-/* Cột thứ 2 (DateInfo) */
-#statsTable th:nth-child(2),
-#statsTable td:nth-child(2) {
-  width: 60px;
-  min-width: 60px;
-  max-width: 60px;
-  text-align: center;
-  padding: 4px;
-}
-/* Cột thứ 2 (DateInfo) */
-#statsTable th:nth-child(6),
-#statsTable td:nth-child(6) {
-  width: 230px;
-  min-width: 230px;
-  max-width: 230px;
-  text-align: center;
-  padding: 4px;
-}
-#statsTable th:nth-child(7),
-#statsTable td:nth-child(7) {
-  width: 230px;
-  min-width: 230px;
-  max-width: 230px;
-  text-align: center;
-  padding: 4px;
-}
-/* Tùy chọn: căn giữa toàn bộ chữ trong hai cột đầu */
-#statsTable th:first-child,
-#statsTable td:first-child,
-#statsTable th:nth-child(2),
-#statsTable td:nth-child(2) {
-  vertical-align: middle;
-}
+        #statsTable tbody tr {
+            counter-increment: rowNumber;
+        }
+
+        #statsTable tbody tr td:first-child::before {
+            content: counter(rowNumber);
+            display: inline-block;
+            width: 100%;
+            text-align: center;
+        }
+
+        /* Cột TT (cột 1) */
+        /* Cột TT (cột 1) */
+        #statsTable th:first-child,
+        #statsTable td:first-child {
+            width: 30px;
+            min-width: 30px;
+            max-width: 30px;
+            text-align: center;
+            padding: 4px;
+        }
+
+        /* Cột thứ 2 (DateInfo) */
+        #statsTable th:nth-child(2),
+        #statsTable td:nth-child(2) {
+            width: 60px;
+            min-width: 60px;
+            max-width: 60px;
+            text-align: center;
+            padding: 4px;
+        }
+
+        /* Cột thứ 2 (DateInfo) */
+        #statsTable th:nth-child(6),
+        #statsTable td:nth-child(6) {
+            width: 230px;
+            min-width: 230px;
+            max-width: 230px;
+            text-align: center;
+            padding: 4px;
+        }
+
+        #statsTable th:nth-child(7),
+        #statsTable td:nth-child(7) {
+            width: 230px;
+            min-width: 230px;
+            max-width: 230px;
+            text-align: center;
+            padding: 4px;
+        }
+
+        /* Tùy chọn: căn giữa toàn bộ chữ trong hai cột đầu */
+        #statsTable th:first-child,
+        #statsTable td:first-child,
+        #statsTable th:nth-child(2),
+        #statsTable td:nth-child(2) {
+            vertical-align: middle;
+        }
 
 
-#data-table {
-  counter-reset: rowNumber 0; /* Reset toàn bảng */
-}
+        #data-table {
+            counter-reset: rowNumber 0;
+            /* Reset toàn bảng */
+        }
 
-#data-table tbody tr {
-  counter-increment: rowNumber;
-}
+        #data-table tbody tr {
+            counter-increment: rowNumber;
+        }
 
-#data-table tbody tr td:first-child::before {
-  content: counter(rowNumber);
-  display: inline-block;
-  width: 2em;
-  text-align: center;
-}
-
+        #data-table tbody tr td:first-child::before {
+            content: counter(rowNumber);
+            display: inline-block;
+            width: 2em;
+            text-align: center;
+        }
     </style>
 </head>
 
@@ -373,16 +401,16 @@
         <canvas id="realtimeChart" width="800" height="400"></canvas>
     </div> -->
     <div style="display: flex; justify-content: flex-end; gap: 10px; margin: 10px;">
-    <button id="exportButton"
-        style="background-color: #007bff; color: white; border: none; padding: 8px 14px; border-radius: 6px; cursor: pointer;">
-        📤 Export to Excel
-    </button>
+        <button id="exportButton"
+            style="background-color: #007bff; color: white; border: none; padding: 8px 14px; border-radius: 6px; cursor: pointer;">
+            📤 Export to Excel
+        </button>
 
-    <button id="exportButton1"
-        style="background-color: #007bff; color: white; border: none; padding: 8px 14px; border-radius: 6px; cursor: pointer;">
-        📤 Export to Excel1
-    </button>
-</div>
+        <button id="exportButton1"
+            style="background-color: #007bff; color: white; border: none; padding: 8px 14px; border-radius: 6px; cursor: pointer;">
+            📤 Export to Excel1
+        </button>
+    </div>
     <!-- Statistics Section -->
     <div id="statistics" style=" text-align: center;">
         <table id="statsTable">
@@ -398,14 +426,12 @@
                     <th><input type="text" id="filterHandicapInput" placeholder="Handicap" /></th>
                     <th><input type="text" id="filterHomeMoneyInput" placeholder="Home Money" /></th>
 
-
-
                     <th><input type="text" id="filterHomeMoneyInput" placeholder="Home Asia_Init" /></th>
                     <th><input type="text" id="filterHomeMoneyInput" placeholder="Away Asia_Init" /></th>
                     <th><input type="text" id="filterHomeMoneyInput" placeholder="Home 1X2_Init" /></th>
                     <th><input type="text" id="filterHomeMoneyInput" placeholder="Draw 1x2_Init" /></th>
                     <th><input type="text" id="filterHomeMoneyInput" placeholder="Away 1X2_Init" /></th>
-                    
+
                     <th><input type="text" id="filterHomeMoneyInput" placeholder="Home Asia" /></th>
                     <th><input type="text" id="filterHomeMoneyInput" placeholder="Away Asia" /></th>
                     <th><input type="text" id="filterHomeMoneyInput" placeholder="Home 1X2" /></th>
@@ -419,7 +445,7 @@
                     <th><input type="text" id="filterSum4Input" placeholder="Sum 4" /></th>
                     <th><input type="text" id="filterSum5Input" placeholder="Sum 5" /></th>
 
-                    
+
                     <th><input type="text" id="filterGoalDiffInput" placeholder="GoalDiff" /></th>
                     <th><input type="text" id="filterRecentCompareInput" placeholder="RecentCompare" /></th>
                     <th><input type="text" id="filterHomeAvantageInput" placeholder="HomeAvantage" /></th>
@@ -427,12 +453,6 @@
                     <th><input type="text" id="filterSum6Input" placeholder="WinR" /></th>
                     <th><input type="text" id="filterMyAnalysisInput" placeholder="My Analysis" /></th>
                     <th><input type="text" id="filterHomeWinRateInput" placeholder="Home Win Rate" /></th>
-                    <!-- <th><input type="text" id="filterHomeLoseRateInput" placeholder="Home Lose Rate" /></th> -->
-
-                    
-
-
-                    <!-- <th><input type="text" id="filterSelectInput" placeholder="Select" /></th> -->
 
                     <th><input type="text" id="filterPredictInput" placeholder="Predict" /></th>
                     <th><input type="text" id="filterNoteInput" placeholder="Note" /></th>
@@ -449,20 +469,16 @@
                     <th>Away</th>
                     <th>HL</th>
                     <th>Money</th>
-
                     <th>Home_Asia_Init</th>
                     <th>Away_Asia_Init</th>
                     <th>Home_1X2_Init</th>
                     <th>Draw_1X2_Init</th>
                     <th>Away_1X2_Init</th>
-
                     <th>Home_Asia</th>
                     <th>Away_Asia</th>
                     <th>Home_1X2</th>
                     <th>Draw_1X2</th>
                     <th>Away_1X2</th>
-
-
                     <th>S1</th>
                     <th>S2</th>
                     <th>S3</th>
@@ -471,20 +487,9 @@
                     <th>GoalDiff5</th>
                     <th>Compare5</th>
                     <th>HomeAd</th>
-                    <!-- <th>Myodds</th> -->
                     <th>WR</th>
                     <th>Analysic</th>
                     <th>WinR</th>
-
-
-
-                    <!-- <th>HomeAvantage</th>
-                    <th>GoalDiff</th>
-                    <th>RecentCompare</th> -->
-
-
-                    <!-- <th>Select</th> -->
-
                     <th>Predict</th>
                     <th>Note</th>
                     <th>Result</th>
@@ -557,12 +562,6 @@
         // Truy cập dữ liệu Firebase
         const footballRef = ref(database, "/Football");
 
-
-
-
-
-
-
         // Menu navigation
         document.querySelectorAll('.menu a').forEach(link => {
             link.addEventListener('click', (e) => {
@@ -579,7 +578,6 @@
                 document.getElementById(targetId).style.display = 'block';
             });
         });
-
 
         function getCurrentDate() {
             const today = new Date();
@@ -644,10 +642,6 @@
                         (sum4Value === '' || (match.Sum4 && String(match.Sum4).toLowerCase() === sum4Value)) &&
                         (sum5Value === '' || (match.Sum5 && String(match.Sum5).toLowerCase() === sum5Value)) &&
 
-
-
-
-                        // (selectValue === '' || (match.Select && String(match.Select).toLowerCase() === selectValue)) &&
                         (resultValue === '' || (match.Result && String(match.Result).toLowerCase() === resultValue)) &&
                         (predictValue === '' || (match.Meta_Pred && String(match.Meta_Pred).toLowerCase() === predictValue)) &&
                         (noteValue === '' || (match.Note && String(match.Note).toLowerCase() === noteValue)) &&
@@ -665,13 +659,6 @@
                             <td>${match.Away || ''}</td>
                             <td>${match.Handicap || ''}</td>
                             <td>${match.HomeMoney || ''}</td>
-                            
-                            
-
-
-
-
-
 
                             <td>${match.Home_Asia_Init || ''}</td>
                             <td>${match.Away_Asia_Init || ''}</td>
@@ -684,8 +671,6 @@
                             <td>${match.Home_1X2 || ''}</td>
                             <td>${match.Draw_1X2 || ''}</td>
                             <td>${match.Away_1X2 || ''}</td>
-
-
                                                     
                             <td>${match.Sum1 || ''}</td>
                             <td>${match.Sum2 || ''}</td>
@@ -696,10 +681,6 @@
                             <td>${match.GoalDiff || ''}</td>
                             <td>${match.RecentCompare || ''}</td>
                             <td>${match.HomeAvantage || ''}</td>
-                            
-
-                            
-
 
                             <td>${(() => {
                                 const value = Math.floor(Number(match.WinRate) * 100 / (Number(match.WinRate) + Number(match.LoseRate)));
@@ -709,7 +690,6 @@
                                 return 0;
                             })()
                             }</td>
-                           
                             
                             <td>${match.Myanalysis || ''}</td>    
                             <td>${Math.floor(Number(match.WinRate) * 100 / (Number(match.WinRate) + Number(match.LoseRate))) || ''}%</td>
@@ -735,18 +715,14 @@
                 document.addEventListener('click', (e) => {
                     if (e.target.classList.contains('deleteButton')) {
                         const keyToDelete = e.target.getAttribute('data-key');
-
                         // Hiển thị hộp thoại xác nhận
-
                         const deleteRef = ref(database, `/Football/${keyToDelete}`);
-
                         // Xóa dữ liệu trong Firebase
                         remove(deleteRef)
                             .then(() => {
                                 e.target.closest('tr').remove(); // Xóa hàng khỏi giao diện
                             })
                             .catch((error) => { });
-
                     }
                 });
 
@@ -849,10 +825,6 @@
             });
         });
 
-
-
-
-
         // Chức năng upload dữ liệu
         const uploadButton = document.getElementById('uploadButton');
         const excelFileInput = document.getElementById('excelFile');
@@ -911,7 +883,7 @@
                     if (cells.length < 31) return null; // nếu không đủ cột thì bỏ qua
 
                     // Lấy nội dung cột 18 (index 17)
-                    const col18 = cells[31]?.innerText.trim() || "";
+                    const col18 = cells[32]?.innerText.trim() || "";
                     if (!col18) return null; // bỏ qua hàng nếu cột 18 rỗng
 
                     // Giữ cột đầu tiên
@@ -930,7 +902,7 @@
                     // Giữ các cột giữa, bỏ cột 1, 2, 16, 17, 18 và cột cuối
                     const middleCols = cells
                         .map((cell, i) => cell.innerText.trim())
-                        .filter((_, i) => i !== 0 && i !== 1 && i !== 28 && i !== 29 && i !== 30 && i !== cells.length - 1);
+                        .filter((_, i) => i !== 0 && i !== 29 && i !== 30 && i !== 31 && i !== cells.length - 1);
 
                     // Xử lý cột Result (nếu có)
                     const resultIndex = middleCols.length - 1;
@@ -966,25 +938,6 @@
             XLSX.writeFile(wb, fileName);
         });
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
         document.getElementById('exportButton1').addEventListener('click', function () {
             const table = document.getElementById('statsTable');
             if (!table) {
@@ -1017,8 +970,8 @@
 
 
                 const middleCols = cells
-    .map((cell, i) => cell.innerText.trim())
-    .filter((_, i) => i !== 0 && i !== 1 && i !== 28 && i !== 29 && i !== 30 && i !== 31 && i !== cells.length - 1);
+                    .map((cell, i) => cell.innerText.trim())
+                    .filter((_, i) => i !== 0 && i !== 29 && i !== 30 && i !== 31 && i !== 32 && i !== cells.length - 1);
 
                 // Xử lý cột Result (nếu có)
                 const resultIndex = middleCols.length - 1; // ví dụ Result là cột cuối trong middleCols
@@ -1053,8 +1006,6 @@
         });
 
 
-
-        
     </script>
 </body>
 
