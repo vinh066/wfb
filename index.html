@@ -457,6 +457,7 @@
                     <th><input type="text" id="filterPredictInput" placeholder="Predict" /></th>
                     <th><input type="text" id="filterNoteInput" placeholder="Note" /></th>
                     <th><input type="text" id="filterResultInput" placeholder="Result" /></th>
+                    <th><input type="text" id="filterPredictMetaInput" placeholder="Predict_Meta" /></th>
                     <th><input type="text" id="filterEditInput" placeholder="Edit" /></th>
                 </tr>
                 <tr>
@@ -493,6 +494,7 @@
                     <th>Predict</th>
                     <th>Note</th>
                     <th>Result</th>
+                    <th>Predict Meta</th>
                     <th>Edit</th>
                 </tr>
             </thead>
@@ -696,6 +698,7 @@
                             <td>${match.Predict || ''}</td>
                             <td>${match.Note || ''}</td>
                             <td>${match.Result || ''}</td>
+                            <td>${match.Predict_F || ''}</td>
                             <td>
                                 <button class="editButton" data-key="${key}">Edit</button>
                                 <button class="deleteButton" data-key="${key}"> &nbsp;&nbsp;X&nbsp;&nbsp; </button>
@@ -902,7 +905,7 @@
                     // Giữ các cột giữa, bỏ cột 1, 2, 16, 17, 18 và cột cuối
                     const middleCols = cells
                         .map((cell, i) => cell.innerText.trim())
-                        .filter((_, i) => i !== 0 && i !== 29 && i !== 30 && i !== 31 && i !== cells.length - 1);
+                        .filter((_, i) => i !== 0 && i !== 29 && i !== 30 && i !== 31 && i !== 33 && i !== cells.length - 1);
 
                     // Xử lý cột Result (nếu có)
                     const resultIndex = middleCols.length - 1;
@@ -971,7 +974,7 @@
 
                 const middleCols = cells
                     .map((cell, i) => cell.innerText.trim())
-                    .filter((_, i) => i !== 0 && i !== 29 && i !== 30 && i !== 31 && i !== 32 && i !== cells.length - 1);
+                    .filter((_, i) => i !== 0 && i !== 29 && i !== 30 && i !== 31 && i !== 32 && i !== 33 && i !== cells.length - 1);
 
                 // Xử lý cột Result (nếu có)
                 const resultIndex = middleCols.length - 1; // ví dụ Result là cột cuối trong middleCols
