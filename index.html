@@ -890,10 +890,10 @@
                     if (!col18) return null; // bỏ qua hàng nếu cột 18 rỗng
 
                     // Giữ cột đầu tiên
-                    const firstCol = cells[0]?.innerText.trim() || "";
+                    const firstCol = cells[1]?.innerText.trim() || "";
 
                     // Giữ cột thứ hai
-                    const secondCol = cells[1]?.innerText.trim() || "";
+                    const secondCol = cells[2]?.innerText.trim() || "";
 
                     // Lấy năm trong cột 2 (tìm chuỗi có 4 chữ số liên tiếp)
                     const yearMatch = secondCol.match(/\b\d{4}\b/);
@@ -905,7 +905,7 @@
                     // Giữ các cột giữa, bỏ cột 1, 2, 16, 17, 18 và cột cuối
                     const middleCols = cells
                         .map((cell, i) => cell.innerText.trim())
-                        .filter((_, i) => i !== 0 && i !== 29 && i !== 30 && i !== 31 && i !== 33 && i !== cells.length - 1);
+                        .filter((_, i) => i !== 0 && i !== 1 && i !== 29 && i !== 30 && i !== 31 && i !== 33 && i !== cells.length - 1);
 
                     // Xử lý cột Result (nếu có)
                     const resultIndex = middleCols.length - 1;
@@ -956,10 +956,10 @@
                 const cells = Array.from(row.querySelectorAll('th, td'));
 
                 // Giữ cột đầu tiên
-                const firstCol = cells[0]?.innerText.trim() || "";
+                const firstCol = cells[1]?.innerText.trim() || "";
 
                 // Giữ cột thứ hai
-                const secondCol = cells[1]?.innerText.trim() || "";
+                const secondCol = cells[2]?.innerText.trim() || "";
 
                 // Lấy năm trong cột 2 (tìm chuỗi có 4 chữ số liên tiếp)
                 const yearMatch = secondCol.match(/\b\d{4}\b/);
@@ -974,7 +974,7 @@
 
                 const middleCols = cells
                     .map((cell, i) => cell.innerText.trim())
-                    .filter((_, i) => i !== 0 && i !== 29 && i !== 30 && i !== 31 && i !== 32 && i !== 33 && i !== cells.length - 1);
+                    .filter((_, i) => i !== 0 && i !== 1 && i !== 29 && i !== 30 && i !== 31 && i !== 32 && i !== 33 && i !== cells.length - 1);
 
                 // Xử lý cột Result (nếu có)
                 const resultIndex = middleCols.length - 1; // ví dụ Result là cột cuối trong middleCols
