@@ -227,6 +227,7 @@
         }
 
         /* Ẩn các cột theo tiêu đề yêu cầu */
+/* Ẩn các cột theo tiêu đề yêu cầu */
 
 
         th:nth-child(4),
@@ -298,12 +299,42 @@
         th:nth-child(28),
         td:nth-child(28),
         th:nth-child(29),
-        td:nth-child(29)
-
+        td:nth-child(29),
+        th:nth-child(30),
+        td:nth-child(30),
+        th:nth-child(31),
+        td:nth-child(31),
+        th:nth-child(32),
+        td:nth-child(32),
+        th:nth-child(33),
+        td:nth-child(33),
+        th:nth-child(34),
+        td:nth-child(34),
+        th:nth-child(35),
+        td:nth-child(35),
+        th:nth-child(36),
+        td:nth-child(36),
+        th:nth-child(37),
+        td:nth-child(37),
+        th:nth-child(38),
+        td:nth-child(38),
+        th:nth-child(39),
+        td:nth-child(39),
+        th:nth-child(40),
+        td:nth-child(40),
+        th:nth-child(41),
+        td:nth-child(41),
+        th:nth-child(42),
+        td:nth-child(42),
+        th:nth-child(43),
+        td:nth-child(43),
+        th:nth-child(44),
+        td:nth-child(44)
         /* Analysic */
             {
             display: none;
         }
+
 
         #statsTable tbody {
             counter-reset: rowNumber;
@@ -331,12 +362,21 @@
             padding: 4px;
         }
 
+
         /* Cột thứ 2 (DateInfo) */
         #statsTable th:nth-child(2),
         #statsTable td:nth-child(2) {
             width: 60px;
             min-width: 60px;
             max-width: 60px;
+            text-align: center;
+            padding: 4px;
+        }
+        #statsTable th:nth-child(3),
+        #statsTable td:nth-child(3) {
+            width: 120px;
+            min-width: 120px;
+            max-width: 120px;
             text-align: center;
             padding: 4px;
         }
@@ -416,7 +456,7 @@
         <table id="statsTable">
             <thead>
                 <tr>
-                    <th><input type="text" id="filterTTInput" placeholder="ST" /></th>
+                    <th></th>
                     <th><input type="text" id="filterDateInput" placeholder="Date" /></th>
                     <th><input type="text" id="filterDateMatch" placeholder="Date Match" /></th>
                     <th><input type="text" id="filterMyDayInput" placeholder="Day" /></th>
@@ -488,6 +528,31 @@
                     <th>GoalDiff5</th>
                     <th>Compare5</th>
                     <th>HomeAd</th>
+                    <th>Money_Analysic_Ratio</th>
+                    <th>Money_WR_Interaction</th>
+                    <th>AH_Odds_Diff</th>
+                    <th>Eur_Home_Prob</th>
+                    <th>Eur_Draw_Prob</th>
+                    <th>Eur_Away_Prob</th>
+
+
+                    <th>Delta_Home_Asia</th>
+                    <th>Delta_Away_Asia</th>
+                    <th>Delta_Home_1X2</th>
+                    <th>Delta_Draw_1X2</th>
+                    <th>Delta_Away_1X2</th>
+
+
+                    
+
+
+
+                    <th>Eur_Change_Spread</th>
+                    <th>Asia_Shift</th>
+                    <th>FormMomentum</th>
+
+                    <th>Day_Strength</th>
+
                     <th>WR</th>
                     <th>Analysic</th>
                     <th>WinR</th>
@@ -615,6 +680,10 @@
             const leagueValue = document.getElementById('filterMyLeagueInput').value.trim().toLowerCase();
             // Lấy dữ liệu từ Firebase
 
+
+
+
+            
             onValue(footballRef, (snapshot) => {
                 const data = snapshot.val();
                 const tableBody = document.getElementById('statsTable').querySelector('tbody');
@@ -683,18 +752,48 @@
                             <td>${match.GoalDiff || ''}</td>
                             <td>${match.RecentCompare || ''}</td>
                             <td>${match.HomeAvantage || ''}</td>
+                            <td>${(Number(match.HomeMoney) * Number(match.Myanalysis)).toFixed(2) || '0'}</td>
+                            <td>
+                            ${(
+                                (Number(match.WinRate) + Number(match.LoseRate)) > 0
+                                    ? (Number(match.HomeMoney) * (Number(match.WinRate) / (Number(match.WinRate) + Number(match.LoseRate))))
+                                    : 0
+                            ).toFixed(2)}
+                            </td>
+                            <td>${(Number(match.Home_Asia) - Number(match.Away_Asia)).toFixed(2) || '0'}</td>
 
-                            <td>${(() => {
-                                const value = Math.floor(Number(match.WinRate) * 100 / (Number(match.WinRate) + Number(match.LoseRate)));
-                                console.log(match.WinRate)
-                                if (value > 58) return 1;
-                                if (value < 50) return -1;
-                                return 0;
-                            })()
-                            }</td>
+
+                            <td>${normAndFixDisplay(1/Number(match.Home_1X2), 1/Number(match.Draw_1X2), 1/Number(match.Away_1X2))[0] || '0' }</td>
+                            <td>${normAndFixDisplay(1/Number(match.Home_1X2), 1/Number(match.Draw_1X2), 1/Number(match.Away_1X2))[1] || '0' }</td>
+                            <td>${normAndFixDisplay(1/Number(match.Home_1X2), 1/Number(match.Draw_1X2), 1/Number(match.Away_1X2))[2] || '0'}</td>
+
+
+                            <td>${(Number(match.Home_Asia) - Number(match.Home_Asia_Init)).toFixed(2) || '0'}</td>
+                            <td>${(Number(match.Away_Asia) - Number(match.Away_Asia_Init)).toFixed(2) || '0'}</td>
+
+                            <td>${(Number(match.Home_1X2) - Number(match.Home_1X2_Init)).toFixed(2) || '0'}</td>
+                            <td>${(Number(match.Draw_1X2) - Number(match.Draw_1X2_Init)).toFixed(2) || '0'}</td>
+                            <td>${(Number(match.Away_1X2) - Number(match.Away_1X2_Init)).toFixed(2) || '0'}</td>
+                            
+
+
+                            
+                            <td>${((Number(match.Home_1X2_Init) / Number(match.Away_1X2_Init))- (Number(match.Home_1X2) / Number(match.Away_1X2))).toFixed(2) || '0'}</td>
+                            <td>${((Number(match.Home_Asia_Init) / Number(match.Away_Asia_Init))- (Number(match.Home_Asia) / Number(match.Away_Asia))).toFixed(2) || '0'}</td>
+                            <td>${(((Number(match.Sum1) + Number(match.Sum2) + Number(match.Sum3) + Number(match.Sum4) + Number(match.Sum5)))/5).toFixed(2) || '0'}</td>
+
+
+                             <td>${weekdayMap[match.Weekday] !== undefined ? weekdayMap[match.Weekday].toFixed(2) : ''}</td>
+
+
+                            <td>
+                                ${ (Number(match.WinRate) + Number(match.LoseRate)) > 0
+                                ? (Number(match.WinRate) / (Number(match.WinRate) + Number(match.LoseRate))).toFixed(2)
+                                : '0' }
+                            </td>
                             
                             <td>${match.Myanalysis || ''}</td>    
-                            <td>${Math.floor(Number(match.WinRate) * 100 / (Number(match.WinRate) + Number(match.LoseRate))) || ''}%</td>
+                            <td>${Math.floor(Number(match.WinRate) * 100 / (Number(match.WinRate) + Number(match.LoseRate))) || '0'}%</td>
                             <td>${match.Predict || ''}</td>
                             <td>${match.Note || ''}</td>
                             <td>${match.Result || ''}</td>
@@ -832,6 +931,21 @@
         const uploadButton = document.getElementById('uploadButton');
         const excelFileInput = document.getElementById('excelFile');
 
+
+
+        const weekdayMap = {
+                "Monday": 0.602,
+                "Tuesday": 0.546,
+                "Wednesday": 0.556,
+                "Thursday": 0.537,
+                "Friday": 0.540,
+                "Saturday": 0.558,
+                "Sunday": 0.576
+            };
+
+
+
+
         // Hàm xử lý file Excel
         uploadButton.addEventListener('click', () => {
             const file = excelFileInput.files[0];
@@ -886,7 +1000,7 @@
                     if (cells.length < 31) return null; // nếu không đủ cột thì bỏ qua
 
                     // Lấy nội dung cột 18 (index 17)
-                    const col18 = cells[32]?.innerText.trim() || "";
+                    const col18 = cells[47]?.innerText.trim() || "";
                     if (!col18) return null; // bỏ qua hàng nếu cột 18 rỗng
 
                     // Giữ cột đầu tiên
@@ -905,7 +1019,7 @@
                     // Giữ các cột giữa, bỏ cột 1, 2, 16, 17, 18 và cột cuối
                     const middleCols = cells
                         .map((cell, i) => cell.innerText.trim())
-                        .filter((_, i) => i !== 0 && i !== 1 && i !== 29 && i !== 30 && i !== 31 && i !== 33 && i !== cells.length - 1);
+                        .filter((_, i) => i !== 0 && i !== 1 && i !== 44 && i !== 45 && i !== 46 && i !== 48 && i !== cells.length - 1);
 
                     // Xử lý cột Result (nếu có)
                     const resultIndex = middleCols.length - 1;
@@ -932,10 +1046,10 @@
 
             // 🔹 Bước 4: Tạo workbook
             const wb = XLSX.utils.book_new();
-            XLSX.utils.book_append_sheet(wb, ws, "Football Stats");
+            XLSX.utils.book_append_sheet(wb, ws, "Data Train");
 
             // 🔹 Bước 5: Tạo tên file xuất
-            const fileName = `FootballT.xlsx`;
+            const fileName = `DataT.xlsx`;
 
             // 🔹 Bước 6: Xuất file Excel
             XLSX.writeFile(wb, fileName);
@@ -974,7 +1088,7 @@
 
                 const middleCols = cells
                     .map((cell, i) => cell.innerText.trim())
-                    .filter((_, i) => i !== 0 && i !== 1 && i !== 29 && i !== 30 && i !== 31 && i !== 32 && i !== 33 && i !== cells.length - 1);
+                    .filter((_, i) => i !== 0 && i !== 1 && i !== 44 && i !== 45 && i !== 46 && i !== 47 && i !== 48 && i !== cells.length - 1);
 
                 // Xử lý cột Result (nếu có)
                 const resultIndex = middleCols.length - 1; // ví dụ Result là cột cuối trong middleCols
@@ -995,18 +1109,56 @@
 
             // 🔹 Bước 4: Tạo workbook
             const wb = XLSX.utils.book_new();
-            XLSX.utils.book_append_sheet(wb, ws, "Football Stats");
+            XLSX.utils.book_append_sheet(wb, ws, "Data Predict");
 
             // 🔹 Bước 5: Tạo tên file theo định dạng Football_dd-mm-yyyy.xlsx
             // const today = new Date();
             // const day = String(today.getDate()).padStart(2, '0');
             // const month = String(today.getMonth() + 1).padStart(2, '0');
             // const year = today.getFullYear();
-            const fileName = `FootballP.xlsx`;
+            const fileName = `DataP.xlsx`;
 
             // 🔹 Bước 6: Xuất file Excel
             XLSX.writeFile(wb, fileName);
         });
+
+
+
+
+
+
+        function normAndFixDisplay(a, b, c, decimals = 2) {
+  // chuyển sang số và tránh NaN/0
+  a = Number(a) || 0;
+  b = Number(b) || 0;
+  c = Number(c) || 0;
+  const total = (a + b + c) || 1;
+  const vals = [a / total, b / total, c / total];
+
+  // giá trị làm tròn ban đầu (number, không string)
+  const rounded = vals.map(v => Number(v.toFixed(decimals)));
+
+  // tính phần dư phải điều chỉnh (1 - tổng rounded)
+  const sumRounded = rounded.reduce((s, x) => s + x, 0);
+  const target = 1;
+  let diff = Number((target - sumRounded).toFixed(decimals + 2)); // extra precision
+
+  if (Math.abs(diff) >= Math.pow(10, -decimals)) {
+    // tìm index có giá trị gốc lớn nhất (để điều chỉnh ở chỗ ít gây méo nhất)
+    let idxMax = 0;
+    for (let i = 1; i < vals.length; i++) {
+      if (vals[i] > vals[idxMax]) idxMax = i;
+    }
+    rounded[idxMax] = Number((rounded[idxMax] + diff).toFixed(decimals));
+    // đảm bảo không thành số âm do điều chỉnh (trường hợp hiếm)
+    if (rounded[idxMax] < 0) rounded[idxMax] = 0;
+  }
+
+  // trả về string đã format (luôn có decimals)
+  return rounded.map(v => v.toFixed(decimals));
+}
+
+
 
 
     </script>
