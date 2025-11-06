@@ -227,7 +227,7 @@
         }
 
         /* Ẩn các cột theo tiêu đề yêu cầu */
-/* Ẩn các cột theo tiêu đề yêu cầu */
+        /* Ẩn các cột theo tiêu đề yêu cầu */
 
 
         th:nth-child(4),
@@ -330,6 +330,7 @@
         td:nth-child(43),
         th:nth-child(44),
         td:nth-child(44)
+
         /* Analysic */
             {
             display: none;
@@ -372,6 +373,7 @@
             text-align: center;
             padding: 4px;
         }
+
         #statsTable th:nth-child(3),
         #statsTable td:nth-child(3) {
             width: 120px;
@@ -543,7 +545,7 @@
                     <th>Delta_Away_1X2</th>
 
 
-                    
+
 
 
 
@@ -683,7 +685,7 @@
 
 
 
-            
+
             onValue(footballRef, (snapshot) => {
                 const data = snapshot.val();
                 const tableBody = document.getElementById('statsTable').querySelector('tbody');
@@ -729,7 +731,14 @@
                             <td>${match.Home || ''}</td>
                             <td>${match.Away || ''}</td>
                             <td>${match.Handicap || ''}</td>
-                            <td>${match.HomeMoney || ''}</td>
+                            <td>
+  ${((val => {
+      if (!isFinite(val) || isNaN(val)) return 0;   // nếu NaN hoặc Infinity → 0
+      if (Math.abs(val) < 1e-9) return 0;           // nếu gần 0 hoặc -0 → 0
+      return val;                                   // giá trị hợp lệ → giữ nguyên
+  })(Number(match.HomeMoney)))}
+</td>
+
 
                             <td>${match.Home_Asia_Init || ''}</td>
                             <td>${match.Away_Asia_Init || ''}</td>
@@ -752,45 +761,137 @@
                             <td>${match.GoalDiff || ''}</td>
                             <td>${match.RecentCompare || ''}</td>
                             <td>${match.HomeAvantage || ''}</td>
-                            <td>${(Number(match.HomeMoney) * Number(match.Myanalysis)).toFixed(2) || '0'}</td>
+                            <td>${Math.abs(Number(match.HomeMoney) * Number(match.Myanalysis)) < 0.005
+                                ? 0
+                                : (Number(match.HomeMoney) * Number(match.Myanalysis)).toFixed(2).replace(/\.00$/, '')
+                            }</td>
+
                             <td>
-                            ${(
-                                (Number(match.WinRate) + Number(match.LoseRate)) > 0
-                                    ? (Number(match.HomeMoney) * (Number(match.WinRate) / (Number(match.WinRate) + Number(match.LoseRate))))
-                                    : 0
-                            ).toFixed(2)}
-                            </td>
-                            <td>${(Number(match.Home_Asia) - Number(match.Away_Asia)).toFixed(2) || '0'}</td>
+  ${((val => {
+      if (!isFinite(val) || isNaN(val)) return 0;              // nếu NaN hoặc Infinity → 0
+      if (Math.abs(val) < 1e-9) return 0;                      // nếu gần 0 → 0
+      const rounded = Math.round(val * 100) / 100;             // làm tròn 2 chữ số
+      return Number.isInteger(rounded)
+          ? rounded.toString()                                 // số nguyên → bỏ .00
+          : parseFloat(rounded.toFixed(2)).toString();          // bỏ .00, giữ 2 chữ số tối đa
+  })(
+      Number(match.HomeMoney) * (
+          (Number(match.WinRate) + Number(match.LoseRate)) > 0
+              ? Number(match.WinRate) / (Number(match.WinRate) + Number(match.LoseRate))
+              : 0
+      )
+  ))}
+</td>
 
 
-                            <td>${normAndFixDisplay(1/Number(match.Home_1X2), 1/Number(match.Draw_1X2), 1/Number(match.Away_1X2))[0] || '0' }</td>
-                            <td>${normAndFixDisplay(1/Number(match.Home_1X2), 1/Number(match.Draw_1X2), 1/Number(match.Away_1X2))[1] || '0' }</td>
-                            <td>${normAndFixDisplay(1/Number(match.Home_1X2), 1/Number(match.Draw_1X2), 1/Number(match.Away_1X2))[2] || '0'}</td>
+<td>${((val =>
+                                !isFinite(val)
+                                    ? ''
+                                    : Math.abs(val) < 1e-9
+                                        ? 0
+                                        : (Number.isInteger(val) ? val : val.toFixed(2))
+                            )(Number(match.Home_Asia) - Number(match.Away_Asia)))
+                            }</td>
 
 
-                            <td>${(Number(match.Home_Asia) - Number(match.Home_Asia_Init)).toFixed(2) || '0'}</td>
-                            <td>${(Number(match.Away_Asia) - Number(match.Away_Asia_Init)).toFixed(2) || '0'}</td>
 
-                            <td>${(Number(match.Home_1X2) - Number(match.Home_1X2_Init)).toFixed(2) || '0'}</td>
-                            <td>${(Number(match.Draw_1X2) - Number(match.Draw_1X2_Init)).toFixed(2) || '0'}</td>
-                            <td>${(Number(match.Away_1X2) - Number(match.Away_1X2_Init)).toFixed(2) || '0'}</td>
+                            <td>${normAndFixDisplay(1 / Number(match.Home_1X2), 1 / Number(match.Draw_1X2), 1 / Number(match.Away_1X2))[0] || '0'}</td>
+                            <td>${normAndFixDisplay(1 / Number(match.Home_1X2), 1 / Number(match.Draw_1X2), 1 / Number(match.Away_1X2))[1] || '0'}</td>
+                            <td>${normAndFixDisplay(1 / Number(match.Home_1X2), 1 / Number(match.Draw_1X2), 1 / Number(match.Away_1X2))[2] || '0'}</td>
+
+
+                            <td>${((val =>
+                                !isFinite(val)
+                                    ? ''
+                                    : Math.abs(val) < 1e-9
+                                        ? 0
+                                        : (Number.isInteger(val) ? val : val.toFixed(2))
+                            )(Number(match.Home_Asia) - Number(match.Home_Asia_Init)))
+                            }</td>
+
+<td>${((val =>
+                                !isFinite(val)
+                                    ? ''
+                                    : Math.abs(val) < 1e-9
+                                        ? 0
+                                        : (Number.isInteger(val) ? val : val.toFixed(2))
+                            )(Number(match.Away_Asia) - Number(match.Away_Asia_Init)))
+                            }</td>
+
+<td>${((val =>
+                                !isFinite(val)
+                                    ? ''
+                                    : Math.abs(val) < 1e-9
+                                        ? 0
+                                        : (Number.isInteger(val) ? val : val.toFixed(2))
+                            )(Number(match.Home_1X2) - Number(match.Home_1X2_Init)))
+                            }</td>
+
+<td>${((val =>
+                                !isFinite(val)
+                                    ? ''
+                                    : Math.abs(val) < 1e-9
+                                        ? 0
+                                        : (Number.isInteger(val) ? val : val.toFixed(2))
+                            )(Number(match.Draw_1X2) - Number(match.Draw_1X2_Init)))
+                            }</td>
+
+<td>${((val =>
+                                !isFinite(val)
+                                    ? ''
+                                    : Math.abs(val) < 1e-9
+                                        ? 0
+                                        : (Number.isInteger(val) ? val : val.toFixed(2))
+                            )(Number(match.Away_1X2) - Number(match.Away_1X2_Init)))
+                            }</td>
+
                             
 
 
                             
-                            <td>${((Number(match.Home_1X2_Init) / Number(match.Away_1X2_Init))- (Number(match.Home_1X2) / Number(match.Away_1X2))).toFixed(2) || '0'}</td>
-                            <td>${((Number(match.Home_Asia_Init) / Number(match.Away_Asia_Init))- (Number(match.Home_Asia) / Number(match.Away_Asia))).toFixed(2) || '0'}</td>
-                            <td>${(((Number(match.Sum1) + Number(match.Sum2) + Number(match.Sum3) + Number(match.Sum4) + Number(match.Sum5)))/5).toFixed(2) || '0'}</td>
+                            <td>
+  ${((val => {
+      if (!isFinite(val) || isNaN(val)) return 0;                     // nếu NaN hoặc vô hạn → 0
+      if (Math.abs(val) < 1e-9) return 0;                             // nếu gần 0 → 0
+      const rounded = Math.round(val * 100) / 100;                    // làm tròn 2 chữ số
+      if (Number.isInteger(rounded)) return rounded.toString();       // nếu là số nguyên → bỏ .00
+      return parseFloat(rounded.toFixed(2)).toString();               // loại bỏ .00, giữ tối đa 2 số thập phân
+  })(
+      (Number(match.Home_1X2_Init) / Number(match.Away_1X2_Init)) -
+      (Number(match.Home_1X2) / Number(match.Away_1X2))
+  ))}
+</td>
+
+<td>
+  ${((val =>
+                                !isFinite(val)
+                                    ? ''
+                                    : Math.abs(val) < 1e-9
+                                        ? 0
+                                        : (Number.isInteger(val) ? val : val.toFixed(2))
+                            )(
+                                (Number(match.Home_Asia_Init) / Number(match.Away_Asia_Init)) -
+                                (Number(match.Home_Asia) / Number(match.Away_Asia))
+                            ))
+                            }
+</td>
+                            <td>${(((Number(match.Sum1) + Number(match.Sum2) + Number(match.Sum3) + Number(match.Sum4) + Number(match.Sum5))) / 5)}</td>
 
 
                              <td>${weekdayMap[match.Weekday] !== undefined ? weekdayMap[match.Weekday].toFixed(2) : ''}</td>
 
 
                             <td>
-                                ${ (Number(match.WinRate) + Number(match.LoseRate)) > 0
-                                ? (Number(match.WinRate) / (Number(match.WinRate) + Number(match.LoseRate))).toFixed(2)
-                                : '0' }
-                            </td>
+  ${
+    (Number(match.WinRate) + Number(match.LoseRate)) > 0
+      ? (() => {
+          const val = Number(match.WinRate) / (Number(match.WinRate) + Number(match.LoseRate));
+          if (isNaN(val) || Math.abs(val) < 0.005) return 0; // nếu NaN hoặc gần 0 thì trả 0
+          return Number.isInteger(val) ? val.toString() : val.toFixed(2).replace(/^-0(\.00)?$/, '0');
+        })()
+      : 0
+  }
+</td>
                             
                             <td>${match.Myanalysis || ''}</td>    
                             <td>${Math.floor(Number(match.WinRate) * 100 / (Number(match.WinRate) + Number(match.LoseRate))) || '0'}%</td>
@@ -934,14 +1035,14 @@
 
 
         const weekdayMap = {
-                "Monday": 0.602,
-                "Tuesday": 0.546,
-                "Wednesday": 0.556,
-                "Thursday": 0.537,
-                "Friday": 0.540,
-                "Saturday": 0.558,
-                "Sunday": 0.576
-            };
+            "Monday": 0.602,
+            "Tuesday": 0.546,
+            "Wednesday": 0.556,
+            "Thursday": 0.537,
+            "Friday": 0.540,
+            "Saturday": 0.558,
+            "Sunday": 0.576
+        };
 
 
 
@@ -1128,35 +1229,35 @@
 
 
         function normAndFixDisplay(a, b, c, decimals = 2) {
-  // chuyển sang số và tránh NaN/0
-  a = Number(a) || 0;
-  b = Number(b) || 0;
-  c = Number(c) || 0;
-  const total = (a + b + c) || 1;
-  const vals = [a / total, b / total, c / total];
+            // chuyển sang số và tránh NaN/0
+            a = Number(a) || 0;
+            b = Number(b) || 0;
+            c = Number(c) || 0;
+            const total = (a + b + c) || 1;
+            const vals = [a / total, b / total, c / total];
 
-  // giá trị làm tròn ban đầu (number, không string)
-  const rounded = vals.map(v => Number(v.toFixed(decimals)));
+            // giá trị làm tròn ban đầu (number, không string)
+            const rounded = vals.map(v => Number(v.toFixed(decimals)));
 
-  // tính phần dư phải điều chỉnh (1 - tổng rounded)
-  const sumRounded = rounded.reduce((s, x) => s + x, 0);
-  const target = 1;
-  let diff = Number((target - sumRounded).toFixed(decimals + 2)); // extra precision
+            // tính phần dư phải điều chỉnh (1 - tổng rounded)
+            const sumRounded = rounded.reduce((s, x) => s + x, 0);
+            const target = 1;
+            let diff = Number((target - sumRounded).toFixed(decimals + 2)); // extra precision
 
-  if (Math.abs(diff) >= Math.pow(10, -decimals)) {
-    // tìm index có giá trị gốc lớn nhất (để điều chỉnh ở chỗ ít gây méo nhất)
-    let idxMax = 0;
-    for (let i = 1; i < vals.length; i++) {
-      if (vals[i] > vals[idxMax]) idxMax = i;
-    }
-    rounded[idxMax] = Number((rounded[idxMax] + diff).toFixed(decimals));
-    // đảm bảo không thành số âm do điều chỉnh (trường hợp hiếm)
-    if (rounded[idxMax] < 0) rounded[idxMax] = 0;
-  }
+            if (Math.abs(diff) >= Math.pow(10, -decimals)) {
+                // tìm index có giá trị gốc lớn nhất (để điều chỉnh ở chỗ ít gây méo nhất)
+                let idxMax = 0;
+                for (let i = 1; i < vals.length; i++) {
+                    if (vals[i] > vals[idxMax]) idxMax = i;
+                }
+                rounded[idxMax] = Number((rounded[idxMax] + diff).toFixed(decimals));
+                // đảm bảo không thành số âm do điều chỉnh (trường hợp hiếm)
+                if (rounded[idxMax] < 0) rounded[idxMax] = 0;
+            }
 
-  // trả về string đã format (luôn có decimals)
-  return rounded.map(v => v.toFixed(decimals));
-}
+            // trả về string đã format (luôn có decimals)
+            return rounded.map(v => v.toFixed(decimals));
+        }
 
 
 
