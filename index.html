@@ -233,8 +233,7 @@
         th:nth-child(4),
         td:nth-child(4),
         /* Money */
-        th:nth-child(5),
-        td:nth-child(5),
+
         /* Home_Asia_Init */
         th:nth-child(8),
         td:nth-child(8),
@@ -376,28 +375,36 @@
 
         #statsTable th:nth-child(3),
         #statsTable td:nth-child(3) {
-            width: 120px;
-            min-width: 120px;
-            max-width: 120px;
+            width: 110px;
+            min-width: 110px;
+            max-width: 110px;
             text-align: center;
             padding: 4px;
         }
-
+        /* Cột thứ 2 (DateInfo) */
+        #statsTable th:nth-child(5),
+        #statsTable td:nth-child(5) {
+            width: 260px;
+            min-width: 260px;
+            max-width: 260px;
+            text-align: center;
+            padding: 4px;
+        }
         /* Cột thứ 2 (DateInfo) */
         #statsTable th:nth-child(6),
         #statsTable td:nth-child(6) {
-            width: 230px;
-            min-width: 230px;
-            max-width: 230px;
+            width: 180px;
+            min-width: 180px;
+            max-width: 180px;
             text-align: center;
             padding: 4px;
         }
 
         #statsTable th:nth-child(7),
         #statsTable td:nth-child(7) {
-            width: 230px;
-            min-width: 230px;
-            max-width: 230px;
+            width: 180px;
+            min-width: 180px;
+            max-width: 180px;
             text-align: center;
             padding: 4px;
         }
@@ -528,6 +535,7 @@
                     <th>S4</th>
                     <th>S5</th>
                     <th>GoalDiff5</th>
+                    <th>Compare5</th>
                     <th>HomeAd</th>
                     <th>Money_Analysic_Ratio</th>
                     <th>Money_WR_Interaction</th>
@@ -760,6 +768,7 @@
                             <td>${match.Sum5 || ''}</td>
 
                             <td>${match.GoalDiff || ''}</td>
+                            <td>${match.RecentCompare || ''}</td>
                             <td>${match.HomeAvantage || ''}</td>
                             <td>${Math.abs(Number(match.HomeMoney) * Number(match.Myanalysis)) < 0.005
                                 ? 0
@@ -1103,7 +1112,7 @@
                     if (cells.length < 31) return null; // nếu không đủ cột thì bỏ qua
 
                     // Lấy nội dung cột 18 (index 17)
-                    const col18 = cells[46]?.innerText.trim() || "";
+                    const col18 = cells[47]?.innerText.trim() || "";
                     if (!col18) return null; // bỏ qua hàng nếu cột 18 rỗng
 
                     // Giữ cột đầu tiên
@@ -1122,7 +1131,7 @@
                     // Giữ các cột giữa, bỏ cột 1, 2, 16, 17, 18 và cột cuối
                     const middleCols = cells
                         .map((cell, i) => cell.innerText.trim())
-                        .filter((_, i) => i !== 0 && i !== 1 && i !== 43 && i !== 44 && i !== 45 && i !== 47 && i !== cells.length - 1);
+                        .filter((_, i) => i !== 0 && i !== 1 && i !== 44 && i !== 45 && i !== 46 && i !== 48 && i !== cells.length - 1);
 
                     // Xử lý cột Result (nếu có)
                     const resultIndex = middleCols.length - 1;
@@ -1191,7 +1200,7 @@
 
                 const middleCols = cells
                     .map((cell, i) => cell.innerText.trim())
-                    .filter((_, i) => i !== 0 && i !== 1 && i !== 43 && i !== 44 && i !== 45 && i !== 46 && i !== 47 && i !== cells.length - 1);
+                    .filter((_, i) => i !== 0 && i !== 1 && i !== 44 && i !== 45 && i !== 46 && i !== 47 && i !== 48 && i !== cells.length - 1);
 
                 // Xử lý cột Result (nếu có)
                 const resultIndex = middleCols.length - 1; // ví dụ Result là cột cuối trong middleCols
