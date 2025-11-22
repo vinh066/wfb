@@ -524,22 +524,13 @@
                     <th>Home_1X2_Init</th>
                     <th>Draw_1X2_Init</th>
                     <th>Away_1X2_Init</th>
-                    <th>Home_Asia</th>
-                    <th>Away_Asia</th>
-                    <th>Home_1X2</th>
-                    <th>Draw_1X2</th>
-                    <th>Away_1X2</th>
                     <th>S1</th>
                     <th>S2</th>
                     <th>S3</th>
                     <th>S4</th>
                     <th>S5</th>
-                    <th>GoalDiff5</th>
-                    <th>Compare5</th>
-                    <th>HomeAd</th>
                     <th>Money_Analysic_Ratio</th>
                     <th>Money_WR_Interaction</th>
-                    <th>AH_Odds_Diff</th>
                     <th>Eur_Home_Prob</th>
                     <th>Eur_Draw_Prob</th>
                     <th>Eur_Away_Prob</th>
@@ -556,7 +547,7 @@
 
 
 
-                    <th>Eur_Change_Spread</th>
+
                     <th>Asia_Shift</th>
                     <th>FormMomentum</th>
 
@@ -741,12 +732,12 @@
                             <td>${match.Away || ''}</td>
                             <td>${match.Handicap || ''}</td>
                             <td>
-  ${((val => {
-      if (!isFinite(val) || isNaN(val)) return 0;   // nếu NaN hoặc Infinity → 0
-      if (Math.abs(val) < 1e-9) return 0;           // nếu gần 0 hoặc -0 → 0
-      return val;                                   // giá trị hợp lệ → giữ nguyên
-  })(Number(match.HomeMoney)))}
-</td>
+                            ${((val => {
+                                if (!isFinite(val) || isNaN(val)) return 0;   // nếu NaN hoặc Infinity → 0
+                                if (Math.abs(val) < 1e-9) return 0;           // nếu gần 0 hoặc -0 → 0
+                                return val;                                   // giá trị hợp lệ → giữ nguyên
+                            })(Number(match.HomeMoney)))}
+                            </td>
 
 
                             <td>${match.Home_Asia_Init || ''}</td>
@@ -755,11 +746,7 @@
                             <td>${match.Draw_1X2_Init || ''}</td>
                             <td>${match.Away_1X2_Init || ''}</td>
 
-                            <td>${match.Home_Asia || ''}</td>
-                            <td>${match.Away_Asia || ''}</td>
-                            <td>${match.Home_1X2 || ''}</td>
-                            <td>${match.Draw_1X2 || ''}</td>
-                            <td>${match.Away_1X2 || ''}</td>
+
                                                     
                             <td>${match.Sum1 || ''}</td>
                             <td>${match.Sum2 || ''}</td>
@@ -767,41 +754,27 @@
                             <td>${match.Sum4 || ''}</td>
                             <td>${match.Sum5 || ''}</td>
 
-                            <td>${match.GoalDiff || ''}</td>
-                            <td>${match.RecentCompare || ''}</td>
-                            <td>${match.HomeAvantage || ''}</td>
                             <td>${Math.abs(Number(match.HomeMoney) * Number(match.Myanalysis)) < 0.005
                                 ? 0
                                 : (Number(match.HomeMoney) * Number(match.Myanalysis)).toFixed(2).replace(/\.00$/, '')
                             }</td>
 
                             <td>
-  ${((val => {
-      if (!isFinite(val) || isNaN(val)) return 0;              // nếu NaN hoặc Infinity → 0
-      if (Math.abs(val) < 1e-9) return 0;                      // nếu gần 0 → 0
-      const rounded = Math.round(val * 100) / 100;             // làm tròn 2 chữ số
-      return Number.isInteger(rounded)
-          ? rounded.toString()                                 // số nguyên → bỏ .00
-          : parseFloat(rounded.toFixed(2)).toString();          // bỏ .00, giữ 2 chữ số tối đa
-  })(
-      Number(match.HomeMoney) * (
-          (Number(match.WinRate) + Number(match.LoseRate)) > 0
-              ? Number(match.WinRate) / (Number(match.WinRate) + Number(match.LoseRate))
-              : 0
-      )
-  ))}
-</td>
-
-
-<td>${((val =>
-                                !isFinite(val)
-                                    ? ''
-                                    : Math.abs(val) < 1e-9
-                                        ? 0
-                                        : (Number.isInteger(val) ? val : val.toFixed(2))
-                            )(Number(match.Home_Asia) - Number(match.Away_Asia)))
-                            }</td>
-
+                            ${((val => {
+                                if (!isFinite(val) || isNaN(val)) return 0;              // nếu NaN hoặc Infinity → 0
+                                if (Math.abs(val) < 1e-9) return 0;                      // nếu gần 0 → 0
+                                const rounded = Math.round(val * 100) / 100;             // làm tròn 2 chữ số
+                                return Number.isInteger(rounded)
+                                    ? rounded.toString()                                 // số nguyên → bỏ .00
+                                    : parseFloat(rounded.toFixed(2)).toString();          // bỏ .00, giữ 2 chữ số tối đa
+                            })(
+                                Number(match.HomeMoney) * (
+                                    (Number(match.WinRate) + Number(match.LoseRate)) > 0
+                                        ? Number(match.WinRate) / (Number(match.WinRate) + Number(match.LoseRate))
+                                        : 0
+                                )
+                            ))}
+                            </td>
 
 
                             <td>${normAndFixDisplay(1 / Number(match.Home_1X2), 1 / Number(match.Draw_1X2), 1 / Number(match.Away_1X2))[0] || '0'}</td>
@@ -818,7 +791,7 @@
                             )(Number(match.Home_Asia) - Number(match.Home_Asia_Init)))
                             }</td>
 
-<td>${((val =>
+                            <td>${((val =>
                                 !isFinite(val)
                                     ? ''
                                     : Math.abs(val) < 1e-9
@@ -827,7 +800,7 @@
                             )(Number(match.Away_Asia) - Number(match.Away_Asia_Init)))
                             }</td>
 
-<td>${((val =>
+                            <td>${((val =>
                                 !isFinite(val)
                                     ? ''
                                     : Math.abs(val) < 1e-9
@@ -836,7 +809,7 @@
                             )(Number(match.Home_1X2) - Number(match.Home_1X2_Init)))
                             }</td>
 
-<td>${((val =>
+                            <td>${((val =>
                                 !isFinite(val)
                                     ? ''
                                     : Math.abs(val) < 1e-9
@@ -845,7 +818,7 @@
                             )(Number(match.Draw_1X2) - Number(match.Draw_1X2_Init)))
                             }</td>
 
-<td>${((val =>
+                            <td>${((val =>
                                 !isFinite(val)
                                     ? ''
                                     : Math.abs(val) < 1e-9
@@ -854,25 +827,10 @@
                             )(Number(match.Away_1X2) - Number(match.Away_1X2_Init)))
                             }</td>
 
-                            
+                           
 
-
-                            
                             <td>
-  ${((val => {
-      if (!isFinite(val) || isNaN(val)) return 0;                     // nếu NaN hoặc vô hạn → 0
-      if (Math.abs(val) < 1e-9) return 0;                             // nếu gần 0 → 0
-      const rounded = Math.round(val * 100) / 100;                    // làm tròn 2 chữ số
-      if (Number.isInteger(rounded)) return rounded.toString();       // nếu là số nguyên → bỏ .00
-      return parseFloat(rounded.toFixed(2)).toString();               // loại bỏ .00, giữ tối đa 2 số thập phân
-  })(
-      (Number(match.Home_1X2_Init) / Number(match.Away_1X2_Init)) -
-      (Number(match.Home_1X2) / Number(match.Away_1X2))
-  ))}
-</td>
-
-<td>
-  ${((val =>
+                            ${((val =>
                                 !isFinite(val)
                                     ? ''
                                     : Math.abs(val) < 1e-9
@@ -883,24 +841,20 @@
                                 (Number(match.Home_Asia) / Number(match.Away_Asia))
                             ))
                             }
-</td>
+                            </td>
                             <td>${(((Number(match.Sum1) + Number(match.Sum2) + Number(match.Sum3) + Number(match.Sum4) + Number(match.Sum5))) / 5)}</td>
-
-
-                             <td>${weekdayMap[match.Weekday] !== undefined ? weekdayMap[match.Weekday].toFixed(2) : ''}</td>
-
-
+                            <td>${weekdayMap[match.Weekday] !== undefined ? weekdayMap[match.Weekday].toFixed(2) : ''}</td>
                             <td>
-  ${
-    (Number(match.WinRate) + Number(match.LoseRate)) > 0
-      ? (() => {
-          const val = Number(match.WinRate) / (Number(match.WinRate) + Number(match.LoseRate));
-          if (isNaN(val) || Math.abs(val) < 0.005) return 0; // nếu NaN hoặc gần 0 thì trả 0
-          return Number.isInteger(val) ? val.toString() : val.toFixed(2).replace(/^-0(\.00)?$/, '0');
-        })()
-      : 0
-  }
-</td>
+                            ${
+                                (Number(match.WinRate) + Number(match.LoseRate)) > 0
+                                ? (() => {
+                                    const val = Number(match.WinRate) / (Number(match.WinRate) + Number(match.LoseRate));
+                                    if (isNaN(val) || Math.abs(val) < 0.005) return 0; // nếu NaN hoặc gần 0 thì trả 0
+                                    return Number.isInteger(val) ? val.toString() : val.toFixed(2).replace(/^-0(\.00)?$/, '0');
+                                    })()
+                                : 0
+                            }
+                            </td>
                             
                             <td>${match.Myanalysis || ''}</td>    
                             <td>${Math.floor(Number(match.WinRate) * 100 / (Number(match.WinRate) + Number(match.LoseRate))) || '0'}%</td>
@@ -1112,7 +1066,7 @@
                     if (cells.length < 31) return null; // nếu không đủ cột thì bỏ qua
 
                     // Lấy nội dung cột 18 (index 17)
-                    const col18 = cells[47]?.innerText.trim() || "";
+                    const col18 = cells[37]?.innerText.trim() || "";
                     if (!col18) return null; // bỏ qua hàng nếu cột 18 rỗng
 
                     // Giữ cột đầu tiên
@@ -1131,7 +1085,7 @@
                     // Giữ các cột giữa, bỏ cột 1, 2, 16, 17, 18 và cột cuối
                     const middleCols = cells
                         .map((cell, i) => cell.innerText.trim())
-                        .filter((_, i) => i !== 0 && i !== 1 && i !== 44 && i !== 45 && i !== 46 && i !== 48 && i !== cells.length - 1);
+                        .filter((_, i) => i !== 0 && i !== 1 && i !== 34 && i !== 35 && i !== 36 && i !== 38 && i !== cells.length - 1);
 
                     // Xử lý cột Result (nếu có)
                     const resultIndex = middleCols.length - 1;
@@ -1158,7 +1112,7 @@
 
             // 🔹 Bước 4: Tạo workbook
             const wb = XLSX.utils.book_new();
-            XLSX.utils.book_append_sheet(wb, ws, "Data Train");
+            XLSX.utils.book_append_sheet(wb, ws, "Data");
 
             // 🔹 Bước 5: Tạo tên file xuất
             const fileName = `DataT.xlsx`;
@@ -1200,7 +1154,7 @@
 
                 const middleCols = cells
                     .map((cell, i) => cell.innerText.trim())
-                    .filter((_, i) => i !== 0 && i !== 1 && i !== 44 && i !== 45 && i !== 46 && i !== 47 && i !== 48 && i !== cells.length - 1);
+                    .filter((_, i) => i !== 0 && i !== 1 && i !== 34 && i !== 35 && i !== 36 && i !== 37 && i !== 38 && i !== cells.length - 1);
 
                 // Xử lý cột Result (nếu có)
                 const resultIndex = middleCols.length - 1; // ví dụ Result là cột cuối trong middleCols
@@ -1221,7 +1175,7 @@
 
             // 🔹 Bước 4: Tạo workbook
             const wb = XLSX.utils.book_new();
-            XLSX.utils.book_append_sheet(wb, ws, "Data Predict");
+            XLSX.utils.book_append_sheet(wb, ws, "Data");
 
             // 🔹 Bước 5: Tạo tên file theo định dạng Football_dd-mm-yyyy.xlsx
             // const today = new Date();
