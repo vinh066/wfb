@@ -1,11 +1,10 @@
-
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Realtime Football</title>
+    <title>Bluevic</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.17.5/xlsx.full.min.js"></script>
     <style>
         /* Sắp xếp biểu đồ trong giữa trang */
@@ -228,113 +227,16 @@
         }
 
         /* Ẩn các cột theo tiêu đề yêu cầu */
+        /* Ẩn các cột từ 7 đến 100 */
+    #statsTable th:nth-child(n+7):nth-child(-n+102),
+    #statsTable td:nth-child(n+7):nth-child(-n+102) {
+        display: none;
+    }
         /* Ẩn các cột theo tiêu đề yêu cầu */
 
 
-        th:nth-child(4),
-        td:nth-child(4),
-        /* Money */
 
-        /* Home_Asia_Init */
-        th:nth-child(8),
-        td:nth-child(8),
-        /* Money */
-        th:nth-child(9),
-        td:nth-child(9),
-        /* Home_Asia_Init */
-        th:nth-child(10),
-        td:nth-child(10),
-        /* Away_Asia_Init */
-        th:nth-child(11),
-        td:nth-child(11),
-        /* Home_1X2_Init */
-        th:nth-child(12),
-        td:nth-child(12),
-        /* Draw_1X2_Init */
-        th:nth-child(13),
-        td:nth-child(13),
-        /* Away_1X2_Init */
-        th:nth-child(14),
-        td:nth-child(14),
-        /* Home_Asia */
-        th:nth-child(15),
-        td:nth-child(15),
-        /* Away_Asia */
-        th:nth-child(16),
-        td:nth-child(16),
-        /* Home_1X2 */
-        th:nth-child(17),
-        td:nth-child(17),
-        /* Draw_1X2 */
-        th:nth-child(18),
-        td:nth-child(18),
-        /* Away_1X2 */
-        th:nth-child(19),
-        td:nth-child(19),
-        /* S1 */
-        th:nth-child(20),
-        td:nth-child(20),
-        /* S2 */
-        th:nth-child(21),
-        td:nth-child(21),
-        /* S3 */
-        th:nth-child(22),
-        td:nth-child(22),
-        /* S4 */
-        th:nth-child(23),
-        td:nth-child(23),
-        /* S5 */
-        th:nth-child(24),
-        td:nth-child(24),
-        /* GoalDiff5 */
-        th:nth-child(25),
-        td:nth-child(25),
-        /* Compare5 */
-        th:nth-child(26),
-        td:nth-child(26),
-        /* HomeAd */
-        th:nth-child(27),
-        td:nth-child(27),
-        /* WR */
-        th:nth-child(28),
-        td:nth-child(28),
-        th:nth-child(29),
-        td:nth-child(29),
-        th:nth-child(30),
-        td:nth-child(30),
-        th:nth-child(31),
-        td:nth-child(31),
-        th:nth-child(32),
-        td:nth-child(32),
-        th:nth-child(33),
-        td:nth-child(33),
-        th:nth-child(34),
-        td:nth-child(34),
-        th:nth-child(35),
-        td:nth-child(35),
-        th:nth-child(36),
-        td:nth-child(36),
-        th:nth-child(37),
-        td:nth-child(37),
-        th:nth-child(38),
-        td:nth-child(38),
-        th:nth-child(39),
-        td:nth-child(39),
-        th:nth-child(40),
-        td:nth-child(40),
-        th:nth-child(41),
-        td:nth-child(41),
-        th:nth-child(42),
-        td:nth-child(42),
-        th:nth-child(43),
-        td:nth-child(43),
-        th:nth-child(44),
-        td:nth-child(44)
 
-        /* Analysic */
-            {
-            display: none;
-        }
 
 
         #statsTable tbody {
@@ -376,21 +278,23 @@
 
         #statsTable th:nth-child(3),
         #statsTable td:nth-child(3) {
-            width: 110px;
-            min-width: 110px;
-            max-width: 110px;
+            width: 120px;
+            min-width: 120px;
+            max-width: 120px;
             text-align: center;
             padding: 4px;
         }
+
         /* Cột thứ 2 (DateInfo) */
         #statsTable th:nth-child(5),
         #statsTable td:nth-child(5) {
-            width: 260px;
-            min-width: 260px;
-            max-width: 260px;
+            width: 180px;
+            min-width: 180px;
+            max-width: 180px;
             text-align: center;
             padding: 4px;
         }
+
         /* Cột thứ 2 (DateInfo) */
         #statsTable th:nth-child(6),
         #statsTable td:nth-child(6) {
@@ -469,110 +373,120 @@
                     <th></th>
                     <th><input type="text" id="filterDateInput" placeholder="Date" /></th>
                     <th><input type="text" id="filterDateMatch" placeholder="Date Match" /></th>
-                    <th><input type="text" id="filterMyDayInput" placeholder="Day" /></th>
                     <th><input type="text" id="filterMyLeagueInput" placeholder="League" /></th>
                     <th><input type="text" id="filterHomeInput" placeholder="Home" /></th>
                     <th><input type="text" id="filterAwayInput" placeholder="Away" /></th>
-                    <th><input type="text" id="filterHandicapInput" placeholder="Handicap" /></th>
-                    <th><input type="text" id="filterHomeMoneyInput" placeholder="Home Money" /></th>
+                    <th><input type="text" id="filterMyDayInput" placeholder="Day" /></th>
+                    
 
-                    <th><input type="text" id="filterHomeMoneyInput" placeholder="Home Asia_Init" /></th>
-                    <th><input type="text" id="filterHomeMoneyInput" placeholder="Away Asia_Init" /></th>
-                    <th><input type="text" id="filterHomeMoneyInput" placeholder="Home 1X2_Init" /></th>
-                    <th><input type="text" id="filterHomeMoneyInput" placeholder="Draw 1x2_Init" /></th>
-                    <th><input type="text" id="filterHomeMoneyInput" placeholder="Away 1X2_Init" /></th>
-
-                    <th><input type="text" id="filterHomeMoneyInput" placeholder="Home Asia" /></th>
-                    <th><input type="text" id="filterHomeMoneyInput" placeholder="Away Asia" /></th>
-                    <th><input type="text" id="filterHomeMoneyInput" placeholder="Home 1X2" /></th>
-                    <th><input type="text" id="filterHomeMoneyInput" placeholder="Draw 1x2" /></th>
-                    <th><input type="text" id="filterHomeMoneyInput" placeholder="Away 1X2" /></th>
-
-
-                    <th><input type="text" id="filterSum1Input" placeholder="Sum 1" /></th>
-                    <th><input type="text" id="filterSum2Input" placeholder="Sum 2" /></th>
-                    <th><input type="text" id="filterSum3Input" placeholder="Sum 3" /></th>
-                    <th><input type="text" id="filterSum4Input" placeholder="Sum 4" /></th>
-                    <th><input type="text" id="filterSum5Input" placeholder="Sum 5" /></th>
-
-
-                    <th><input type="text" id="filterGoalDiffInput" placeholder="GoalDiff" /></th>
-                    <th><input type="text" id="filterRecentCompareInput" placeholder="RecentCompare" /></th>
-                    <th><input type="text" id="filterHomeAvantageInput" placeholder="HomeAvantage" /></th>
-
-                    <th><input type="text" id="filterSum6Input" placeholder="WinR" /></th>
-                    <th><input type="text" id="filterMyAnalysisInput" placeholder="My Analysis" /></th>
-                    <th><input type="text" id="filterHomeWinRateInput" placeholder="Home Win Rate" /></th>
-
-                    <th><input type="text" id="filterPredictInput" placeholder="Predict" /></th>
-                    <th><input type="text" id="filterNoteInput" placeholder="Note" /></th>
-                    <th><input type="text" id="filterResultInput" placeholder="Result" /></th>
-                    <th><input type="text" id="filterPredictMetaInput" placeholder="Predict_Meta" /></th>
-                    <th><input type="text" id="filterEditInput" placeholder="Edit" /></th>
                 </tr>
                 <tr>
                     <th>ST</th>
-                    <th>DateInfo</th>
-                    <th>DateMatch</th>
-                    <th>Day</th>
+                    <th>Dateinfo</th>
+                    <th>Datematch</th>
                     <th>League</th>
                     <th>Home</th>
                     <th>Away</th>
-                    <th>HL</th>
-                    <th>Money</th>
+                    <th>Weekday</th>
                     <th>Home_Asia_Init</th>
+                    <th>Asia_Line_Init</th>
                     <th>Away_Asia_Init</th>
                     <th>Home_1X2_Init</th>
                     <th>Draw_1X2_Init</th>
                     <th>Away_1X2_Init</th>
-                    <th>Home_Asia</th>
-                    <th>Away_Asia</th>
-                    <th>Home_1X2</th>
-                    <th>Draw_1X2</th>
-                    <th>Away_1X2</th>
-                    <th>S1</th>
-                    <th>S2</th>
-                    <th>S3</th>
-                    <th>S4</th>
-                    <th>S5</th>
-                    <th>GoalDiff5</th>
-                    <th>Compare5</th>
-                    <th>HomeAd</th>
-                    <th>Money_Analysic_Ratio</th>
-                    <th>Money_WR_Interaction</th>
-                    <th>AH_Odds_Diff</th>
-                    <th>Eur_Home_Prob</th>
-                    <th>Eur_Draw_Prob</th>
-                    <th>Eur_Away_Prob</th>
-
-
-                    <th>Delta_Home_Asia</th>
-                    <th>Delta_Away_Asia</th>
-                    <th>Delta_Home_1X2</th>
-                    <th>Delta_Draw_1X2</th>
-                    <th>Delta_Away_1X2</th>
-
-
-
-
-
-
-                    <th>Eur_Change_Spread</th>
-                    <th>Asia_Shift</th>
-                    <th>FormMomentum</th>
-
-                    <th>Day_Strength</th>
-
-                    <th>WR</th>
-                    <th>Analysic</th>
-                    <th>WinR</th>
+                    <th>Home_Asia_Live</th>
+                    <th>Asia_Line_Live</th>
+                    <th>Away_Asia_Live</th>
+                    <th>Home_1X2_Live</th>
+                    <th>Draw_1X2_Live</th>
+                    <th>Away_1X2_Live</th>
+                    <th>AH_HomeOdds_Shift</th>
+                    <th>AH_AwayOdds_Shift</th>
+                    <th>AH_Shift</th>
+                    <th>Home_total_strength</th>
+                    <th>Away_total_strength</th>
+                    <th>Home_h2h_strength</th>
+                    <th>Away_h2h_strength</th>
+                    <th>Home_stand_ft_score</th>
+                    <th>Home_stand_ft_conceded</th>
+                    <th>Home_stand_ft_pts</th>
+                    <th>Home_stand_ft_rank</th>
+                    <th>Home_stand_ft_rate</th>
+                    <th>Home_home_stand_ft_pts</th>
+                    <th>Home_home_stand_ft_rank</th>
+                    <th>Home_home_stand_ft_rate</th>
+                    <th>Home_stand_ft_last6_win_rate</th>
+                    <th>Away_stand_ft_score</th>
+                    <th>Away_stand_ft_conceded</th>
+                    <th>Away_stand_ft_pts</th>
+                    <th>Away_stand_ft_rank</th>
+                    <th>Away_stand_ft_rate</th>
+                    <th>Away_away_stand_ft_pts</th>
+                    <th>Away_away_stand_ft_rank</th>
+                    <th>Away_away_stand_ft_rate</th>
+                    <th>Away_stand_ft_last6_win_rate</th>
+                    <th>H2h_win_rate</th>
+                    <th>H2h_draw_rate</th>
+                    <th>H2h_lose_rate</th>
+                    <th>H2h_score_rate</th>
+                    <th>H2h_conceded_rate</th>
+                    <th>H2h_ah_home_rate</th>
+                    <th>H2h_ah_draw_rate</th>
+                    <th>H2h_ah_away_rate</th>
+                    <th>H2h_last_game</th>
+                    <th>Home_prev_win_rate</th>
+                    <th>Home_prev_draw_rate</th>
+                    <th>Home_prev_loss_rate</th>
+                    <th>Home_prev_goal_scored_pg</th>
+                    <th>Home_prev_goal_conceded_pg</th>
+                    <th>Pre_ah_home_rate</th>
+                    <th>Pre_ah_draw_rate</th>
+                    <th>Pre_ah_away_rate</th>
+                    <th>H2h_last_game_v1</th>
+                    <th>Home_prev_win_rate_guest</th>
+                    <th>Home_prev_draw_rate_guest</th>
+                    <th>Home_prev_loss_rate_guest</th>
+                    <th>Home_prev_goal_scored_pg_guest</th>
+                    <th>Home_prev_goal_conceded_pg_guest</th>
+                    <th>Pre_ah_rate_guest</th>
+                    <th>Pre_ah_draw_rate_guest</th>
+                    <th>Pre_ah_away_rate_guest</th>
+                    <th>H2h_last_game_v2</th>
+                    <th>Total_Home</th>
+                    <th>Total_Draw</th>
+                    <th>Total_Away</th>
+                    <th>Main_Home</th>
+                    <th>Main_Draw</th>
+                    <th>Main_Away</th>
+                    <th>League_Home</th>
+                    <th>League_Draw</th>
+                    <th>League_Away</th>
+                    <th>OddsStat_AH_HomeWinRate</th>
+                    <th>OddsStat_AH_AwayWinRate</th>
+                    <th>OddsStat_AH_HomeDrawRate</th>
+                    <th>OddsStat_AH_AwayDrawRate</th>
+                    <th>OddsStat_AH_HomeLoseRate</th>
+                    <th>OddsStat_AH_AwayLoseRate</th>
+                    <th>Home_Injury_Count</th>
+                    <th>Away_Injury_Count</th>
+                    <th>Home_Suspension_Count</th>
+                    <th>Away_Suspension_Count</th>
+                    <th>Home_Injury_Defenders</th>
+                    <th>Home_Injury_Midfielders</th>
+                    <th>Home_Injury_Forwards</th>
+                    <th>Away_Injury_Defenders</th>
+                    <th>Away_Injury_Midfielders</th>
+                    <th>Away_Injury_Forwards</th>
+                    <th>Home_Suspension_Defenders</th>
+                    <th>Home_Suspension_Midfielders</th>
+                    <th>Home_Suspension_Forwards</th>
+                    <th>Away_Suspension_Defenders</th>
+                    <th>Away_Suspension_Midfielders</th>
+                    <th>Away_Suspension_Forwards</th>
                     <th>Predict</th>
-                    
-                    
-                    <th>Predict Meta</th>
                     <th>Result</th>
                     <th>Note</th>
-                    <th>Edit</th> <!--48 -->
+
                 </tr>
             </thead>
             <tbody>
@@ -624,14 +538,14 @@
 
         // Firebase cấu hình
         const firebaseConfig = {
-            apiKey: "AIzaSyC4Ia8BlvUZ1rSZsvzAlJKuA_pDHuZaFoU",
-            authDomain: "s2025-a29e1.firebaseapp.com",
-            databaseURL: "https://s2025-a29e1-default-rtdb.firebaseio.com",
-            projectId: "s2025-a29e1",
-            storageBucket: "s2025-a29e1.firebasestorage.app",
-            messagingSenderId: "560968373639",
-            appId: "1:560968373639:web:7e5b549c2437402bdaaf22",
-            measurementId: "G-E5L9YXC26L"
+            apiKey: "AIzaSyCvUZAjv2n7lneDjXQPhPl21UaGX2istUk",
+            authDomain: "bluevic-eac97.firebaseapp.com",
+            databaseURL: "https://bluevic-eac97-default-rtdb.firebaseio.com",
+            projectId: "bluevic-eac97",
+            storageBucket: "bluevic-eac97.firebasestorage.app",
+            messagingSenderId: "434498948536",
+            appId: "1:434498948536:web:3e11cf892e0a641129134d",
+            measurementId: "G-JD7S7BY068"
         };
 
         // Khởi tạo Firebase
@@ -639,7 +553,7 @@
         const database = getDatabase(app);
 
         // Truy cập dữ liệu Firebase
-        const footballRef = ref(database, "/Football");
+        const footballRef = ref(database, "/Bluevic");
 
         // Menu navigation
         document.querySelectorAll('.menu a').forEach(link => {
@@ -671,22 +585,11 @@
             const dateMatch = document.getElementById('filterDateMatch').value.trim().toLowerCase();
             const homeValue = document.getElementById('filterHomeInput').value.trim().toLowerCase();
             const awayValue = document.getElementById('filterAwayInput').value.trim().toLowerCase();
-            const homeMoneyValue = document.getElementById('filterHomeMoneyInput').value.trim().toLowerCase();
-            const handicapValue = document.getElementById('filterHandicapInput').value.trim().toLowerCase();
-            const myAnalysisValue = document.getElementById('filterMyAnalysisInput').value.trim().toLowerCase();
 
-            const sum1Value = document.getElementById('filterSum1Input').value.trim().toLowerCase();
-            const sum2Value = document.getElementById('filterSum2Input').value.trim().toLowerCase();
-            const sum3Value = document.getElementById('filterSum3Input').value.trim().toLowerCase();
-            const sum4Value = document.getElementById('filterSum4Input').value.trim().toLowerCase();
-            const sum5Value = document.getElementById('filterSum5Input').value.trim().toLowerCase();
 
-            // const selectValue = document.getElementById('filterSelectInput').value.trim().toLowerCase();
-            const resultValue = document.getElementById('filterResultInput').value.trim().toLowerCase();
-            const predictValue = document.getElementById('filterPredictInput').value.trim().toLowerCase();
-            const noteValue = document.getElementById('filterNoteInput').value.trim().toLowerCase();
 
-            const homeWinRateValue = document.getElementById('filterHomeWinRateInput').value.trim().toLowerCase();
+
+
             // const homeLoseRateValue = document.getElementById('filterHomeLoseRateInput').value.trim().toLowerCase();
             const dayValue = document.getElementById('filterMyDayInput').value.trim().toLowerCase();
             const leagueValue = document.getElementById('filterMyLeagueInput').value.trim().toLowerCase();
@@ -706,216 +609,134 @@
 
                     // Lọc dữ liệu theo tất cả các giá trị từ input
                     if (
-                        (dateValue === '' || (match.Dategetinfo && String(match.Dategetinfo).toLowerCase().includes(dateValue))) &&
+                        (dateValue === '' || (match.Dateinfo && String(match.Dateinfo).toLowerCase().includes(dateValue))) &&
                         (homeValue === '' || (match.Home && String(match.Home).toLowerCase().includes(homeValue))) &&
                         (awayValue === '' || (match.Away && String(match.Away).toLowerCase().includes(awayValue))) &&
                         (dateMatch === '' || (match.Datematch && String(match.Datematch).slice(0, 5) === dateMatch)) &&
-                        (homeMoneyValue === '' || (match.HomeMoney && String(match.HomeMoney).toLowerCase() === homeMoneyValue)) &&
-                        (handicapValue === '' || (match.Handicap && String(match.Handicap).toLowerCase() === handicapValue)) &&
 
 
-                        (homeWinRateValue === '' || (match.Winrate && String(match.Winrate).toLowerCase() === homeWinRateValue)) &&
+
+
+
                         // (homeLoseRateValue === '' || (match.Loserate && String(match.Loserate).toLowerCase() === homeLoseRateValue)) &&
                         (dayValue === '' || (match.Weekday && String(match.Weekday).toLowerCase() === dayValue)) &&
-                        (leagueValue === '' || (match.League && String(match.League).toLowerCase() === leagueValue)) &&
+                        (leagueValue === '' || (match.League && String(match.League).toLowerCase() === leagueValue))
 
-                        (sum1Value === '' || (match.Sum1 && String(match.Sum1).toLowerCase() === sum1Value)) &&
-                        (sum2Value === '' || (match.Sum2 && String(match.Sum2).toLowerCase() === sum2Value)) &&
-                        (sum3Value === '' || (match.Sum3 && String(match.Sum3).toLowerCase() === sum3Value)) &&
-                        (sum4Value === '' || (match.Sum4 && String(match.Sum4).toLowerCase() === sum4Value)) &&
-                        (sum5Value === '' || (match.Sum5 && String(match.Sum5).toLowerCase() === sum5Value)) &&
-
-                        (resultValue === '' || (match.Result && String(match.Result).toLowerCase() === resultValue)) &&
-                        (predictValue === '' || (match.Meta_Pred && String(match.Meta_Pred).toLowerCase() === predictValue)) &&
-                        (noteValue === '' || (match.Note && String(match.Note).toLowerCase() === noteValue)) &&
-                        (myAnalysisValue === '' || (match.Myanalysis && String(match.Myanalysis).toLowerCase() === myAnalysisValue))
                     ) {
                         //const row = document.createElement('tr');
 
                         const row = `<tr>
-                            <td></td>
-                            <td>${match.Dategetinfo || ''}</td>
-                            <td>${match.Datematch || ''}</td>
-                            <td>${match.Weekday || ''}</td>
-                            <td>${match.League || ''}</td>
-                            <td>${match.Home || ''}</td>
-                            <td>${match.Away || ''}</td>
-                            <td>${match.Handicap || ''}</td>
-                            <td>
-  ${((val => {
-      if (!isFinite(val) || isNaN(val)) return 0;   // nếu NaN hoặc Infinity → 0
-      if (Math.abs(val) < 1e-9) return 0;           // nếu gần 0 hoặc -0 → 0
-      return val;                                   // giá trị hợp lệ → giữ nguyên
-  })(Number(match.HomeMoney)))}
-</td>
+                                        <td></td>
+                                        <td>${match.Dateinfo ?? ''}</td>                          
+                                        <td>${match.Datematch ?? ''}</td>  
+                                        <td>${match.League ?? ''}</td>                        
+                                        <td>${match.Home ?? ''}</td>                              
+                                        <td>${match.Away ?? ''}</td>                              
+                                        <td>${match.Weekday ?? ''}</td>                                                
+                                        <td>${match.Home_Asia_Init ?? ''}</td>                    
+                                        <td>${match.Asia_Line_Init ?? ''}</td>                    
+                                        <td>${match.Away_Asia_Init ?? ''}</td>                    
+                                        <td>${match.Home_1X2_Init ?? ''}</td>                     
+                                        <td>${match.Draw_1X2_Init ?? ''}</td>                     
+                                        <td>${match.Away_1X2_Init ?? ''}</td>                     
+                                        <td>${match.Home_Asia_Live ?? ''}</td>                    
+                                        <td>${match.Asia_Line_Live ?? ''}</td>                    
+                                        <td>${match.Away_Asia_Live ?? ''}</td>                    
+                                        <td>${match.Home_1X2_Live ?? ''}</td>                     
+                                        <td>${match.Draw_1X2_Live ?? ''}</td>                     
+                                        <td>${match.Away_1X2_Live ?? ''}</td>                     
+                                        <td>${match.AH_HomeOdds_Shift ?? ''}</td>                 
+                                        <td>${match.AH_AwayOdds_Shift ?? ''}</td>                 
+                                        <td>${match.AH_Shift ?? ''}</td>                          
+                                        <td>${match.Home_total_strength ?? ''}</td>               
+                                        <td>${match.Away_total_strength ?? ''}</td>               
+                                        <td>${match.Home_h2h_strength ?? ''}</td>                 
+                                        <td>${match.Away_h2h_strength ?? ''}</td>                 
+                                        <td>${match.Home_stand_ft_score ?? ''}</td>               
+                                        <td>${match.Home_stand_ft_conceded ?? ''}</td>            
+                                        <td>${match.Home_stand_ft_pts ?? ''}</td>                 
+                                        <td>${match.Home_stand_ft_rank ?? ''}</td>                
+                                        <td>${match.Home_stand_ft_rate ?? ''}</td>                
+                                        <td>${match.Home_home_stand_ft_pts ?? ''}</td>            
+                                        <td>${match.Home_home_stand_ft_rank ?? ''}</td>           
+                                        <td>${match.Home_home_stand_ft_rate ?? ''}</td>           
+                                        <td>${match.Home_stand_ft_last6_win_rate ?? ''}</td>      
+                                        <td>${match.Away_stand_ft_score ?? ''}</td>               
+                                        <td>${match.Away_stand_ft_conceded ?? ''}</td>            
+                                        <td>${match.Away_stand_ft_pts ?? ''}</td>                 
+                                        <td>${match.Away_stand_ft_rank ?? ''}</td>                
+                                        <td>${match.Away_stand_ft_rate ?? ''}</td>                
+                                        <td>${match.Away_away_stand_ft_pts ?? ''}</td>            
+                                        <td>${match.Away_away_stand_ft_rank ?? ''}</td>           
+                                        <td>${match.Away_away_stand_ft_rate ?? ''}</td>           
+                                        <td>${match.Away_stand_ft_last6_win_rate ?? ''}</td>      
+                                        <td>${match.H2h_win_rate ?? ''}</td>                      
+                                        <td>${match.H2h_draw_rate ?? ''}</td>                     
+                                        <td>${match.H2h_lose_rate ?? ''}</td>                     
+                                        <td>${match.H2h_score_rate ?? ''}</td>                    
+                                        <td>${match.H2h_conceded_rate ?? ''}</td>                 
+                                        <td>${match.H2h_ah_home_rate ?? ''}</td>                  
+                                        <td>${match.H2h_ah_draw_rate ?? ''}</td>                  
+                                        <td>${match.H2h_ah_away_rate ?? ''}</td>                  
+                                        <td>${match.H2h_last_game ?? ''}</td>                     
+                                        <td>${match.Home_prev_win_rate ?? ''}</td>                
+                                        <td>${match.Home_prev_draw_rate ?? ''}</td>               
+                                        <td>${match.Home_prev_loss_rate ?? ''}</td>               
+                                        <td>${match.Home_prev_goal_scored_pg ?? ''}</td>          
+                                        <td>${match.Home_prev_goal_conceded_pg ?? ''}</td>        
+                                        <td>${match.Pre_ah_home_rate ?? ''}</td>                  
+                                        <td>${match.Pre_ah_draw_rate ?? ''}</td>                  
+                                        <td>${match.Pre_ah_away_rate ?? ''}</td>                  
+                                        <td>${match.H2h_last_game_v1 ?? ''}</td>                  
+                                        <td>${match.Home_prev_win_rate_guest ?? ''}</td>          
+                                        <td>${match.Home_prev_draw_rate_guest ?? ''}</td>         
+                                        <td>${match.Home_prev_loss_rate_guest ?? ''}</td>         
+                                        <td>${match.Home_prev_goal_scored_pg_guest ?? ''}</td>    
+                                        <td>${match.Home_prev_goal_conceded_pg_guest ?? ''}</td>  
+                                        <td>${match.Pre_ah_rate_guest ?? ''}</td>                 
+                                        <td>${match.Pre_ah_draw_rate_guest ?? ''}</td>            
+                                        <td>${match.Pre_ah_away_rate_guest ?? ''}</td>            
+                                        <td>${match.H2h_last_game_v2 ?? ''}</td>                  
+                                        <td>${match.Total_Home ?? ''}</td>                        
+                                        <td>${match.Total_Draw ?? ''}</td>                        
+                                        <td>${match.Total_Away ?? ''}</td>                        
+                                        <td>${match.Main_Home ?? ''}</td>                         
+                                        <td>${match.Main_Draw ?? ''}</td>                         
+                                        <td>${match.Main_Away ?? ''}</td>                         
+                                        <td>${match.League_Home ?? ''}</td>                       
+                                        <td>${match.League_Draw ?? ''}</td>                       
+                                        <td>${match.League_Away ?? ''}</td>                       
+                                        <td>${match.OddsStat_AH_HomeWinRate ?? ''}</td>           
+                                        <td>${match.OddsStat_AH_AwayWinRate ?? ''}</td>           
+                                        <td>${match.OddsStat_AH_HomeDrawRate ?? ''}</td>          
+                                        <td>${match.OddsStat_AH_AwayDrawRate ?? ''}</td>          
+                                        <td>${match.OddsStat_AH_HomeLoseRate ?? ''}</td>          
+                                        <td>${match.OddsStat_AH_AwayLoseRate ?? ''}</td>          
+                                        <td>${match.Home_Injury_Count ?? ''}</td>                 
+                                        <td>${match.Away_Injury_Count ?? ''}</td>                 
+                                        <td>${match.Home_Suspension_Count ?? ''}</td>             
+                                        <td>${match.Away_Suspension_Count ?? ''}</td>             
+                                        <td>${match.Home_Injury_Defenders ?? ''}</td>             
+                                        <td>${match.Home_Injury_Midfielders ?? ''}</td>           
+                                        <td>${match.Home_Injury_Forwards ?? ''}</td>              
+                                        <td>${match.Away_Injury_Defenders ?? ''}</td>             
+                                        <td>${match.Away_Injury_Midfielders ?? ''}</td>           
+                                        <td>${match.Away_Injury_Forwards ?? ''}</td>              
+                                        <td>${match.Home_Suspension_Defenders ?? ''}</td>         
+                                        <td>${match.Home_Suspension_Midfielders ?? ''}</td>       
+                                        <td>${match.Home_Suspension_Forwards ?? ''}</td>          
+                                        <td>${match.Away_Suspension_Defenders ?? ''}</td>         
+                                        <td>${match.Away_Suspension_Midfielders ?? ''}</td>       
+                                        <td>${match.Away_Suspension_Forwards ?? ''}</td> 
+                                        <td>${match.Predict ?? ''}</td>         
+                                        <td>${match.Result ?? ''}</td>                            
+                                        <td>${match.Note ?? ''}</td>                                
 
-
-                            <td>${match.Home_Asia_Init || ''}</td>
-                            <td>${match.Away_Asia_Init || ''}</td>
-                            <td>${match.Home_1X2_Init || ''}</td>
-                            <td>${match.Draw_1X2_Init || ''}</td>
-                            <td>${match.Away_1X2_Init || ''}</td>
-
-                            <td>${match.Home_Asia || ''}</td>
-                            <td>${match.Away_Asia || ''}</td>
-                            <td>${match.Home_1X2 || ''}</td>
-                            <td>${match.Draw_1X2 || ''}</td>
-                            <td>${match.Away_1X2 || ''}</td>
-                                                    
-                            <td>${match.Sum1 || ''}</td>
-                            <td>${match.Sum2 || ''}</td>
-                            <td>${match.Sum3 || ''}</td>
-                            <td>${match.Sum4 || ''}</td>
-                            <td>${match.Sum5 || ''}</td>
-
-                            <td>${match.GoalDiff || ''}</td>
-                            <td>${match.RecentCompare || ''}</td>
-                            <td>${match.HomeAvantage || ''}</td>
-                            <td>${Math.abs(Number(match.HomeMoney) * Number(match.Myanalysis)) < 0.005
-                                ? 0
-                                : (Number(match.HomeMoney) * Number(match.Myanalysis)).toFixed(2).replace(/\.00$/, '')
-                            }</td>
-
-                            <td>
-  ${((val => {
-      if (!isFinite(val) || isNaN(val)) return 0;              // nếu NaN hoặc Infinity → 0
-      if (Math.abs(val) < 1e-9) return 0;                      // nếu gần 0 → 0
-      const rounded = Math.round(val * 100) / 100;             // làm tròn 2 chữ số
-      return Number.isInteger(rounded)
-          ? rounded.toString()                                 // số nguyên → bỏ .00
-          : parseFloat(rounded.toFixed(2)).toString();          // bỏ .00, giữ 2 chữ số tối đa
-  })(
-      Number(match.HomeMoney) * (
-          (Number(match.WinRate) + Number(match.LoseRate)) > 0
-              ? Number(match.WinRate) / (Number(match.WinRate) + Number(match.LoseRate))
-              : 0
-      )
-  ))}
-</td>
-
-
-<td>${((val =>
-                                !isFinite(val)
-                                    ? ''
-                                    : Math.abs(val) < 1e-9
-                                        ? 0
-                                        : (Number.isInteger(val) ? val : val.toFixed(2))
-                            )(Number(match.Home_Asia) - Number(match.Away_Asia)))
-                            }</td>
-
-
-
-                            <td>${normAndFixDisplay(1 / Number(match.Home_1X2), 1 / Number(match.Draw_1X2), 1 / Number(match.Away_1X2))[0] || '0'}</td>
-                            <td>${normAndFixDisplay(1 / Number(match.Home_1X2), 1 / Number(match.Draw_1X2), 1 / Number(match.Away_1X2))[1] || '0'}</td>
-                            <td>${normAndFixDisplay(1 / Number(match.Home_1X2), 1 / Number(match.Draw_1X2), 1 / Number(match.Away_1X2))[2] || '0'}</td>
-
-
-                            <td>${((val =>
-                                !isFinite(val)
-                                    ? ''
-                                    : Math.abs(val) < 1e-9
-                                        ? 0
-                                        : (Number.isInteger(val) ? val : val.toFixed(2))
-                            )(Number(match.Home_Asia) - Number(match.Home_Asia_Init)))
-                            }</td>
-
-<td>${((val =>
-                                !isFinite(val)
-                                    ? ''
-                                    : Math.abs(val) < 1e-9
-                                        ? 0
-                                        : (Number.isInteger(val) ? val : val.toFixed(2))
-                            )(Number(match.Away_Asia) - Number(match.Away_Asia_Init)))
-                            }</td>
-
-<td>${((val =>
-                                !isFinite(val)
-                                    ? ''
-                                    : Math.abs(val) < 1e-9
-                                        ? 0
-                                        : (Number.isInteger(val) ? val : val.toFixed(2))
-                            )(Number(match.Home_1X2) - Number(match.Home_1X2_Init)))
-                            }</td>
-
-<td>${((val =>
-                                !isFinite(val)
-                                    ? ''
-                                    : Math.abs(val) < 1e-9
-                                        ? 0
-                                        : (Number.isInteger(val) ? val : val.toFixed(2))
-                            )(Number(match.Draw_1X2) - Number(match.Draw_1X2_Init)))
-                            }</td>
-
-<td>${((val =>
-                                !isFinite(val)
-                                    ? ''
-                                    : Math.abs(val) < 1e-9
-                                        ? 0
-                                        : (Number.isInteger(val) ? val : val.toFixed(2))
-                            )(Number(match.Away_1X2) - Number(match.Away_1X2_Init)))
-                            }</td>
-
-                            
-
-
-                            
-                            <td>
-  ${((val => {
-      if (!isFinite(val) || isNaN(val)) return 0;                     // nếu NaN hoặc vô hạn → 0
-      if (Math.abs(val) < 1e-9) return 0;                             // nếu gần 0 → 0
-      const rounded = Math.round(val * 100) / 100;                    // làm tròn 2 chữ số
-      if (Number.isInteger(rounded)) return rounded.toString();       // nếu là số nguyên → bỏ .00
-      return parseFloat(rounded.toFixed(2)).toString();               // loại bỏ .00, giữ tối đa 2 số thập phân
-  })(
-      (Number(match.Home_1X2_Init) / Number(match.Away_1X2_Init)) -
-      (Number(match.Home_1X2) / Number(match.Away_1X2))
-  ))}
-</td>
-
-<td>
-  ${((val =>
-                                !isFinite(val)
-                                    ? ''
-                                    : Math.abs(val) < 1e-9
-                                        ? 0
-                                        : (Number.isInteger(val) ? val : val.toFixed(2))
-                            )(
-                                (Number(match.Home_Asia_Init) / Number(match.Away_Asia_Init)) -
-                                (Number(match.Home_Asia) / Number(match.Away_Asia))
-                            ))
-                            }
-</td>
-                            <td>${(((Number(match.Sum1) + Number(match.Sum2) + Number(match.Sum3) + Number(match.Sum4) + Number(match.Sum5))) / 5)}</td>
-
-
-                             <td>${weekdayMap[match.Weekday] !== undefined ? weekdayMap[match.Weekday].toFixed(2) : ''}</td>
-
-
-                            <td>
-  ${
-    (Number(match.WinRate) + Number(match.LoseRate)) > 0
-      ? (() => {
-          const val = Number(match.WinRate) / (Number(match.WinRate) + Number(match.LoseRate));
-          if (isNaN(val) || Math.abs(val) < 0.005) return 0; // nếu NaN hoặc gần 0 thì trả 0
-          return Number.isInteger(val) ? val.toString() : val.toFixed(2).replace(/^-0(\.00)?$/, '0');
-        })()
-      : 0
-  }
-</td>
-                            
-                            <td>${match.Myanalysis || ''}</td>    
-                            <td>${Math.floor(Number(match.WinRate) * 100 / (Number(match.WinRate) + Number(match.LoseRate))) || '0'}%</td>
-                            <td>${match.Predict || ''}</td>
-                            
-                            
-                            <td>${match.Predict_F || ''}</td>
-                            <td>${match.Result || ''}</td>
-                            <td>${match.Note || ''}</td>
-                            <td>
-                                <button class="editButton" data-key="${key}">Edit</button>
-                                <button class="deleteButton" data-key="${key}"> &nbsp;&nbsp;X&nbsp;&nbsp; </button>
-                            </td>
-                        </tr>`;
+    <td>
+        <button class="editButton" data-key="${key}">Edit</button>
+        <button class="deleteButton" data-key="${key}">&nbsp;&nbsp;X&nbsp;&nbsp;</button>
+    </td>
+</tr>`;
                         tableBody.insertAdjacentHTML('beforeend', row);
                     }
                 }
@@ -931,7 +752,7 @@
                     if (e.target.classList.contains('deleteButton')) {
                         const keyToDelete = e.target.getAttribute('data-key');
                         // Hiển thị hộp thoại xác nhận
-                        const deleteRef = ref(database, `/Football/${keyToDelete}`);
+                        const deleteRef = ref(database, `/Bluevic/${keyToDelete}`);
                         // Xóa dữ liệu trong Firebase
                         remove(deleteRef)
                             .then(() => {
@@ -1271,7 +1092,9 @@
             return rounded.map(v => v.toFixed(decimals));
         }
 
-
+        function safe(v) {
+            return (v === null || v === undefined || v === '') ? '' : v;
+        }
 
 
     </script>
