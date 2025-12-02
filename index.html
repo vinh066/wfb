@@ -792,7 +792,7 @@
                     const note = noteInput.value.trim();
 
                     if (currentKey) {
-                        const updateRef = ref(database, `/Football/${currentKey}`);
+                        const updateRef = ref(database, `/Bluevic/${currentKey}`);
 
                         // Kiểm tra giá trị của key "Select"
                         get(updateRef).then((snapshot) => {
@@ -934,7 +934,7 @@
                     if (cells.length < 31) return null; // nếu không đủ cột thì bỏ qua
 
                     // Lấy nội dung cột 18 (index 17)
-                    const col18 = cells[47]?.innerText.trim() || "";
+                    const col18 = cells[103]?.innerText.trim() || "";
                     if (!col18) return null; // bỏ qua hàng nếu cột 18 rỗng
 
                     // Giữ cột đầu tiên
@@ -953,7 +953,7 @@
                     // Giữ các cột giữa, bỏ cột 1, 2, 16, 17, 18 và cột cuối
                     const middleCols = cells
                         .map((cell, i) => cell.innerText.trim())
-                        .filter((_, i) => i !== 0 && i !== 1 && i !== 44 && i !== 45 && i !== 46 && i !== 48 && i !== cells.length - 1);
+                        .filter((_, i) => i !== 0 && i !== 102 && i !== cells.length - 1);
 
                     // Xử lý cột Result (nếu có)
                     const resultIndex = middleCols.length - 1;
@@ -1022,7 +1022,7 @@
 
                 const middleCols = cells
                     .map((cell, i) => cell.innerText.trim())
-                    .filter((_, i) => i !== 0 && i !== 1 && i !== 44 && i !== 45 && i !== 46 && i !== 47 && i !== 48 && i !== cells.length - 1);
+                    .filter((_, i) => i !== 0 && i !== 102 && i !== 103 && i !== cells.length - 1);
 
                 // Xử lý cột Result (nếu có)
                 const resultIndex = middleCols.length - 1; // ví dụ Result là cột cuối trong middleCols
