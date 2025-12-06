@@ -603,7 +603,7 @@
                 const data = snapshot.val();
                 const tableBody = document.getElementById('statsTable').querySelector('tbody');
                 tableBody.innerHTML = '';
-                let matchList = [];
+
                 for (const key in data) {
                     const match = data[key];
 
@@ -613,37 +613,19 @@
                         (homeValue === '' || (match.Home && String(match.Home).toLowerCase().includes(homeValue))) &&
                         (awayValue === '' || (match.Away && String(match.Away).toLowerCase().includes(awayValue))) &&
                         (dateMatch === '' || (match.Datematch && String(match.Datematch).slice(0, 5) === dateMatch)) &&
+
+
+
+
+
+                        // (homeLoseRateValue === '' || (match.Loserate && String(match.Loserate).toLowerCase() === homeLoseRateValue)) &&
                         (dayValue === '' || (match.Weekday && String(match.Weekday).toLowerCase() === dayValue)) &&
                         (leagueValue === '' || (match.League && String(match.League).toLowerCase() === leagueValue))
 
                     ) {
                         //const row = document.createElement('tr');
 
-                        matchList.push({ key, match });
-
-                    }
-                }
-
-                matchList.sort((a, b) => {
-                    const parse = (s) => {
-                        if (!s) return new Date(0);
-                        // Format: dd-mm-yyyy HH:MM
-                        const [datePart, timePart] = s.split(" ");
-                        if (!datePart) return new Date(0);
-                        const [d, m, y] = datePart.split("-").map(Number);
-                        let h = 0, min = 0;
-                        if (timePart) [h, min] = timePart.split(":").map(Number);
-                        return new Date(y, m - 1, d, h, min);
-                    };
-
-                    return parse(a.match.Datematch) - parse(b.match.Datematch);
-                });
-                tableBody.innerHTML = "";
-
-
-
-                matchList.forEach(({ key, match }) => {
-                    const row = `<tr>
+                        const row = `<tr>
                                         <td></td>
                                         <td>${match.Dateinfo ?? ''}</td>                          
                                         <td>${match.Datematch ?? ''}</td>  
@@ -750,14 +732,14 @@
                                         <td>${match.Result ?? ''}</td>                            
                                         <td>${match.Note ?? ''}</td>                                
 
-                                        <td>
-                                            <button class="editButton" data-key="${key}">Edit</button>
-                                            <button class="deleteButton" data-key="${key}">&nbsp;&nbsp;X&nbsp;&nbsp;</button>
-                                        </td>
-                                    </tr>`;
+    <td>
+        <button class="editButton" data-key="${key}">Edit</button>
+        <button class="deleteButton" data-key="${key}">&nbsp;&nbsp;X&nbsp;&nbsp;</button>
+    </td>
+</tr>`;
                         tableBody.insertAdjacentHTML('beforeend', row);
-                });
-
+                    }
+                }
 
                 document.querySelectorAll('.editButton').forEach(button => {
                     button.addEventListener('click', () => {
