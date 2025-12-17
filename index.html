@@ -953,7 +953,7 @@
                     // Giữ các cột giữa, bỏ cột 1, 2, 16, 17, 18 và cột cuối
                     const middleCols = cells
                         .map((cell, i) => cell.innerText.trim())
-                        .filter((_, i) => i !== 0 && i !== 1 && i !== 102 && i !== cells.length - 1);
+                        .filter((_, i) => i !== 0 && i !== 1 && i !== 102 && i !== 104 && i !== cells.length - 1);
 
                     // Xử lý cột Result (nếu có)
                     const resultIndex = middleCols.length - 1;
@@ -1022,7 +1022,7 @@
 
                 const middleCols = cells
                     .map((cell, i) => cell.innerText.trim())
-                    .filter((_, i) => i !== 0 && i !== 1 && i !== 102 && i !== 103 && i !== cells.length - 1);
+                    .filter((_, i) => i !== 0 && i !== 1 && i !== 102 && i !== 103 && i !== 104 && i !== cells.length - 1);
 
                 // Xử lý cột Result (nếu có)
                 const resultIndex = middleCols.length - 1; // ví dụ Result là cột cuối trong middleCols
