@@ -502,18 +502,15 @@
         <div class="modal-content">
             <span class="close-button" id="closeModal">&times;</span>
             <h3>Edit Match</h3>
-            <label for="selectTeam">Select:</label>
-            <select id="selectTeam">
-                <option value="">None</option>
-                <option value="Home">Home</option>
-                <option value="Away">Away</option>
-            </select>
-            <br />
+			
+			<label for="homeInput">Home:</label>
+            <input type="text" id="homeInput" placeholder="Enter note..." />
+			<label for="awayInput">Away:</label>
+            <input type="text" id="awayInput" placeholder="Enter note..." />
             <label for="selectResult">Result:</label>
             <select id="selectResult">
                 <option value="">None</option>
                 <option value="Win">Win</option>
-                <option value="Draw">Draw</option>
                 <option value="Lose">Lose</option>
             </select>
             <br />
@@ -783,7 +780,6 @@
 
                 // Modal logic
                 const modal = document.getElementById('editModal');
-                const selectTeam = document.getElementById('selectTeam');
                 const selectResult = document.getElementById('selectResult');
                 const noteInput = document.getElementById('noteInput');
                 const submitEdit = document.getElementById('submitEdit');
@@ -805,45 +801,34 @@
                 });
 
                 submitEdit.addEventListener('click', () => {
-                    const selectedTeam = selectTeam.value;
                     const selectedResult = selectResult.value;
                     const note = noteInput.value.trim();
+
+                    const home = document.getElementById("homeInput").value.trim();
+                    const away = document.getElementById("awayInput").value.trim();
 
                     if (currentKey) {
                         const updateRef = ref(database, `/Bluevic/${currentKey}`);
 
-                        // Kiểm tra giá trị của key "Select"
                         get(updateRef).then((snapshot) => {
                             if (snapshot.exists()) {
                                 const data = snapshot.val();
                                 let updateData = {};
 
-                                // Chỉ cập nhật nếu key "Select" là null
-                                if (data.Select === null || data.Select === "") {
-                                    updateData = {
-                                        Select: selectedTeam,
-                                        Result: selectedResult,
-                                    };
-                                    if (note !== "") {
-                                        updateData.Note = note;
-                                    }
-                                } else {
-                                    updateData = {
-                                        Result: selectedResult,
-                                    };
-                                    if (note !== "") {
-                                        updateData.Note = note;
-                                    }
-                                    alert('Update not allowed: "Select" key is already set.');
-                                }
+                                
 
-                                // Cập nhật dữ liệu trong Firebase
+                                    // 👉 chỉ update nếu KHÔNG rỗng
+                                    if (selectedResult !== "") updateData.Result = selectedResult;
+                                    if (home !== "") updateData.Home = home;
+                                    if (away !== "") updateData.Away = away;
+                                    if (note !== "") updateData.Note = note;
+
+                                
+
                                 update(updateRef, updateData)
                                     .then(() => {
                                         alert('Data updated successfully!');
                                         modal.style.display = 'none';
-
-                                        // Reset currentKey sau khi cập nhật thành công
                                         currentKey = null;
                                     })
                                     .catch((error) => {
