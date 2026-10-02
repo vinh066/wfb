@@ -228,8 +228,8 @@
 
         /* Ẩn các cột theo tiêu đề yêu cầu */
         /* Ẩn các cột từ 7 đến 100 */
-    #statsTable th:nth-child(n+7):nth-child(-n+102),
-    #statsTable td:nth-child(n+7):nth-child(-n+102) {
+    #statsTable th:nth-child(n+7):nth-child(-n+86),
+    #statsTable td:nth-child(n+7):nth-child(-n+86) {
         display: none;
     }
         /* Ẩn các cột theo tiêu đề yêu cầu */
@@ -467,23 +467,9 @@
                     <th>OddsStat_AH_AwayDrawRate</th>
                     <th>OddsStat_AH_HomeLoseRate</th>
                     <th>OddsStat_AH_AwayLoseRate</th>
-                    <th>Home_Injury_Count</th>
-                    <th>Away_Injury_Count</th>
-                    <th>Home_Suspension_Count</th>
-                    <th>Away_Suspension_Count</th>
-                    <th>Home_Injury_Defenders</th>
-                    <th>Home_Injury_Midfielders</th>
-                    <th>Home_Injury_Forwards</th>
-                    <th>Away_Injury_Defenders</th>
-                    <th>Away_Injury_Midfielders</th>
-                    <th>Away_Injury_Forwards</th>
-                    <th>Home_Suspension_Defenders</th>
-                    <th>Home_Suspension_Midfielders</th>
-                    <th>Home_Suspension_Forwards</th>
-                    <th>Away_Suspension_Defenders</th>
-                    <th>Away_Suspension_Midfielders</th>
-                    <th>Away_Suspension_Forwards</th>
-                    <th>Predict</th>
+                    <th>Predict1</th>
+                    <th>Predict2</th>
+                    <th>Predict3</th>
                     <th>Result</th>
                     <th>Note</th>
 
@@ -727,23 +713,9 @@
                                         <td>${match.OddsStat_AH_AwayDrawRate ?? ''}</td>          
                                         <td>${match.OddsStat_AH_HomeLoseRate ?? ''}</td>          
                                         <td>${match.OddsStat_AH_AwayLoseRate ?? ''}</td>          
-                                        <td>${match.Home_Injury_Count ?? ''}</td>                 
-                                        <td>${match.Away_Injury_Count ?? ''}</td>                 
-                                        <td>${match.Home_Suspension_Count ?? ''}</td>             
-                                        <td>${match.Away_Suspension_Count ?? ''}</td>             
-                                        <td>${match.Home_Injury_Defenders ?? ''}</td>             
-                                        <td>${match.Home_Injury_Midfielders ?? ''}</td>           
-                                        <td>${match.Home_Injury_Forwards ?? ''}</td>              
-                                        <td>${match.Away_Injury_Defenders ?? ''}</td>             
-                                        <td>${match.Away_Injury_Midfielders ?? ''}</td>           
-                                        <td>${match.Away_Injury_Forwards ?? ''}</td>              
-                                        <td>${match.Home_Suspension_Defenders ?? ''}</td>         
-                                        <td>${match.Home_Suspension_Midfielders ?? ''}</td>       
-                                        <td>${match.Home_Suspension_Forwards ?? ''}</td>          
-                                        <td>${match.Away_Suspension_Defenders ?? ''}</td>         
-                                        <td>${match.Away_Suspension_Midfielders ?? ''}</td>       
-                                        <td>${match.Away_Suspension_Forwards ?? ''}</td> 
-                                        <td>${match.Predict ?? ''}</td>         
+                                        <td>${match.Predict1 ?? ''}</td> 
+                                        <td>${match.Predict2 ?? ''}</td>
+                                        <td>${match.Predict3 ?? ''}</td>        
                                         <td>${match.Result ?? ''}</td>                            
                                         <td>${match.Note ?? ''}</td>                                
 
