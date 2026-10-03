@@ -228,10 +228,11 @@
 
         /* Ẩn các cột theo tiêu đề yêu cầu */
         /* Ẩn các cột từ 7 đến 100 */
-    #statsTable th:nth-child(n+7):nth-child(-n+86),
-    #statsTable td:nth-child(n+7):nth-child(-n+86) {
-        display: none;
-    }
+        #statsTable th:nth-child(n+7):nth-child(-n+86),
+        #statsTable td:nth-child(n+7):nth-child(-n+86) {
+            display: none;
+        }
+
         /* Ẩn các cột theo tiêu đề yêu cầu */
 
 
@@ -284,6 +285,7 @@
             text-align: center;
             padding: 4px;
         }
+
         #statsTable th:nth-child(4),
         #statsTable td:nth-child(4) {
             width: 300px;
@@ -292,6 +294,7 @@
             text-align: center;
             padding: 4px;
         }
+
         /* Cột thứ 2 (DateInfo) */
         #statsTable th:nth-child(5),
         #statsTable td:nth-child(5) {
@@ -377,7 +380,7 @@
                     <th><input type="text" id="filterHomeInput" placeholder="Home" /></th>
                     <th><input type="text" id="filterAwayInput" placeholder="Away" /></th>
                     <th><input type="text" id="filterMyDayInput" placeholder="Day" /></th>
-                    
+
 
                 </tr>
                 <tr>
@@ -488,10 +491,10 @@
         <div class="modal-content">
             <span class="close-button" id="closeModal">&times;</span>
             <h3>Edit Match</h3>
-			
-			<label for="homeInput">Home:</label>
+
+            <label for="homeInput">Home:</label>
             <input type="text" id="homeInput" placeholder="Enter note..." />
-			<label for="awayInput">Away:</label>
+            <label for="awayInput">Away:</label>
             <input type="text" id="awayInput" placeholder="Enter note..." />
             <label for="selectResult">Result:</label>
             <select id="selectResult">
@@ -516,8 +519,8 @@
     </div>
 
     <script type="module">
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-app.js";
-        import { getDatabase, ref, onValue, set, update, remove, get } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-database.js";
+        import {initializeApp} from "https://www.gstatic.com/firebasejs/9.22.0/firebase-app.js";
+        import {getDatabase, ref, onValue, set, update, remove, get} from "https://www.gstatic.com/firebasejs/9.22.0/firebase-database.js";
 
         // Firebase cấu hình
         const firebaseConfig = {
@@ -602,7 +605,7 @@
                     ) {
                         //const row = document.createElement('tr');
 
-                        matchList.push({ key, match });
+                        matchList.push({key, match});
 
                     }
                 }
@@ -625,7 +628,7 @@
 
 
 
-                matchList.forEach(({ key, match }) => {
+                matchList.forEach(({key, match}) => {
                     const row = `<tr>
                                         <td></td>
                                         <td>${match.Dateinfo ?? ''}</td>                          
@@ -724,7 +727,7 @@
                                             <button class="deleteButton" data-key="${key}">&nbsp;&nbsp;X&nbsp;&nbsp;</button>
                                         </td>
                                     </tr>`;
-                        tableBody.insertAdjacentHTML('beforeend', row);
+                    tableBody.insertAdjacentHTML('beforeend', row);
                 });
 
 
@@ -787,15 +790,15 @@
                                 const data = snapshot.val();
                                 let updateData = {};
 
-                                
 
-                                    // 👉 chỉ update nếu KHÔNG rỗng
-                                    if (selectedResult !== "") updateData.Result = selectedResult;
-                                    if (home !== "") updateData.Home = home;
-                                    if (away !== "") updateData.Away = away;
-                                    if (note !== "") updateData.Note = note;
 
-                                
+                                // 👉 chỉ update nếu KHÔNG rỗng
+                                if (selectedResult !== "") updateData.Result = selectedResult;
+                                if (home !== "") updateData.Home = home;
+                                if (away !== "") updateData.Away = away;
+                                if (note !== "") updateData.Note = note;
+
+
 
                                 update(updateRef, updateData)
                                     .then(() => {
@@ -866,7 +869,7 @@
             const reader = new FileReader();
             reader.onload = function (e) {
                 const data = e.target.result;
-                const workbook = XLSX.read(data, { type: 'binary' });
+                const workbook = XLSX.read(data, {type: 'binary'});
                 const sheetName = workbook.SheetNames[0]; // Lấy tên Sheet đầu tiên
                 const sheet = workbook.Sheets[sheetName];
 
@@ -908,9 +911,10 @@
                     const cells = Array.from(row.querySelectorAll('th, td'));
                     if (cells.length < 31) return null; // nếu không đủ cột thì bỏ qua
 
-                    // Lấy nội dung cột 18 (index 17)
-                    const col18 = cells[103]?.innerText.trim() || "";
-                    if (!col18) return null; // bỏ qua hàng nếu cột 18 rỗng
+                    /// Result hiện nằm ở index 89
+                    const resultValue = cells[89]?.innerText.trim() || "";
+
+                    if (!resultValue) return null;
 
                     // Giữ cột đầu tiên
                     const firstCol = cells[1]?.innerText.trim() || "";
@@ -928,8 +932,15 @@
                     // Giữ các cột giữa, bỏ cột 1, 2, 16, 17, 18 và cột cuối
                     const middleCols = cells
                         .map((cell, i) => cell.innerText.trim())
-                        .filter((_, i) => i !== 0 && i !== 1 && i !== 102 && i !== 104 && i !== cells.length - 1);
-
+                        .filter((_, i) =>
+                            i !== 0 &&                  // ST
+                            i !== 1 &&                  // Dateinfo gốc
+                            i !== 86 &&                 // Predict1
+                            i !== 87 &&                 // Predict2
+                            i !== 88 &&                 // Predict3
+                            i !== 90 &&                 // Note
+                            i !== cells.length - 1      // Action
+                        );
                     // Xử lý cột Result (nếu có)
                     const resultIndex = middleCols.length - 1;
                     if (resultIndex >= 0) {
@@ -997,7 +1008,15 @@
 
                 const middleCols = cells
                     .map((cell, i) => cell.innerText.trim())
-                    .filter((_, i) => i !== 0 && i !== 1 && i !== 102 && i !== 103 && i !== 104 && i !== cells.length - 1);
+                    .filter((_, i) =>
+                        i !== 0 &&
+                        i !== 1 &&
+                        i !== 86 &&                 // Predict1
+                        i !== 87 &&                 // Predict2
+                        i !== 88 &&                 // Predict3
+                        i !== 90 &&                 // Note
+                        i !== cells.length - 1      // Action
+                    );
 
                 // Xử lý cột Result (nếu có)
                 const resultIndex = middleCols.length - 1; // ví dụ Result là cột cuối trong middleCols
